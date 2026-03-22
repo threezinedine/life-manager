@@ -6,7 +6,9 @@
   "scripts": {
     "client": "cd client && npm run dev",
     "server": "cd server && npm run dev",
-    "dev": "node export-env.js"
+    "dev": "node export-env.js",
+    "docker:up": "node up.js",
+    "docker:down": "node down.js"
   },
   "author": "threezinedine@gmail.com",
   "license": "ISC",

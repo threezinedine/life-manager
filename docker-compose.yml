@@ -1,0 +1,44 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    env_file:
+      - .prod.env
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    environment:
+      - PORT=${SERVER_PORT}
+      - SERVER_PORT=${SERVER_PORT}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:${SERVER_PORT}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    env_file:
+      - .prod.env
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+    environment:
+      - PORT=${CLIENT_PORT}
+      - VITE_API_URL=http://localhost:${SERVER_PORT}
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+      args:
+        SERVER_PORT: ${SERVER_PORT}
+        CLIENT_PORT: ${CLIENT_PORT}
+    env_file:
+      - .prod.env
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+      - client
