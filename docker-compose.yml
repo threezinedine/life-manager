@@ -42,3 +42,16 @@ services:
     depends_on:
       - server
       - client
+
+  client-mobile:
+    build:
+      context: ./client-mobile
+      dockerfile: Dockerfile
+    env_file:
+      - .prod.env
+    ports:
+      - "${CLIENT_MOBILE_PORT:-8081}:8081"
+    environment:
+      - EXPO_PUBLIC_API_URL=http://localhost:${SERVER_PORT}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
