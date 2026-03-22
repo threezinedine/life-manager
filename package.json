@@ -1,0 +1,16 @@
+{
+  "name": "life-manager",
+  "version": "1.0.0",
+  "description": "Comprehensive life manager",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client && npm run dev",
+    "server": "cd server && npm run dev",
+    "dev": "node export-env.js"
+  },
+  "author": "threezinedine@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
