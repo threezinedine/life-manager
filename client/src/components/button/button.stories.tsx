@@ -1,0 +1,28 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import Button from './button';
+
+const meta: Meta<typeof Button> = {
+	title: 'Components/Button',
+	component: Button,
+	tags: ['autodocs'],
+	argTypes: {
+		label: { control: 'text' },
+		onClick: { action: 'clicked' },
+	},
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+	args: {
+		label: 'Click me',
+	},
+};
+
+export const WithClickHandler: Story = {
+	args: {
+		label: 'Click me',
+		onClick: () => alert('Button clicked!'),
+	},
+};

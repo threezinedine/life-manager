@@ -1,0 +1,41 @@
+import 'react';
+import { ButtonProps } from './props';
+import styles from './button.module.scss';
+import clsx from 'clsx';
+import { Size, Variant } from '@/data/props';
+
+export default function Button({
+	label,
+	onClick,
+	size = Size.Medium,
+	variant = Variant.Primary,
+	borderRadius = Size.Medium,
+	disabled = false,
+}: ButtonProps) {
+	const buttonClass = clsx(styles.button, {
+		[styles['button--small']]: size === Size.Small,
+		[styles['button--medium']]: size === Size.Medium,
+		[styles['button--large']]: size === Size.Large,
+		[styles['button--full-width']]: size === Size.FullWidth,
+		[styles['button--primary']]: variant === Variant.Primary,
+		[styles['button--secondary']]: variant === Variant.Secondary,
+		[styles['button--tertiary']]: variant === Variant.Tertiary,
+		[styles['button--warn']]: variant === Variant.Warn,
+		[styles['button--ghost']]: variant === Variant.Ghost,
+		[styles['button--danger']]: variant === Variant.Danger,
+		[styles['button--border-radius-small']]: borderRadius === Size.Small,
+		[styles['button--border-radius-medium']]: borderRadius === Size.Medium,
+		[styles['button--border-radius-large']]: borderRadius === Size.Large,
+	});
+
+	return (
+		<button
+			className={buttonClass}
+			onClick={onClick}
+			type="button"
+			disabled={disabled}
+		>
+			{label}
+		</button>
+	);
+}
