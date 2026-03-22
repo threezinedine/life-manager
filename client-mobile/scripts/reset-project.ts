@@ -6,9 +6,9 @@
  * You can remove the `reset-project` script from package.json and safely delete this file after running it.
  */
 
-const fs = require("fs");
-const path = require("path");
-const readline = require("readline");
+import fs from "node:fs";
+import path from "node:path";
+import readline from "node:readline";
 
 const root = process.cwd();
 const oldDirs = ["app", "components", "hooks", "constants", "scripts"];
@@ -45,7 +45,7 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-const moveDirectories = async (userInput) => {
+async function moveDirectories(userInput: string): Promise<void> {
   try {
     if (userInput === "y") {
       // Create the app-example directory
@@ -94,16 +94,16 @@ const moveDirectories = async (userInput) => {
       }`
     );
   } catch (error) {
-    console.error(`❌ Error during script execution: ${error.message}`);
+    console.error(`❌ Error during script execution: ${(error as Error).message}`);
   }
-};
+}
 
 rl.question(
   "Do you want to move existing files to /app-example instead of deleting them? (Y/n): ",
-  (answer) => {
+  (answer: string) => {
     const userInput = answer.trim().toLowerCase() || "y";
     if (userInput === "y" || userInput === "n") {
-      moveDirectories(userInput).finally(() => rl.close());
+      void moveDirectories(userInput).finally(() => rl.close());
     } else {
       console.log("❌ Invalid input. Please enter 'Y' or 'N'.");
       rl.close();

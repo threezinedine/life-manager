@@ -2,17 +2,16 @@
   "name": "life-manager",
   "version": "1.0.0",
   "description": "Comprehensive life manager",
-  "main": "index.js",
   "scripts": {
     "client": "cd client && npm run dev",
     "server": "cd server && npm run dev",
-    "dev": "node export-env.js",
-    "docker:up": "node up.js",
-    "docker:down": "node down.js"
+    "dev": "tsx export-env.ts",
+    "docker:up": "tsx up.ts",
+    "docker:down": "tsx down.ts"
   },
   "author": "threezinedine@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^9.2.1"
+    "tsx": "^4.0.0"
   }
 }

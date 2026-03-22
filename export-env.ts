@@ -1,16 +1,19 @@
 import fs from "fs";
 import { spawn } from "child_process";
+import path from "path";
 
 // Load environment variables from .prod.env
-const envFilePath = ".prod.env";
+const envFilePath = path.join(__dirname, ".prod.env");
 if (fs.existsSync(envFilePath)) {
   const envContent = fs.readFileSync(envFilePath, "utf-8");
-  const envLines = envContent.split("\n");
-  envLines.forEach((line) => {
-    const [key, value] = line.split("=");
-    if (key && value) {
-      process.env[key.trim()] = value.trim();
-    }
+  envContent.split("\n").forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) return;
+    const eqIndex = trimmed.indexOf("=");
+    if (eqIndex === -1) return;
+    const key = trimmed.slice(0, eqIndex).trim();
+    const value = trimmed.slice(eqIndex + 1).trim();
+    if (key) process.env[key] = value;
   });
 } else {
   console.warn(`Environment file ${envFilePath} not found.`);
