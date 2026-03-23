@@ -44,6 +44,7 @@ const DropMenu = forwardRef<DropMenuRef, DropMenuProps>(
 	({ items, align = 'right', children, className }, ref) => {
 		const [open, setOpen] = useState(false);
 		const containerRef = useRef<HTMLDivElement>(null);
+		const dropdownRef = useRef<HTMLUListElement>(null);
 
 		useImperativeHandle(ref, () => ({
 			open: () => setOpen(true),
@@ -55,8 +56,8 @@ const DropMenu = forwardRef<DropMenuRef, DropMenuProps>(
 			if (!open) return;
 			const handleClickOutside = (e: MouseEvent) => {
 				if (
-					containerRef.current &&
-					!containerRef.current.contains(e.target as Node)
+					dropdownRef.current &&
+					!dropdownRef.current.contains(e.target as Node)
 				) {
 					setOpen(false);
 				}
@@ -75,52 +76,53 @@ const DropMenu = forwardRef<DropMenuRef, DropMenuProps>(
 			return () => document.removeEventListener('keydown', handleKeyDown);
 		}, [open]);
 
-		const toggle = () => setOpen((v) => !v);
+		// Only open on trigger click — closing is handled by outside-click and item-click
+		const handleTriggerClick = () => {
+			if (!open) setOpen(true);
+		};
 
 		return (
 			<div ref={containerRef} className={clsx(styles.menu, className)}>
-				{/* Trigger element (e.g. a Button) */}
-				<div onClick={toggle} style={{ display: 'contents' }}>
-					{children}
-				</div>
+				<div onClick={handleTriggerClick}>{children}</div>
 
-				{/* Dropdown panel */}
-				<ul
-					className={clsx(styles.dropdown, {
-						[styles.open]: open,
-						[styles['align-left']]: align === 'left',
-					})}
-					role="menu"
-				>
-					{items.map((item, i) =>
-						isDivider(item) ? (
-							<li key={i} role="separator" className={styles.divider} />
-						) : (
-							<li key={i} role="menuitem">
-								<button
-									className={styles.item}
-									onClick={() => {
-										if (item.disabled) return;
-										item.onClick?.();
-										setOpen(false);
-									}}
-									disabled={item.disabled}
-									tabIndex={open ? 0 : -1}
-								>
-									{item.icon && (
-										<span className={styles['item-icon']}>{item.icon}</span>
-									)}
-									<span className={styles['item-label']}>{item.label}</span>
-									{item.shortcut && (
-										<span className={styles['item-shortcut']}>
-											{item.shortcut}
-										</span>
-									)}
-								</button>
-							</li>
-						),
-					)}
-				</ul>
+				{open && (
+					<ul
+						ref={dropdownRef}
+						className={clsx(styles.dropdown, {
+							[styles['align-left']]: align === 'left',
+						})}
+						role="menu"
+					>
+						{items.map((item, i) =>
+							isDivider(item) ? (
+								<li key={i} role="separator" className={styles.divider} />
+							) : (
+								<li key={i} role="menuitem">
+									<button
+										className={styles.item}
+										onClick={() => {
+											if (item.disabled) return;
+											item.onClick?.();
+											setOpen(false);
+										}}
+										disabled={item.disabled}
+										tabIndex={0}
+									>
+										{item.icon && (
+											<span className={styles['item-icon']}>{item.icon}</span>
+										)}
+										<span className={styles['item-label']}>{item.label}</span>
+										{item.shortcut && (
+											<span className={styles['item-shortcut']}>
+												{item.shortcut}
+											</span>
+										)}
+									</button>
+								</li>
+							),
+						)}
+					</ul>
+				)}
 			</div>
 		);
 	},
