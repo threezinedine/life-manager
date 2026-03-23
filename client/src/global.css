@@ -108,6 +108,14 @@
 	/* Spinner */
 	--btn-spinner-border: rgba(255, 255, 255, 0.4);
 	--btn-spinner-border-top: #fff;
+
+	/* === NAVBAR === */
+	--navbar-bg: #f9fafb;
+	--navbar-border: #e5e7eb;
+	--navbar-logo-color: #111827;
+	--navbar-branch-color: #4f46e5;
+	--navbar-branch-bg: #eef2ff;
+	--navbar-branch-border: #c7d2fe;
 }
 
 /* ============================================
@@ -202,4 +210,12 @@
 	/* Spinner */
 	--btn-spinner-border: rgba(30, 27, 75, 0.4);
 	--btn-spinner-border-top: #1e1b4b;
+
+	/* === NAVBAR === */
+	--navbar-bg: #1f2937;
+	--navbar-border: #374151;
+	--navbar-logo-color: #f9fafb;
+	--navbar-branch-color: #818cf8;
+	--navbar-branch-bg: rgba(129, 140, 248, 0.12);
+	--navbar-branch-border: rgba(129, 140, 248, 0.3);
 }
