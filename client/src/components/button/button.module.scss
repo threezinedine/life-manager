@@ -1,108 +1,4 @@
 // ============================================
-// VARIABLES
-// ============================================
-
-// Colors
-$color-primary: #6366f1;
-$color-primary-dark: #8b5cf6;
-$color-primary-light: #a855f7;
-$color-secondary: #64748b;
-$color-secondary-dark: #475569;
-$color-tertiary: #f1f5f9;
-$color-tertiary-dark: #e2e8f0;
-$color-tertiary-text: #334155;
-$color-warn: #f59e0b;
-$color-warn-dark: #f97316;
-$color-ghost: #6366f1;
-$color-outline: #0ea5e9;
-$color-danger: #ef4444;
-$color-danger-dark: #dc2626;
-$color-success: #10b981;
-$color-success-dark: #059669;
-$color-white: #fff;
-$color-black: #000;
-
-// Common values
-$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-$transition-none: none !important;
-$highlight-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-$highlight-gradient-light: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, transparent 50%);
-$shimmer: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.6) 50%, transparent 60%);
-
-// Border radius map
-$border-radii: (
-	small: 0.25rem,
-	medium: 0.5rem,
-	large: 0.875rem,
-);
-
-// Size map (padding, font-size)
-$sizes: (
-	small: (0.375rem 0.875rem, 0.8125rem),
-	medium: (0.625rem 1.25rem, 0.9375rem),
-	large: (0.875rem 1.75rem, 1.0625rem),
-);
-
-// Variant map: (background, text-color, box-shadow-color, has-border, hover-bg)
-$variants: (
-	primary: (linear-gradient(135deg, $color-primary 0%, $color-primary-dark 50%, $color-primary-light 100%),
-		$color-white,
-		$color-primary,
-		false,
-		null,
-	),
-	secondary: (linear-gradient(135deg, $color-secondary 0%, $color-secondary-dark 100%),
-		$color-white,
-		$color-secondary,
-		false,
-		null,
-	),
-	tertiary: (linear-gradient(135deg, $color-tertiary 0%, $color-tertiary-dark 100%),
-		$color-tertiary-text,
-		rgba($color-black, 0.08),
-		false,
-		null,
-	),
-	warn: (linear-gradient(135deg, $color-warn 0%, $color-warn-dark 100%),
-		$color-white,
-		$color-warn,
-		false,
-		null,
-	),
-	ghost: (transparent,
-		$color-ghost,
-		null,
-		false,
-		rgba($color-ghost, 0.08),
-	),
-	danger: (linear-gradient(135deg, $color-danger 0%, $color-danger-dark 100%),
-		$color-white,
-		$color-danger,
-		false,
-		null,
-	),
-	success: (linear-gradient(135deg, $color-success 0%, $color-success-dark 100%),
-		$color-white,
-		$color-success,
-		false,
-		null,
-	),
-	outline: (transparent,
-		$color-outline,
-		$color-outline,
-		true,
-		rgba($color-outline, 0.08),
-	),
-);
-
-// Box-shadow helper
-@function box-shadow($color, $alpha: 0.39, $hover: false) {
-	$blur: if($hover, 20px, 14px);
-	$size: if($hover, 6px, 4px);
-	@return 0 $size $blur 0 rgba($color, $alpha);
-}
-
-// ============================================
 // ANIMATIONS
 // ============================================
 
@@ -116,7 +12,6 @@ $variants: (
 	0% {
 		transform: translateX(-100%) skewX(-15deg);
 	}
-
 	100% {
 		transform: translateX(250%) skewX(-15deg);
 	}
@@ -127,11 +22,9 @@ $variants: (
 		transform: scale(0.9);
 		opacity: 0;
 	}
-
 	50% {
 		transform: scale(1.05);
 	}
-
 	100% {
 		transform: scale(1);
 		opacity: 1;
@@ -142,15 +35,29 @@ $variants: (
 	0% {
 		background-position: 0% 50%;
 	}
-
 	50% {
 		background-position: 100% 50%;
 	}
-
 	100% {
 		background-position: 0% 50%;
 	}
 }
+
+// ============================================
+// SCSS MAPS (non-color values)
+// ============================================
+
+$sizes: (
+	small: (0.375rem 0.875rem, 0.8125rem),
+	medium: (0.625rem 1.25rem, 0.9375rem),
+	large: (0.875rem 1.75rem, 1.0625rem),
+);
+
+$border-radii: (
+	small: 0.25rem,
+	medium: 0.5rem,
+	large: 0.875rem,
+);
 
 // ============================================
 // BUTTON BASE
@@ -160,22 +67,20 @@ $variants: (
 	user-select: none;
 	position: relative;
 	overflow: hidden;
-
-	// Base styles
 	padding: 0.625rem 1.25rem;
 	font-size: 0.9375rem;
 	font-weight: 600;
 	border: none;
 	border-radius: 0.5rem;
 	cursor: pointer;
-	transition: $transition;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	animation: bounce-in 0.4s ease-out;
 
 	&::after {
 		content: '';
 		position: absolute;
 		inset: 0;
-		background: $shimmer;
+		background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.6) 50%, transparent 60%);
 		transform: translateX(-100%) skewX(-15deg);
 	}
 
@@ -195,8 +100,8 @@ $variants: (
 		opacity: 0.5;
 		cursor: not-allowed;
 		transform: none;
-		animation: $transition-none;
-		transition: $transition-none;
+		animation: none;
+		transition: none;
 
 		&::before,
 		&::after {
@@ -205,7 +110,7 @@ $variants: (
 
 		&:hover {
 			transform: none;
-			box-shadow: 0 2px 8px 0 rgba($color-black, 0.1);
+			box-shadow: 0 2px 8px 0 rgba(#000, 0.1);
 		}
 	}
 
@@ -225,46 +130,136 @@ $variants: (
 	}
 
 	// Variant modifiers
-	@each $name, $variant in $variants {
-		$bg: nth($variant, 1);
-		$text-color: nth($variant, 2);
-		$shadow-color: nth($variant, 3);
-		$has-border: nth($variant, 4);
-		$hover-bg: nth($variant, 5);
+	&--primary {
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-color);
+		background-size: 200% 200%;
+		box-shadow: 0 4px 14px var(--btn-primary-shadow);
 
-		&--#{$name} {
-			background: $bg;
-			background-size: if($name ==primary, 200% 200%, null);
-			color: $text-color;
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: var(--btn-primary-highlight);
+		}
 
-			@if $shadow-color {
-				box-shadow: box-shadow($shadow-color);
-			}
+		&:hover {
+			box-shadow: 0 6px 20px var(--btn-primary-shadow-hover);
+			animation: gradient-shift 2s ease infinite;
+			background-color: var(--btn-primary-hover-bg);
+		}
+	}
 
-			@if $has-border {
-				border: 2px solid $shadow-color;
-			}
+	&--secondary {
+		background: var(--btn-secondary-bg);
+		color: var(--btn-secondary-color);
+		box-shadow: 0 4px 14px var(--btn-secondary-shadow);
 
-			&::before {
-				content: '';
-				position: absolute;
-				inset: 0;
-				background: if($name ==tertiary,
-						$highlight-gradient-light,
-						$highlight-gradient);
-			}
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: var(--btn-secondary-highlight);
+		}
 
-			&:hover {
-				@if $shadow-color {
-					box-shadow: box-shadow($shadow-color, 0.5, true);
-				}
+		&:hover {
+			box-shadow: 0 6px 20px var(--btn-secondary-shadow-hover);
+			background-color: var(--btn-secondary-hover-bg);
+		}
+	}
 
-				animation: if($name ==primary, gradient-shift 2s ease infinite, null);
+	&--tertiary {
+		background: var(--btn-tertiary-bg);
+		color: var(--btn-tertiary-color);
+		box-shadow: 0 4px 14px var(--btn-tertiary-shadow);
 
-				@if $hover-bg {
-					background-color: $hover-bg;
-				}
-			}
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: var(--btn-tertiary-highlight);
+		}
+
+		&:hover {
+			box-shadow: 0 6px 20px var(--btn-tertiary-shadow-hover);
+			background-color: var(--btn-tertiary-hover-bg);
+		}
+	}
+
+	&--warn {
+		background: var(--btn-warn-bg);
+		color: var(--btn-warn-color);
+		box-shadow: 0 4px 14px var(--btn-warn-shadow);
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: var(--btn-warn-highlight);
+		}
+
+		&:hover {
+			box-shadow: 0 6px 20px var(--btn-warn-shadow-hover);
+			background-color: var(--btn-warn-hover-bg);
+		}
+	}
+
+	&--ghost {
+		background: var(--btn-ghost-bg);
+		color: var(--btn-ghost-color);
+		box-shadow: var(--btn-ghost-shadow);
+
+		&:hover {
+			box-shadow: var(--btn-ghost-shadow-hover);
+			background-color: var(--btn-ghost-hover-bg);
+		}
+	}
+
+	&--danger {
+		background: var(--btn-danger-bg);
+		color: var(--btn-danger-color);
+		box-shadow: 0 4px 14px var(--btn-danger-shadow);
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: var(--btn-danger-highlight);
+		}
+
+		&:hover {
+			box-shadow: 0 6px 20px var(--btn-danger-shadow-hover);
+			background-color: var(--btn-danger-hover-bg);
+		}
+	}
+
+	&--success {
+		background: var(--btn-success-bg);
+		color: var(--btn-success-color);
+		box-shadow: 0 4px 14px var(--btn-success-shadow);
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: var(--btn-success-highlight);
+		}
+
+		&:hover {
+			box-shadow: 0 6px 20px var(--btn-success-shadow-hover);
+			background-color: var(--btn-success-hover-bg);
+		}
+	}
+
+	&--outline {
+		background: var(--btn-outline-bg);
+		color: var(--btn-outline-color);
+		border: 2px solid var(--btn-outline-border);
+		box-shadow: var(--btn-outline-shadow);
+
+		&:hover {
+			box-shadow: var(--btn-outline-shadow-hover);
+			background-color: var(--btn-outline-hover-bg);
 		}
 	}
 
@@ -279,14 +274,14 @@ $variants: (
 	&--loading {
 		cursor: wait !important;
 		pointer-events: none;
-		animation: $transition-none;
-		transition: $transition-none;
+		animation: none;
+		transition: none;
 
 		&::after {
 			content: '';
 			position: absolute;
 			inset: 0;
-			background: rgba($color-white, 0.15);
+			background: rgba(#fff, 0.15);
 		}
 	}
 }
@@ -311,8 +306,8 @@ $variants: (
 	transform: translate(-50%, -50%);
 	width: 1em;
 	height: 1em;
-	border: 0.15em solid rgba($color-white, 0.4);
-	border-top-color: $color-white;
+	border: 0.15em solid var(--btn-spinner-border);
+	border-top-color: var(--btn-spinner-border-top);
 	border-radius: 50%;
 	animation: spin 0.7s linear infinite;
 }

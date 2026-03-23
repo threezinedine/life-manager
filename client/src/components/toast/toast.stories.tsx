@@ -153,8 +153,8 @@ export const ToastItemVariants: Story = {
 export const DarkMode: Story = {
 	render: () => (
 		<div
-			style={{ backgroundColor: '#333', padding: '1rem' }}
 			className="dark"
+			style={{ padding: '1rem', backgroundColor: '#333' }}
 		>
 			<div
 				style={{

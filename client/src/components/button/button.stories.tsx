@@ -86,12 +86,13 @@ export const AllVariants: Story = {
 export const DarkThemeVariants: Story = {
 	render: () => (
 		<div
+			className="dark"
 			style={{
 				display: 'flex',
 				alignItems: 'center',
 				gap: '16px',
-				flexWrap: 'wrap',
 				backgroundColor: '#333',
+				flexWrap: 'wrap',
 				padding: '16px',
 			}}
 		>

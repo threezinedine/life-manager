@@ -768,12 +768,12 @@ variant?: Variant = Variant.Primary</code></pre>
               
               <pre><code>const DarkThemeVariants = () =&gt; (
     &lt;div
+        className=&quot;dark&quot;
         style={{
             display: &#39;flex&#39;,
             alignItems: &#39;center&#39;,
             gap: &#39;16px&#39;,
             flexWrap: &#39;wrap&#39;,
-            backgroundColor: &#39;#333&#39;,
             padding: &#39;16px&#39;,
         }}
     &gt;
@@ -929,6 +929,7 @@ variant?: Variant = Variant.Primary</code></pre>
               <pre><code>const ToastItemVariants = () =&gt; (
     &lt;div
         style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: &#39;0.5rem&#39; }}
+        className=&quot;light&quot;
     &gt;
         {toastItems.map((item) =&gt; (
             &lt;ToastItem
@@ -949,8 +950,8 @@ variant?: Variant = Variant.Primary</code></pre>
               
               <pre><code>const DarkMode = () =&gt; (
     &lt;div
-        theme-data=&quot;dark&quot;
-        style={{ backgroundColor: &#39;#333&#39;, padding: &#39;1rem&#39; }}
+        className=&quot;dark&quot;
+        style={{ padding: &#39;1rem&#39; }}
     &gt;
         &lt;div
             style={{

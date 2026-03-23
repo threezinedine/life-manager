@@ -1,0 +1,1 @@
+import{c as e,g as t}from"./theming-D8ZANKR0.js";e();export{t as color};

@@ -1,80 +1,205 @@
-:root {
-	--toast-success-border: #10b981;
-    --toast-warning-border: #f59e0b;
-    --toast-info-border: #0ea5e9;
-    --toast-error-border: #ef4444;
-}
+/* ============================================
+   LIGHT THEME (default)
+   ============================================ */
 
+:root,
 .light {
+	/* === TOAST === */
 	--toast-bg: #fff;
+	--toast-success-border: #10b981;
 	--toast-success-bg-start: #fff;
 	--toast-success-bg-end: #ecfdf5;
-	--toast-success-icon-bg: rgba(#10b981, 0.12);
+	--toast-success-icon-bg: rgba(16, 185, 129, 0.12);
 	--toast-success-icon-color: #10b981;
-	--toast-success-shadow: rgba(#10b981, 0.15);
-	--toast-success-shadow-hover: rgba(#10b981, 0.25);
+	--toast-success-shadow: rgba(16, 185, 129, 0.15);
+	--toast-success-shadow-hover: rgba(16, 185, 129, 0.25);
 
+	--toast-error-border: #ef4444;
 	--toast-error-bg-start: #fff;
 	--toast-error-bg-end: #fef2f2;
-	--toast-error-icon-bg: rgba(#ef4444, 0.12);
+	--toast-error-icon-bg: rgba(239, 68, 68, 0.12);
 	--toast-error-icon-color: #ef4444;
-	--toast-error-shadow: rgba(#ef4444, 0.15);
-	--toast-error-shadow-hover: rgba(#ef4444, 0.25);
+	--toast-error-shadow: rgba(239, 68, 68, 0.15);
+	--toast-error-shadow-hover: rgba(239, 68, 68, 0.25);
 
+	--toast-warning-border: #f59e0b;
 	--toast-warning-bg-start: #fff;
 	--toast-warning-bg-end: #fffbeb;
-	--toast-warning-icon-bg: rgba(#f59e0b, 0.12);
+	--toast-warning-icon-bg: rgba(245, 158, 11, 0.12);
 	--toast-warning-icon-color: #f59e0b;
-	--toast-warning-shadow: rgba(#f59e0b, 0.15);
-	--toast-warning-shadow-hover: rgba(#f59e0b, 0.25);
+	--toast-warning-shadow: rgba(245, 158, 11, 0.15);
+	--toast-warning-shadow-hover: rgba(245, 158, 11, 0.25);
 
+	--toast-info-border: #0ea5e9;
 	--toast-info-bg-start: #fff;
 	--toast-info-bg-end: #f0f9ff;
-	--toast-info-icon-bg: rgba(#0ea5e9, 0.12);
+	--toast-info-icon-bg: rgba(14, 165, 233, 0.12);
 	--toast-info-icon-color: #0ea5e9;
-	--toast-info-shadow: rgba(#0ea5e9, 0.15);
-	--toast-info-shadow-hover: rgba(#0ea5e9, 0.25);
+	--toast-info-shadow: rgba(14, 165, 233, 0.15);
+	--toast-info-shadow-hover: rgba(14, 165, 233, 0.25);
 
 	--toast-text-color: #374151;
 	--toast-close-color: #4b5563;
 	--toast-close-hover-bg: #f3f4f6;
 	--toast-close-hover-color: #1f2937;
-	--toast-progress-bg: rgba(#000, 0.06);
+	--toast-progress-bg: rgba(0, 0, 0, 0.06);
+
+	/* === BUTTON === */
+	/* Primary */
+	--btn-primary-bg: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+	--btn-primary-color: #fff;
+	--btn-primary-shadow: rgba(99, 102, 241, 0.39);
+	--btn-primary-shadow-hover: rgba(99, 102, 241, 0.5);
+	--btn-primary-highlight: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+
+	/* Secondary */
+	--btn-secondary-bg: linear-gradient(135deg, #64748b 0%, #475569 100%);
+	--btn-secondary-color: #fff;
+	--btn-secondary-shadow: rgba(100, 116, 139, 0.39);
+	--btn-secondary-shadow-hover: rgba(100, 116, 139, 0.5);
+	--btn-secondary-highlight: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+
+	/* Tertiary */
+	--btn-tertiary-bg: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+	--btn-tertiary-color: #334155;
+	--btn-tertiary-shadow: rgba(0, 0, 0, 0.08);
+	--btn-tertiary-shadow-hover: rgba(0, 0, 0, 0.12);
+	--btn-tertiary-hover-bg: rgba(0, 0, 0, 0.06);
+	--btn-tertiary-highlight: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, transparent 50%);
+
+	/* Warn */
+	--btn-warn-bg: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+	--btn-warn-color: #fff;
+	--btn-warn-shadow: rgba(245, 158, 11, 0.39);
+	--btn-warn-shadow-hover: rgba(245, 158, 11, 0.5);
+	--btn-warn-highlight: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+
+	/* Ghost */
+	--btn-ghost-bg: transparent;
+	--btn-ghost-color: #6366f1;
+	--btn-ghost-shadow: none;
+	--btn-ghost-shadow-hover: none;
+	--btn-ghost-hover-bg: rgba(99, 102, 241, 0.08);
+	--btn-ghost-highlight: none;
+
+	/* Danger */
+	--btn-danger-bg: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+	--btn-danger-color: #fff;
+	--btn-danger-shadow: rgba(239, 68, 68, 0.39);
+	--btn-danger-shadow-hover: rgba(239, 68, 68, 0.5);
+	--btn-danger-highlight: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+
+	/* Success */
+	--btn-success-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+	--btn-success-color: #fff;
+	--btn-success-shadow: rgba(16, 185, 129, 0.39);
+	--btn-success-shadow-hover: rgba(16, 185, 129, 0.5);
+	--btn-success-highlight: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+
+	/* Outline */
+	--btn-outline-bg: transparent;
+	--btn-outline-color: #0ea5e9;
+	--btn-outline-shadow: none;
+	--btn-outline-shadow-hover: none;
+	--btn-outline-hover-bg: rgba(14, 165, 233, 0.08);
+	--btn-outline-border: #0ea5e9;
+	--btn-outline-highlight: none;
+
+	/* Spinner */
+	--btn-spinner-border: rgba(255, 255, 255, 0.4);
+	--btn-spinner-border-top: #fff;
 }
 
-.dark {
+/* ============================================
+   DARK THEME
+   ============================================ */
+
+.dark,
+[data-theme='dark'] {
+	/* === TOAST === */
 	--toast-bg: #1f2937;
 	--toast-success-bg-start: #1f2937;
 	--toast-success-bg-end: #064e3b;
-	--toast-success-shadow: rgba(#064e3b, 0.3);
-	--toast-success-shadow-hover: rgba(#064e3b, 0.4);
-	--toast-success-icon-bg: rgba(#064e3b, 0.3);
+	--toast-success-shadow: rgba(6, 78, 59, 0.3);
+	--toast-success-shadow-hover: rgba(6, 78, 59, 0.4);
+	--toast-success-icon-bg: rgba(6, 78, 59, 0.3);
 	--toast-success-icon-color: #34d399;
 
 	--toast-error-bg-start: #1f2937;
 	--toast-error-bg-end: #450a0a;
-	--toast-error-shadow: rgba(#450a0a, 0.3);
-	--toast-error-shadow-hover: rgba(#450a0a, 0.4);
-	--toast-error-icon-bg: rgba(#450a0a, 0.3);
+	--toast-error-shadow: rgba(69, 10, 10, 0.3);
+	--toast-error-shadow-hover: rgba(69, 10, 10, 0.4);
+	--toast-error-icon-bg: rgba(69, 10, 10, 0.3);
 	--toast-error-icon-color: #fca5a5;
 
 	--toast-warning-bg-start: #1f2937;
 	--toast-warning-bg-end: #451a03;
-	--toast-warning-shadow: rgba(#451a03, 0.3);
-	--toast-warning-shadow-hover: rgba(#451a03, 0.4);
-	--toast-warning-icon-bg: rgba(#451a03, 0.3);
+	--toast-warning-shadow: rgba(69, 26, 3, 0.3);
+	--toast-warning-shadow-hover: rgba(69, 26, 3, 0.4);
+	--toast-warning-icon-bg: rgba(69, 26, 3, 0.3);
 	--toast-warning-icon-color: #fcd34d;
 
 	--toast-info-bg-start: #1f2937;
 	--toast-info-bg-end: #0c4a6e;
-	--toast-info-shadow: rgba(#0c4a6e, 0.3);
-	--toast-info-shadow-hover: rgba(#0c4a6e, 0.4);
-	--toast-info-icon-bg: rgba(#0c4a6e, 0.3);
+	--toast-info-shadow: rgba(12, 74, 110, 0.3);
+	--toast-info-shadow-hover: rgba(12, 74, 110, 0.4);
+	--toast-info-icon-bg: rgba(12, 74, 110, 0.3);
 	--toast-info-icon-color: #7dd3fc;
 
 	--toast-text-color: #e5e7eb;
 	--toast-close-color: #9ca3af;
 	--toast-close-hover-bg: #374151;
 	--toast-close-hover-color: #f3f4f6;
-	--toast-progress-bg: rgba(#fff, 0.1);
+	--toast-progress-bg: rgba(255, 255, 255, 0.1);
+
+	/* === BUTTON === */
+	/* Primary */
+	--btn-primary-bg: linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #c084fc 100%);
+	--btn-primary-color: #1e1b4b;
+	--btn-primary-shadow: rgba(129, 140, 248, 0.4);
+	--btn-primary-shadow-hover: rgba(129, 140, 248, 0.6);
+
+	/* Secondary */
+	--btn-secondary-bg: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+	--btn-secondary-color: #0f172a;
+	--btn-secondary-shadow: rgba(148, 163, 184, 0.4);
+	--btn-secondary-shadow-hover: rgba(148, 163, 184, 0.6);
+
+	/* Tertiary */
+	--btn-tertiary-bg: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+	--btn-tertiary-color: #e2e8f0;
+	--btn-tertiary-shadow: rgba(0, 0, 0, 0.3);
+	--btn-tertiary-shadow-hover: rgba(0, 0, 0, 0.4);
+	--btn-tertiary-hover-bg: rgba(255, 255, 255, 0.06);
+
+	/* Warn */
+	--btn-warn-bg: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+	--btn-warn-color: #1c1400;
+	--btn-warn-shadow: rgba(251, 191, 36, 0.4);
+	--btn-warn-shadow-hover: rgba(251, 191, 36, 0.6);
+
+	/* Ghost */
+	--btn-ghost-color: #a5b4fc;
+	--btn-ghost-hover-bg: rgba(165, 180, 252, 0.12);
+
+	/* Danger */
+	--btn-danger-bg: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+	--btn-danger-color: #1c0000;
+	--btn-danger-shadow: rgba(248, 113, 113, 0.4);
+	--btn-danger-shadow-hover: rgba(248, 113, 113, 0.6);
+
+	/* Success */
+	--btn-success-bg: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+	--btn-success-color: #011a11;
+	--btn-success-shadow: rgba(52, 211, 153, 0.4);
+	--btn-success-shadow-hover: rgba(52, 211, 153, 0.6);
+
+	/* Outline */
+	--btn-outline-color: #38bdf8;
+	--btn-outline-hover-bg: rgba(56, 189, 248, 0.12);
+	--btn-outline-border: #38bdf8;
+
+	/* Spinner */
+	--btn-spinner-border: rgba(30, 27, 75, 0.4);
+	--btn-spinner-border-top: #1e1b4b;
 }
