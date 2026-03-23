@@ -130,6 +130,15 @@
 	--navbar-branch-color: #4f46e5;
 	--navbar-branch-bg: #eef2ff;
 	--navbar-branch-border: #c7d2fe;
+
+	/* === AVATAR === */
+	--avatar-bg: #f3f4f6;
+	--avatar-border: rgba(99, 102, 241, 0.35);
+	--avatar-border-radius: 9999px;
+	--avatar-shadow: none;
+	--avatar-fallback-color: #fff;
+	--avatar-fallback-bg: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+	--avatar-status-shadow: 0 0 0 1px rgba(249, 250, 251, 0.88);
 }
 
 /* ============================================
@@ -246,4 +255,13 @@
 	--navbar-branch-color: #818cf8;
 	--navbar-branch-bg: rgba(129, 140, 248, 0.12);
 	--navbar-branch-border: rgba(129, 140, 248, 0.3);
+
+	/* === AVATAR === */
+	--avatar-bg: #374151;
+	--avatar-border: transparent;
+	--avatar-border-radius: 9999px;
+	--avatar-shadow: none;
+	--avatar-fallback-color: #fff;
+	--avatar-fallback-bg: linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #c084fc 100%);
+	--avatar-status-shadow: 0 0 0 1px rgba(31, 41, 55, 0.88);
 }
