@@ -13,10 +13,8 @@ description: Enforces Test-Driven Development workflow. Use when user asks to im
 
 This skill activates when user asks to:
 
-- "implement", "add", "create", "build" a new feature
-- "add functionality", "build feature"
-- Any request that implies writing new code with tests
-- When needing to edit the source code (any change in .tsx, .ts, .py, .js, .jsx files)
+- any changes that relate to the source code (both test and implementation) need to be made, this skill should be activated.
+- run at every code change, even if the user doesn't explicitly ask for TDD, to ensure tests are always run and updated as needed.
 
 ## Feature Implementation Workflow
 

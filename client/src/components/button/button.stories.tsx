@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Button from './button';
+import { Size } from '@/data/props';
 
 const meta: Meta<typeof Button> = {
 	title: 'Components/Button',
@@ -40,4 +41,15 @@ export const Loading: Story = {
 		label: 'Loading...',
 		loading: true,
 	},
+};
+
+export const AllSizes: Story = {
+	render: () => (
+		<div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+			<Button label="Small" size={Size.Small} />
+			<Button label="Medium" size={Size.Medium} />
+			<Button label="Large" size={Size.Large} />
+			<Button label="Full Width" size={Size.FullWidth} />
+		</div>
+	),
 };
