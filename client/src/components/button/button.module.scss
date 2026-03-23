@@ -1,3 +1,119 @@
+// ============================================
+// VARIABLES
+// ============================================
+
+// Colors
+$color-primary: #6366f1;
+$color-primary-dark: #8b5cf6;
+$color-primary-light: #a855f7;
+$color-secondary: #64748b;
+$color-secondary-dark: #475569;
+$color-tertiary: #f1f5f9;
+$color-tertiary-dark: #e2e8f0;
+$color-tertiary-text: #334155;
+$color-warn: #f59e0b;
+$color-warn-dark: #f97316;
+$color-ghost: #6366f1;
+$color-outline: #0ea5e9;
+$color-danger: #ef4444;
+$color-danger-dark: #dc2626;
+$color-success: #10b981;
+$color-success-dark: #059669;
+$color-white: #fff;
+$color-black: #000;
+
+// Common values
+$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-none: none !important;
+$highlight-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+$highlight-gradient-light: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, transparent 50%);
+$shimmer: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.6) 50%, transparent 60%);
+
+// Border radius map
+$border-radii: (
+	small: 0.25rem,
+	medium: 0.5rem,
+	large: 0.875rem,
+);
+
+// Size map (padding, font-size)
+$sizes: (
+	small: (0.375rem 0.875rem, 0.8125rem),
+	medium: (0.625rem 1.25rem, 0.9375rem),
+	large: (0.875rem 1.75rem, 1.0625rem),
+);
+
+// Variant map: (background, text-color, box-shadow-color, has-border, hover-bg)
+$variants: (
+	primary: (
+		linear-gradient(135deg, $color-primary 0%, $color-primary-dark 50%, $color-primary-light 100%),
+		$color-white,
+		$color-primary,
+		false,
+		null,
+	),
+	secondary: (
+		linear-gradient(135deg, $color-secondary 0%, $color-secondary-dark 100%),
+		$color-white,
+		$color-secondary,
+		false,
+		null,
+	),
+	tertiary: (
+		linear-gradient(135deg, $color-tertiary 0%, $color-tertiary-dark 100%),
+		$color-tertiary-text,
+		rgba($color-black, 0.08),
+		false,
+		null,
+	),
+	warn: (
+		linear-gradient(135deg, $color-warn 0%, $color-warn-dark 100%),
+		$color-white,
+		$color-warn,
+		false,
+		null,
+	),
+	ghost: (
+		transparent,
+		$color-ghost,
+		null,
+		false,
+		rgba($color-ghost, 0.08),
+	),
+	danger: (
+		linear-gradient(135deg, $color-danger 0%, $color-danger-dark 100%),
+		$color-white,
+		$color-danger,
+		false,
+		null,
+	),
+	success: (
+		linear-gradient(135deg, $color-success 0%, $color-success-dark 100%),
+		$color-white,
+		$color-success,
+		false,
+		null,
+	),
+	outline: (
+		transparent,
+		$color-outline,
+		$color-outline,
+		true,
+		rgba($color-outline, 0.08),
+	),
+);
+
+// Box-shadow helper
+@function box-shadow($color, $alpha: 0.39, $hover: false) {
+	$blur: if($hover, 20px, 14px);
+	$size: if($hover, 6px, 4px);
+	@return 0 $size $blur 0 rgba($color, $alpha);
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+
 @keyframes spin {
 	to {
 		transform: translate(-50%, -50%) rotate(360deg);
@@ -11,17 +127,6 @@
 
 	100% {
 		transform: translateX(250%) skewX(-15deg);
-	}
-}
-
-@keyframes pulse-glow {
-	0%,
-	100% {
-		box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
-	}
-
-	50% {
-		box-shadow: 0 4px 30px 6px rgba(99, 102, 241, 0.6);
 	}
 }
 
@@ -41,29 +146,6 @@
 	}
 }
 
-@keyframes ripple {
-	0% {
-		transform: scale(0);
-		opacity: 0.6;
-	}
-
-	100% {
-		transform: scale(4);
-		opacity: 0;
-	}
-}
-
-@keyframes float {
-	0%,
-	100% {
-		transform: translateY(0);
-	}
-
-	50% {
-		transform: translateY(-3px);
-	}
-}
-
 @keyframes gradient-shift {
 	0% {
 		background-position: 0% 50%;
@@ -78,31 +160,30 @@
 	}
 }
 
+// ============================================
+// BUTTON BASE
+// ============================================
+
 .button {
 	user-select: none;
 	position: relative;
 	overflow: hidden;
 
 	// Base styles
-	padding: 0.5rem 1rem;
-	font-size: 1rem;
+	padding: 0.625rem 1.25rem;
+	font-size: 0.9375rem;
 	font-weight: 600;
 	border: none;
 	border-radius: 0.5rem;
 	cursor: pointer;
-	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: $transition;
 	animation: bounce-in 0.4s ease-out;
 
 	&::after {
 		content: '';
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(
-			105deg,
-			transparent 40%,
-			rgba(255, 255, 255, 0.6) 50%,
-			transparent 60%
-		);
+		background: $shimmer;
 		transform: translateX(-100%) skewX(-15deg);
 	}
 
@@ -116,18 +197,14 @@
 
 	&:active {
 		transform: translateY(0) scale(0.97);
-
-		&::before {
-			animation: ripple 0.5s ease-out;
-		}
 	}
 
 	&:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
 		transform: none;
-		animation: none !important;
-		transition: none !important;
+		animation: $transition-none;
+		transition: $transition-none;
 
 		&::before,
 		&::after {
@@ -136,24 +213,19 @@
 
 		&:hover {
 			transform: none;
-			box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+			box-shadow: 0 2px 8px 0 rgba($color-black, 0.1);
 		}
 	}
 
 	// Size modifiers
-	&--small {
-		padding: 0.375rem 0.875rem;
-		font-size: 0.8125rem;
-	}
+	@each $name, $values in $sizes {
+		$padding: nth($values, 1);
+		$font-size: nth($values, 2);
 
-	&--medium {
-		padding: 0.625rem 1.25rem;
-		font-size: 0.9375rem;
-	}
-
-	&--large {
-		padding: 0.875rem 1.75rem;
-		font-size: 1.0625rem;
+		&--#{$name} {
+			padding: $padding;
+			font-size: $font-size;
+		}
 	}
 
 	&--full-width {
@@ -161,174 +233,76 @@
 	}
 
 	// Variant modifiers
-	&--primary {
-		background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
-		background-size: 200% 200%;
-		color: #fff;
-		box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
+	@each $name, $variant in $variants {
+		$bg: nth($variant, 1);
+		$text-color: nth($variant, 2);
+		$shadow-color: nth($variant, 3);
+		$has-border: nth($variant, 4);
+		$hover-bg: nth($variant, 5);
 
-		&::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-		}
+		&--#{$name} {
+			background: $bg;
+			background-size: if($name == primary, 200% 200%, null);
+			color: $text-color;
 
-		&:hover {
-			animation: gradient-shift 2s ease infinite, bounce-in 0.4s ease-out;
-			box-shadow: 0 6px 20px 0 rgba(99, 102, 241, 0.5);
-		}
-	}
+			@if $shadow-color {
+				box-shadow: box-shadow($shadow-color);
+			}
 
-	&--secondary {
-		background: linear-gradient(135deg, #64748b 0%, #475569 100%);
-		color: #fff;
-		box-shadow: 0 4px 14px 0 rgba(100, 116, 139, 0.39);
+			@if $has-border {
+				border: 2px solid $shadow-color;
+			}
 
-		&::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-		}
+			&::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: if(
+					$name == tertiary,
+					$highlight-gradient-light,
+					$highlight-gradient
+				);
+			}
 
-		&:hover {
-			box-shadow: 0 6px 20px 0 rgba(100, 116, 139, 0.5);
-		}
-	}
+			&:hover {
+				@if $shadow-color {
+					box-shadow: box-shadow($shadow-color, 0.5, true);
+				}
+				animation: if($name == primary, gradient-shift 2s ease infinite, null);
 
-	&--tertiary {
-		background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-		color: #334155;
-		box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
-
-		&::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, transparent 50%);
-		}
-
-		&:hover {
-			box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.12);
+				@if $hover-bg {
+					background-color: $hover-bg;
+				}
+			}
 		}
 	}
 
-	&--warn {
-		background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
-		color: #fff;
-		box-shadow: 0 4px 14px 0 rgba(245, 158, 11, 0.39);
-
-		&::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-		}
-
-		&:hover {
-			box-shadow: 0 6px 20px 0 rgba(245, 158, 11, 0.5);
+	// Border radius modifiers
+	@each $name, $radius in $border-radii {
+		&--border-radius-#{$name} {
+			border-radius: $radius;
 		}
 	}
 
-	&--ghost {
-		background-color: transparent;
-		color: #6366f1;
-		border: 2px solid #6366f1;
-		box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.15);
-
-		&::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
-		}
-
-		&:hover {
-			background-color: rgba(99, 102, 241, 0.08);
-			box-shadow: 0 6px 20px 0 rgba(99, 102, 241, 0.25);
-		}
-	}
-
-	&--danger {
-		background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-		color: #fff;
-		box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.39);
-
-		&::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-		}
-
-		&:hover {
-			box-shadow: 0 6px 20px 0 rgba(239, 68, 68, 0.5);
-		}
-	}
-
-	&--success {
-		background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-		color: #fff;
-		box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.39);
-
-		&::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-		}
-
-		&:hover {
-			box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.5);
-		}
-	}
-
-	&--outline {
-		background-color: transparent;
-		color: #6366f1;
-		border: 2px solid #6366f1;
-		box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.15);
-
-		&::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
-		}
-
-		&:hover {
-			background-color: rgba(99, 102, 241, 0.08);
-			box-shadow: 0 6px 20px 0 rgba(99, 102, 241, 0.25);
-		}
-	}
-
-	&--border-radius-small {
-		border-radius: 0.25rem;
-	}
-
-	&--border-radius-medium {
-		border-radius: 0.5rem;
-	}
-
-	&--border-radius-large {
-		border-radius: 0.875rem;
-	}
-
+	// Loading modifier
 	&--loading {
 		cursor: wait !important;
 		pointer-events: none;
-		animation: none !important;
-		transition: none !important;
+		animation: $transition-none;
+		transition: $transition-none;
 
 		&::after {
 			content: '';
 			position: absolute;
 			inset: 0;
-			background: rgba(255, 255, 255, 0.15);
+			background: rgba($color-white, 0.15);
 		}
 	}
 }
+
+// ============================================
+// LABEL & SPINNER
+// ============================================
 
 .label {
 	display: inline-block;
@@ -346,8 +320,8 @@
 	transform: translate(-50%, -50%);
 	width: 1em;
 	height: 1em;
-	border: 0.15em solid rgba(255, 255, 255, 0.4);
-	border-top-color: #fff;
+	border: 0.15em solid rgba($color-white, 0.4);
+	border-top-color: $color-white;
 	border-radius: 50%;
 	animation: spin 0.7s linear infinite;
 }

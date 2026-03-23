@@ -24,6 +24,8 @@ export default function Button({
 		[styles['button--warn']]: variant === Variant.Warn,
 		[styles['button--ghost']]: variant === Variant.Ghost,
 		[styles['button--danger']]: variant === Variant.Danger,
+		[styles['button--success']]: variant === Variant.Success,
+		[styles['button--outline']]: variant === Variant.Outline,
 		[styles['button--border-radius-small']]: borderRadius === Size.Small,
 		[styles['button--border-radius-medium']]: borderRadius === Size.Medium,
 		[styles['button--border-radius-large']]: borderRadius === Size.Large,

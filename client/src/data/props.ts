@@ -12,4 +12,6 @@ export enum Variant {
 	Warn = 'warn',
 	Ghost = 'ghost',
 	Danger = 'danger',
+	Success = 'success',
+	Outline = 'outline',
 }
