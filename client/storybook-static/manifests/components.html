@@ -576,7 +576,7 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><span class="filter-pill ok" aria-disabled="true">1 components ok</span><a class="filter-pill info" data-k="infos" href="#filter-infos">1/1 info</a><span class="filter-pill ok" aria-disabled="true">2 stories ok</span></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><span class="filter-pill ok" aria-disabled="true">2 components ok</span><a class="filter-pill info" data-k="infos" href="#filter-infos">2/2 infos</a><span class="filter-pill ok" aria-disabled="true">11 stories ok</span></div>
   </div>
 </header>
 <main>
@@ -604,9 +604,9 @@
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Button</h2>
       <div class="badges">
-        <label for="c-0-components-button-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-0-components-button-props" class="badge ok as-toggle">7 prop types</label>
         <label for="c-0-components-button-info" class="badge info as-toggle">1 info</label>
-        <label for="c-0-components-button-stories" class="badge ok as-toggle">2 stories</label>
+        <label for="c-0-components-button-stories" class="badge ok as-toggle">8 stories</label>
         
       </div>
     </div>
@@ -638,7 +638,7 @@
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">6 prop types</span>
+              <span class="badge ok">7 prop types</span>
             </div>
             <pre><code>Component: src/components/button/button.tsx::default</code></pre>
             <pre><code>Props:</code></pre>
@@ -647,6 +647,8 @@
 disabled?: boolean = false
 
 label: string
+
+loading?: boolean = false
 
 onClick?: () =&gt; void
 
@@ -684,7 +686,238 @@ variant?: Variant = Variant.Primary</code></pre>
               </div>
               
               
-              <pre><code>const WithClickHandler = () =&gt; &lt;Button label=&quot;Click me&quot; onClick={() =&gt; console.log(&#39;Button clicked!&#39;)} /&gt;;</code></pre>
+              <pre><code>const WithClickHandler = () =&gt; &lt;Button label=&quot;Click me&quot; onClick={() =&gt; alert(&#39;Button clicked!&#39;)} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Disabled</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Disabled = () =&gt; &lt;Button
+    label=&quot;Click me&quot;
+    disabled
+    onClick={() =&gt; alert(&#39;This should not trigger!&#39;)} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Loading</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Loading = () =&gt; &lt;Button label=&quot;Loading...&quot; loading /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All Sizes</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AllSizes = () =&gt; (
+    &lt;div
+        style={{
+            display: &#39;flex&#39;,
+            alignItems: &#39;center&#39;,
+            gap: &#39;16px&#39;,
+            flexWrap: &#39;wrap&#39;,
+        }}
+    &gt;
+        &lt;Button label=&quot;Small&quot; size={Size.Small} /&gt;
+        &lt;Button label=&quot;Medium&quot; size={Size.Medium} /&gt;
+        &lt;Button label=&quot;Large&quot; size={Size.Large} /&gt;
+        &lt;Button label=&quot;Full Width&quot; size={Size.FullWidth} /&gt;
+    &lt;/div&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All Variants</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AllVariants = () =&gt; (
+    &lt;div
+        style={{
+            display: &#39;flex&#39;,
+            alignItems: &#39;center&#39;,
+            gap: &#39;16px&#39;,
+            flexWrap: &#39;wrap&#39;,
+        }}
+    &gt;
+        &lt;Button label=&quot;Primary&quot; variant={Variant.Primary} /&gt;
+        &lt;Button label=&quot;Secondary&quot; variant={Variant.Secondary} /&gt;
+        &lt;Button label=&quot;Tertiary&quot; variant={Variant.Tertiary} /&gt;
+        &lt;Button label=&quot;Warn&quot; variant={Variant.Warn} /&gt;
+        &lt;Button label=&quot;Ghost&quot; variant={Variant.Ghost} /&gt;
+        &lt;Button label=&quot;Danger&quot; variant={Variant.Danger} /&gt;
+        &lt;Button label=&quot;Success&quot; variant={Variant.Success} /&gt;
+        &lt;Button label=&quot;Outline&quot; variant={Variant.Outline} /&gt;
+    &lt;/div&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Dark Theme Variants</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const DarkThemeVariants = () =&gt; (
+    &lt;div
+        style={{
+            display: &#39;flex&#39;,
+            alignItems: &#39;center&#39;,
+            gap: &#39;16px&#39;,
+            flexWrap: &#39;wrap&#39;,
+            backgroundColor: &#39;#333&#39;,
+            padding: &#39;16px&#39;,
+        }}
+    &gt;
+        &lt;Button label=&quot;Primary&quot; variant={Variant.Primary} /&gt;
+        &lt;Button label=&quot;Secondary&quot; variant={Variant.Secondary} /&gt;
+        &lt;Button label=&quot;Tertiary&quot; variant={Variant.Tertiary} /&gt;
+        &lt;Button label=&quot;Warn&quot; variant={Variant.Warn} /&gt;
+        &lt;Button label=&quot;Ghost&quot; variant={Variant.Ghost} /&gt;
+        &lt;Button label=&quot;Danger&quot; variant={Variant.Danger} /&gt;
+        &lt;Button label=&quot;Success&quot; variant={Variant.Success} /&gt;
+        &lt;Button label=&quot;Outline&quot; variant={Variant.Outline} /&gt;
+    &lt;/div&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All Border Radii</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AllBorderRadii = () =&gt; (
+    &lt;div
+        style={{
+            display: &#39;flex&#39;,
+            alignItems: &#39;center&#39;,
+            gap: &#39;16px&#39;,
+            flexWrap: &#39;wrap&#39;,
+        }}
+    &gt;
+        &lt;Button label=&quot;Small&quot; borderRadius={Size.Small} /&gt;
+        &lt;Button label=&quot;Medium&quot; borderRadius={Size.Medium} /&gt;
+        &lt;Button label=&quot;Large&quot; borderRadius={Size.Large} /&gt;
+    &lt;/div&gt;
+);</code></pre>
+            </div>
+        </div>
+    
+  </div>
+</article>
+<article
+  class="card 
+  no-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="Toast">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Toast</h2>
+      <div class="badges">
+        <label for="c-1-components-toast-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-1-components-toast-info" class="badge info as-toggle">1 info</label>
+        <label for="c-1-components-toast-stories" class="badge ok as-toggle">3 stories</label>
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/components/toast/toast.stories.tsx">components-toast · ./src/components/toast/toast.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-1-components-toast-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-1-components-toast-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  <input id="c-1-components-toast-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">1 prop type</span>
+            </div>
+            <pre><code>Component: src/components/toast/toast.tsx::default</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>children?: ReactNode</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Button, Toast } from "client";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; (
+    &lt;Toast&gt;
+        &lt;TriggerButtons /&gt;
+    &lt;/Toast&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All Variants</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AllVariants = () =&gt; (
+    &lt;Toast&gt;
+        &lt;TriggerButtons /&gt;
+    &lt;/Toast&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Custom Duration</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CustomDuration = () =&gt; (
+    &lt;Toast&gt;
+        &lt;CustomDurationButtons /&gt;
+    &lt;/Toast&gt;
+);</code></pre>
             </div>
         </div>
     

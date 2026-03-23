@@ -1,5 +1,5 @@
 import 'react';
-import { ButtonProps } from './props';
+import { ButtonProps } from './button.props';
 import styles from './button.module.scss';
 import clsx from 'clsx';
 import { Size, Variant } from '@/data/props';
@@ -39,7 +39,11 @@ export default function Button({
 			type="button"
 			disabled={disabled || loading}
 		>
-			<span className={clsx(styles.label, { [styles['label--hidden']]: loading })}>
+			<span
+				className={clsx(styles.label, {
+					[styles['label--hidden']]: loading,
+				})}
+			>
 				{label}
 			</span>
 			{loading && <span className={styles.spinner} />}

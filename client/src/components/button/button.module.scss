@@ -45,57 +45,49 @@ $sizes: (
 
 // Variant map: (background, text-color, box-shadow-color, has-border, hover-bg)
 $variants: (
-	primary: (
-		linear-gradient(135deg, $color-primary 0%, $color-primary-dark 50%, $color-primary-light 100%),
+	primary: (linear-gradient(135deg, $color-primary 0%, $color-primary-dark 50%, $color-primary-light 100%),
 		$color-white,
 		$color-primary,
 		false,
 		null,
 	),
-	secondary: (
-		linear-gradient(135deg, $color-secondary 0%, $color-secondary-dark 100%),
+	secondary: (linear-gradient(135deg, $color-secondary 0%, $color-secondary-dark 100%),
 		$color-white,
 		$color-secondary,
 		false,
 		null,
 	),
-	tertiary: (
-		linear-gradient(135deg, $color-tertiary 0%, $color-tertiary-dark 100%),
+	tertiary: (linear-gradient(135deg, $color-tertiary 0%, $color-tertiary-dark 100%),
 		$color-tertiary-text,
 		rgba($color-black, 0.08),
 		false,
 		null,
 	),
-	warn: (
-		linear-gradient(135deg, $color-warn 0%, $color-warn-dark 100%),
+	warn: (linear-gradient(135deg, $color-warn 0%, $color-warn-dark 100%),
 		$color-white,
 		$color-warn,
 		false,
 		null,
 	),
-	ghost: (
-		transparent,
+	ghost: (transparent,
 		$color-ghost,
 		null,
 		false,
 		rgba($color-ghost, 0.08),
 	),
-	danger: (
-		linear-gradient(135deg, $color-danger 0%, $color-danger-dark 100%),
+	danger: (linear-gradient(135deg, $color-danger 0%, $color-danger-dark 100%),
 		$color-white,
 		$color-danger,
 		false,
 		null,
 	),
-	success: (
-		linear-gradient(135deg, $color-success 0%, $color-success-dark 100%),
+	success: (linear-gradient(135deg, $color-success 0%, $color-success-dark 100%),
 		$color-white,
 		$color-success,
 		false,
 		null,
 	),
-	outline: (
-		transparent,
+	outline: (transparent,
 		$color-outline,
 		$color-outline,
 		true,
@@ -242,7 +234,7 @@ $variants: (
 
 		&--#{$name} {
 			background: $bg;
-			background-size: if($name == primary, 200% 200%, null);
+			background-size: if($name ==primary, 200% 200%, null);
 			color: $text-color;
 
 			@if $shadow-color {
@@ -257,18 +249,17 @@ $variants: (
 				content: '';
 				position: absolute;
 				inset: 0;
-				background: if(
-					$name == tertiary,
-					$highlight-gradient-light,
-					$highlight-gradient
-				);
+				background: if($name ==tertiary,
+						$highlight-gradient-light,
+						$highlight-gradient);
 			}
 
 			&:hover {
 				@if $shadow-color {
 					box-shadow: box-shadow($shadow-color, 0.5, true);
 				}
-				animation: if($name == primary, gradient-shift 2s ease infinite, null);
+
+				animation: if($name ==primary, gradient-shift 2s ease infinite, null);
 
 				@if $hover-bg {
 					background-color: $hover-bg;
