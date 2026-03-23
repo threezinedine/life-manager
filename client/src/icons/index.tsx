@@ -5,3 +5,5 @@ export { CheckIcon } from './check-icon';
 export { XIcon } from './x-icon';
 export { WarningIcon } from './warning-icon';
 export { InfoIcon } from './info-icon';
+export { SunIcon } from './sun-icon';
+export { MoonIcon } from './moon-icon';

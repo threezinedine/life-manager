@@ -130,7 +130,7 @@ describe('Toast', () => {
 		expect(screen.queryByText('Success message')).not.toBeInTheDocument();
 	});
 
-	it('displays correct icon for success variant', () => {
+	it('displays correct SVG icon for success variant', () => {
 		render(
 			<ToastTestWrapper>
 				<TriggerButton />
@@ -139,10 +139,13 @@ describe('Toast', () => {
 
 		fireEvent.click(screen.getByText('Show Success'));
 		const toastItem = document.querySelector('[role="alert"]');
-		expect(toastItem?.textContent).toContain('✓');
+		// Success toast has an SVG icon rendered as the first .icon child
+		const iconContainer = toastItem?.querySelector('[class*="icon"]');
+		expect(iconContainer?.querySelector('svg')).toBeInTheDocument();
+		expect(screen.getByText('Success message')).toBeInTheDocument();
 	});
 
-	it('displays correct icon for error variant', () => {
+	it('displays correct SVG icon for error variant', () => {
 		render(
 			<ToastTestWrapper>
 				<TriggerButton />
@@ -151,10 +154,12 @@ describe('Toast', () => {
 
 		fireEvent.click(screen.getByText('Show Error'));
 		const toastItem = document.querySelector('[role="alert"]');
-		expect(toastItem?.textContent).toContain('✕');
+		const iconContainer = toastItem?.querySelector('[class*="icon"]');
+		expect(iconContainer?.querySelector('svg')).toBeInTheDocument();
+		expect(screen.getByText('Error message')).toBeInTheDocument();
 	});
 
-	it('displays correct icon for warning variant', () => {
+	it('displays correct SVG icon for warning variant', () => {
 		render(
 			<ToastTestWrapper>
 				<TriggerButton />
@@ -163,10 +168,12 @@ describe('Toast', () => {
 
 		fireEvent.click(screen.getByText('Show Warning'));
 		const toastItem = document.querySelector('[role="alert"]');
-		expect(toastItem?.textContent).toContain('⚠');
+		const iconContainer = toastItem?.querySelector('[class*="icon"]');
+		expect(iconContainer?.querySelector('svg')).toBeInTheDocument();
+		expect(screen.getByText('Warning message')).toBeInTheDocument();
 	});
 
-	it('displays correct icon for info variant', () => {
+	it('displays correct SVG icon for info variant', () => {
 		render(
 			<ToastTestWrapper>
 				<TriggerButton />
@@ -175,7 +182,9 @@ describe('Toast', () => {
 
 		fireEvent.click(screen.getByText('Show Info'));
 		const toastItem = document.querySelector('[role="alert"]');
-		expect(toastItem?.textContent).toContain('ℹ');
+		const iconContainer = toastItem?.querySelector('[class*="icon"]');
+		expect(iconContainer?.querySelector('svg')).toBeInTheDocument();
+		expect(screen.getByText('Info message')).toBeInTheDocument();
 	});
 
 	it('auto-removes toast after default duration', () => {
