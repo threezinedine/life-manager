@@ -82,3 +82,44 @@ export const AllVariants: Story = {
 		</div>
 	),
 };
+
+export const DarkThemeVariants: Story = {
+	render: () => (
+		<div
+			style={{
+				display: 'flex',
+				alignItems: 'center',
+				gap: '16px',
+				flexWrap: 'wrap',
+				backgroundColor: '#333',
+				padding: '16px',
+			}}
+		>
+			<Button label="Primary" variant={Variant.Primary} />
+			<Button label="Secondary" variant={Variant.Secondary} />
+			<Button label="Tertiary" variant={Variant.Tertiary} />
+			<Button label="Warn" variant={Variant.Warn} />
+			<Button label="Ghost" variant={Variant.Ghost} />
+			<Button label="Danger" variant={Variant.Danger} />
+			<Button label="Success" variant={Variant.Success} />
+			<Button label="Outline" variant={Variant.Outline} />
+		</div>
+	),
+};
+
+export const AllBorderRadii: Story = {
+	render: () => (
+		<div
+			style={{
+				display: 'flex',
+				alignItems: 'center',
+				gap: '16px',
+				flexWrap: 'wrap',
+			}}
+		>
+			<Button label="Small" borderRadius={Size.Small} />
+			<Button label="Medium" borderRadius={Size.Medium} />
+			<Button label="Large" borderRadius={Size.Large} />
+		</div>
+	),
+};
