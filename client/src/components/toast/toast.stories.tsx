@@ -3,6 +3,8 @@ import Toast from './toast';
 import { useToast } from './toast-store';
 import { Button } from '@/components/button';
 import { Variant } from '@/data/props';
+import ToastItem from './toast-item';
+import { ToastVariant } from './toast.props';
 
 const meta: Meta<typeof Toast> = {
 	title: 'Components/Toast',
@@ -35,12 +37,16 @@ function TriggerButtons() {
 			<Button
 				label="Warning"
 				variant={Variant.Warn}
-				onClick={() => warning('Please review your input before proceeding.')}
+				onClick={() =>
+					warning('Please review your input before proceeding.')
+				}
 			/>
 			<Button
 				label="Info"
 				variant={Variant.Outline}
-				onClick={() => info('New update available. Refresh to see changes.')}
+				onClick={() =>
+					info('New update available. Refresh to see changes.')
+				}
 			/>
 		</div>
 	);
@@ -97,5 +103,74 @@ export const CustomDuration: Story = {
 		<Toast>
 			<CustomDurationButtons />
 		</Toast>
+	),
+};
+
+// ============================================
+// TOAST ITEM VARIANTS (SINGLE STORY)
+// ============================================
+
+const toastItems = [
+	{
+		id: '1',
+		message: 'Task completed successfully!',
+		variant: ToastVariant.Success,
+	},
+	{
+		id: '2',
+		message: 'Something went wrong. Please try again.',
+		variant: ToastVariant.Error,
+	},
+	{
+		id: '3',
+		message: 'Please review your input before proceeding.',
+		variant: ToastVariant.Warning,
+	},
+	{
+		id: '4',
+		message: 'New update available. Refresh to see changes.',
+		variant: ToastVariant.Info,
+	},
+];
+
+export const ToastItemVariants: Story = {
+	render: () => (
+		<div
+			style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}
+			className="light"
+		>
+			{toastItems.map((item) => (
+				<ToastItem
+					key={item.id}
+					toast={{ ...item, duration: 3000 }}
+					onRemove={() => {}}
+				/>
+			))}
+		</div>
+	),
+};
+
+export const DarkMode: Story = {
+	render: () => (
+		<div
+			style={{ backgroundColor: '#333', padding: '1rem' }}
+			className="dark"
+		>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					gap: '0.5rem',
+				}}
+			>
+				{toastItems.map((item) => (
+					<ToastItem
+						key={item.id}
+						toast={{ ...item, duration: 3000 }}
+						onRemove={() => {}}
+					/>
+				))}
+			</div>
+		</div>
 	),
 };
