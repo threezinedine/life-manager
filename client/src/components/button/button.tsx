@@ -12,6 +12,8 @@ export default function Button({
 	borderRadius = Size.Medium,
 	disabled = false,
 	loading = false,
+	leftIcon,
+	rightIcon,
 }: ButtonProps) {
 	const buttonClass = clsx(styles.button, {
 		[styles['button--small']]: size === Size.Small,
@@ -39,6 +41,9 @@ export default function Button({
 			type="button"
 			disabled={disabled || loading}
 		>
+			{leftIcon && (
+				<span className={styles.icon}>{leftIcon}</span>
+			)}
 			<span
 				className={clsx(styles.label, {
 					[styles['label--hidden']]: loading,
@@ -47,6 +52,9 @@ export default function Button({
 				{label}
 			</span>
 			{loading && <span className={styles.spinner} />}
+			{rightIcon && (
+				<span className={styles.icon}>{rightIcon}</span>
+			)}
 		</button>
 	);
 }

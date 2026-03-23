@@ -576,13 +576,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><span class="filter-pill ok" aria-disabled="true">2 components ok</span><a class="filter-pill info" data-k="infos" href="#filter-infos">2/2 infos</a><span class="filter-pill ok" aria-disabled="true">13 stories ok</span></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><span class="filter-pill ok" aria-disabled="true">2 components ok</span><a class="filter-pill info" data-k="infos" href="#filter-infos">2/2 infos</a><span class="filter-pill ok" aria-disabled="true">14 stories ok</span></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>0.1s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>0.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -604,9 +604,9 @@
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Button</h2>
       <div class="badges">
-        <label for="c-0-components-button-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-0-components-button-props" class="badge ok as-toggle">9 prop types</label>
         <label for="c-0-components-button-info" class="badge info as-toggle">1 info</label>
-        <label for="c-0-components-button-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-0-components-button-stories" class="badge ok as-toggle">9 stories</label>
         
       </div>
     </div>
@@ -638,7 +638,7 @@
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">7 prop types</span>
+              <span class="badge ok">9 prop types</span>
             </div>
             <pre><code>Component: src/components/button/button.tsx::default</code></pre>
             <pre><code>Props:</code></pre>
@@ -646,11 +646,15 @@
 
 disabled?: boolean = false
 
-label: string
+label?: string
+
+leftIcon?: ReactNode
 
 loading?: boolean = false
 
 onClick?: () =&gt; void
+
+rightIcon?: ReactNode
 
 size?: Size = Size.Medium
 
@@ -773,6 +777,7 @@ variant?: Variant = Variant.Primary</code></pre>
             display: &#39;flex&#39;,
             alignItems: &#39;center&#39;,
             gap: &#39;16px&#39;,
+            backgroundColor: &#39;#333&#39;,
             flexWrap: &#39;wrap&#39;,
             padding: &#39;16px&#39;,
         }}
@@ -807,6 +812,63 @@ variant?: Variant = Variant.Primary</code></pre>
         &lt;Button label=&quot;Small&quot; borderRadius={Size.Small} /&gt;
         &lt;Button label=&quot;Medium&quot; borderRadius={Size.Medium} /&gt;
         &lt;Button label=&quot;Large&quot; borderRadius={Size.Large} /&gt;
+    &lt;/div&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Icon Layouts</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const IconLayouts = () =&gt; (
+    &lt;div
+        style={{
+            display: &#39;flex&#39;,
+            flexDirection: &#39;column&#39;,
+            gap: &#39;1rem&#39;,
+        }}
+    &gt;
+        {/* Left icon + text */}
+        &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: &#39;1rem&#39;, flexWrap: &#39;wrap&#39; }}&gt;
+            &lt;span style={{ minWidth: 140, fontSize: &#39;0.875rem&#39;, color: &#39;#6b7280&#39; }}&gt;Left Icon&lt;/span&gt;
+            &lt;Button label=&quot;Add Item&quot; leftIcon={&lt;PlusIcon /&gt;} /&gt;
+            &lt;Button label=&quot;Add Item&quot; variant={Variant.Secondary} leftIcon={&lt;PlusIcon /&gt;} /&gt;
+            &lt;Button label=&quot;Add Item&quot; variant={Variant.Ghost} leftIcon={&lt;PlusIcon /&gt;} /&gt;
+        &lt;/div&gt;
+
+        {/* Icon only */}
+        &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: &#39;1rem&#39;, flexWrap: &#39;wrap&#39; }}&gt;
+            &lt;span style={{ minWidth: 140, fontSize: &#39;0.875rem&#39;, color: &#39;#6b7280&#39; }}&gt;Icon Only&lt;/span&gt;
+            &lt;Button leftIcon={&lt;TrashIcon /&gt;} aria-label=&quot;Delete&quot; /&gt;
+            &lt;Button variant={Variant.Secondary} leftIcon={&lt;TrashIcon /&gt;} aria-label=&quot;Delete&quot; /&gt;
+            &lt;Button variant={Variant.Ghost} leftIcon={&lt;TrashIcon /&gt;} aria-label=&quot;Delete&quot; /&gt;
+        &lt;/div&gt;
+
+        {/* Text only */}
+        &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: &#39;1rem&#39;, flexWrap: &#39;wrap&#39; }}&gt;
+            &lt;span style={{ minWidth: 140, fontSize: &#39;0.875rem&#39;, color: &#39;#6b7280&#39; }}&gt;Text Only&lt;/span&gt;
+            &lt;Button label=&quot;Submit&quot; /&gt;
+            &lt;Button label=&quot;Submit&quot; variant={Variant.Secondary} /&gt;
+            &lt;Button label=&quot;Submit&quot; variant={Variant.Ghost} /&gt;
+        &lt;/div&gt;
+
+        {/* Text + right icon */}
+        &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: &#39;1rem&#39;, flexWrap: &#39;wrap&#39; }}&gt;
+            &lt;span style={{ minWidth: 140, fontSize: &#39;0.875rem&#39;, color: &#39;#6b7280&#39; }}&gt;Right Icon&lt;/span&gt;
+            &lt;Button label=&quot;Continue&quot; rightIcon={&lt;ArrowRightIcon /&gt;} /&gt;
+            &lt;Button label=&quot;Continue&quot; variant={Variant.Secondary} rightIcon={&lt;ArrowRightIcon /&gt;} /&gt;
+            &lt;Button label=&quot;Continue&quot; variant={Variant.Ghost} rightIcon={&lt;ArrowRightIcon /&gt;} /&gt;
+        &lt;/div&gt;
+
+        {/* Left icon + text + right icon */}
+        &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: &#39;1rem&#39;, flexWrap: &#39;wrap&#39; }}&gt;
+            &lt;span style={{ minWidth: 140, fontSize: &#39;0.875rem&#39;, color: &#39;#6b7280&#39; }}&gt;Both Icons&lt;/span&gt;
+            &lt;Button label=&quot;Add to Cart&quot; leftIcon={&lt;PlusIcon /&gt;} rightIcon={&lt;ArrowRightIcon /&gt;} /&gt;
+            &lt;Button label=&quot;Add to Cart&quot; variant={Variant.Secondary} leftIcon={&lt;PlusIcon /&gt;} rightIcon={&lt;ArrowRightIcon /&gt;} /&gt;
+            &lt;Button label=&quot;Add to Cart&quot; variant={Variant.Ghost} leftIcon={&lt;PlusIcon /&gt;} rightIcon={&lt;ArrowRightIcon /&gt;} /&gt;
+        &lt;/div&gt;
     &lt;/div&gt;
 );</code></pre>
             </div>
@@ -951,7 +1013,7 @@ variant?: Variant = Variant.Primary</code></pre>
               <pre><code>const DarkMode = () =&gt; (
     &lt;div
         className=&quot;dark&quot;
-        style={{ padding: &#39;1rem&#39; }}
+        style={{ padding: &#39;1rem&#39;, backgroundColor: &#39;#333&#39; }}
     &gt;
         &lt;div
             style={{
