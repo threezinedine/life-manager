@@ -1,19 +1,43 @@
+// ============================================
+// WRAPPER
+// ============================================
+
+.wrapper {
+	position: relative;
+	display: inline-flex;
+}
+
+// ============================================
+// AVATAR BASE
+// ============================================
+
 .avatar {
+	position: relative;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
 	background: var(--avatar-bg);
-	border: 2px solid var(--avatar-border);
 	box-shadow: var(--avatar-shadow);
-	transition: box-shadow 0.2s ease, border-color 0.2s ease;
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
 
 	img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 	}
+
+	&:hover {
+		transform: scale(1.04);
+		box-shadow: var(--avatar-shadow-hover);
+	}
 }
+
+// ============================================
+// SIZE MODIFIERS
+// ============================================
 
 .small {
 	width: 2rem;
@@ -38,6 +62,10 @@
 	height: 100%;
 	border-radius: var(--avatar-border-radius);
 }
+
+// ============================================
+// FALLBACK (INITIALS)
+// ============================================
 
 .fallback {
 	display: flex;
@@ -65,6 +93,10 @@
 	font-size: 1.125rem;
 }
 
+// ============================================
+// STATUS INDICATOR
+// ============================================
+
 .status {
 	position: absolute;
 	bottom: 0;
@@ -72,7 +104,7 @@
 	width: 0.625rem;
 	height: 0.625rem;
 	border-radius: 50%;
-	border: 2px solid var(--avatar-bg);
+	border: 2px solid var(--avatar-status-border);
 	box-shadow: var(--avatar-status-shadow);
 }
 
@@ -84,11 +116,6 @@
 .large .status {
 	width: 0.75rem;
 	height: 0.75rem;
-}
-
-.wrapper {
-	position: relative;
-	display: inline-flex;
 }
 
 .online {
