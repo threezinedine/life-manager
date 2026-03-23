@@ -110,9 +110,23 @@
 	--btn-spinner-border-top: #fff;
 
 	/* === NAVBAR === */
-	--navbar-bg: #f9fafb;
+	--navbar-bg: linear-gradient(
+			135deg,
+			rgba(238, 242, 255, 0.95) 0%,
+			rgba(228, 234, 255, 0.92) 50%,
+			rgba(238, 242, 255, 0.95) 100%
+		);
 	--navbar-border: #e5e7eb;
+	--navbar-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+	--navbar-backdrop-filter: blur(12px) saturate(180%);
+	--navbar-accent-glow: rgba(99, 102, 241, 0.35);
+
 	--navbar-logo-color: #111827;
+	--navbar-logo-bg: rgba(99, 102, 241, 0.08);
+	--navbar-logo-border-radius: 0.5rem;
+	--navbar-logo-shadow: 0 0 0 1px rgba(99, 102, 241, 0.12);
+	--navbar-logo-shadow-hover: 0 0 0 1px rgba(99, 102, 241, 0.3), 0 0 12px rgba(99, 102, 241, 0.2);
+
 	--navbar-branch-color: #4f46e5;
 	--navbar-branch-bg: #eef2ff;
 	--navbar-branch-border: #c7d2fe;
@@ -212,9 +226,23 @@
 	--btn-spinner-border-top: #1e1b4b;
 
 	/* === NAVBAR === */
-	--navbar-bg: #1f2937;
+	--navbar-bg: linear-gradient(
+			135deg,
+			rgba(28, 33, 52, 0.95) 0%,
+			rgba(38, 36, 68, 0.92) 50%,
+			rgba(28, 33, 52, 0.95) 100%
+		);
 	--navbar-border: #374151;
+	--navbar-shadow: 0 1px 3px rgba(0, 0, 0, 0.24), 0 1px 2px rgba(0, 0, 0, 0.16);
+	--navbar-backdrop-filter: blur(12px) saturate(180%);
+	--navbar-accent-glow: rgba(129, 140, 248, 0.4);
+
 	--navbar-logo-color: #f9fafb;
+	--navbar-logo-bg: rgba(129, 140, 248, 0.12);
+	--navbar-logo-border-radius: 0.5rem;
+	--navbar-logo-shadow: 0 0 0 1px rgba(129, 140, 248, 0.2);
+	--navbar-logo-shadow-hover: 0 0 0 1px rgba(129, 140, 248, 0.4), 0 0 12px rgba(129, 140, 248, 0.3);
+
 	--navbar-branch-color: #818cf8;
 	--navbar-branch-bg: rgba(129, 140, 248, 0.12);
 	--navbar-branch-border: rgba(129, 140, 248, 0.3);
