@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ToastItemData, ToastVariant } from './toast.props';
 import styles from './toast.module.scss';
 import clsx from 'clsx';
+import { CheckIcon, XIcon, WarningIcon, InfoIcon } from '@/icons';
 
 interface ToastItemProps {
 	toast: ToastItemData;
@@ -13,6 +14,13 @@ const VARIANT_COLORS: Record<ToastVariant, string> = {
 	[ToastVariant.Error]: '#ef4444',
 	[ToastVariant.Warning]: '#f59e0b',
 	[ToastVariant.Info]: '#0ea5e9',
+};
+
+const VARIANT_ICONS: Record<ToastVariant, React.ReactNode> = {
+	[ToastVariant.Success]: <CheckIcon />,
+	[ToastVariant.Error]: <XIcon />,
+	[ToastVariant.Warning]: <WarningIcon />,
+	[ToastVariant.Info]: <InfoIcon />,
 };
 
 export default function ToastItem({ toast, onRemove }: ToastItemProps) {
@@ -45,7 +53,7 @@ export default function ToastItem({ toast, onRemove }: ToastItemProps) {
 	return (
 		<div className={itemClass} role="alert">
 			<div className={styles.content}>
-				<span className={styles.icon}>{getIcon(variant)}</span>
+				<span className={styles.icon}>{VARIANT_ICONS[variant]}</span>
 				<span className={styles.message}>{message}</span>
 				<button
 					className={styles.closeButton}
@@ -53,7 +61,7 @@ export default function ToastItem({ toast, onRemove }: ToastItemProps) {
 					aria-label="Close"
 					type="button"
 				>
-					&times;
+					<XIcon />
 				</button>
 			</div>
 			<div className={styles.progressBar}>
@@ -67,18 +75,4 @@ export default function ToastItem({ toast, onRemove }: ToastItemProps) {
 			</div>
 		</div>
 	);
-}
-
-function getIcon(variant: ToastVariant): string {
-	switch (variant) {
-		case ToastVariant.Success:
-			return '✓';
-		case ToastVariant.Error:
-			return '✕';
-		case ToastVariant.Warning:
-			return '⚠';
-		case ToastVariant.Info:
-		default:
-			return 'ℹ';
-	}
 }

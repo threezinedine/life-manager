@@ -1,0 +1,7 @@
+export { PlusIcon } from './plus-icon';
+export { ArrowRightIcon } from './arrow-right-icon';
+export { TrashIcon } from './trash-icon';
+export { CheckIcon } from './check-icon';
+export { XIcon } from './x-icon';
+export { WarningIcon } from './warning-icon';
+export { InfoIcon } from './info-icon';
