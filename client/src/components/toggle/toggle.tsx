@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import Button from '@/components/button/button';
-import { Size, Variant } from '@/data/props';
+import { Size } from '@/data/props';
+import { Variant } from '@/components/button/button.props';
 
 export interface ToggleProps {
 	checked: boolean;

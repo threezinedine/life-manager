@@ -1,5 +1,16 @@
 import { ReactNode } from 'react';
-import { Size, Variant } from '@/data/props';
+import { Size } from '@/data/props';
+
+export enum Variant {
+	Primary = 'primary',
+	Secondary = 'secondary',
+	Tertiary = 'tertiary',
+	Warn = 'warn',
+	Ghost = 'ghost',
+	Danger = 'danger',
+	Success = 'success',
+	Outline = 'outline',
+}
 
 export interface ButtonProps {
 	label?: string;

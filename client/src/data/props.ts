@@ -4,14 +4,3 @@ export enum Size {
 	Large = 'large',
 	FullWidth = 'full-width',
 }
-
-export enum Variant {
-	Primary = 'primary',
-	Secondary = 'secondary',
-	Tertiary = 'tertiary',
-	Warn = 'warn',
-	Ghost = 'ghost',
-	Danger = 'danger',
-	Success = 'success',
-	Outline = 'outline',
-}

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Toast from './toast';
 import { useToast } from './toast-store';
 import { Button } from '@/components/button';
-import { Variant } from '@/data/props';
+import { Variant } from '@/components/button/button.props';
 import ToastItem from './toast-item';
 import { ToastVariant } from './toast.props';
 

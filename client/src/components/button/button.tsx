@@ -2,7 +2,8 @@ import 'react';
 import { ButtonProps } from './button.props';
 import styles from './button.module.scss';
 import clsx from 'clsx';
-import { Size, Variant } from '@/data/props';
+import { Size } from '@/data/props';
+import { Variant } from './button.props';
 
 export default function Button({
 	label,
@@ -34,26 +35,37 @@ export default function Button({
 		[styles['button--loading']]: loading,
 	});
 
+	const hasLabel = label != null && label !== '';
+	const iconOnly = !hasLabel && !loading;
+	const centerLeft = iconOnly && leftIcon && !rightIcon;
+	const centerRight = iconOnly && rightIcon && !leftIcon;
+
 	return (
 		<button
-			className={buttonClass}
+			className={clsx(buttonClass, { [styles['button--icon-only']]: iconOnly })}
 			onClick={onClick}
 			type="button"
 			disabled={disabled || loading}
 		>
 			{leftIcon && (
-				<span className={styles.icon}>{leftIcon}</span>
+				<span className={clsx(styles.icon, { [styles['icon--centered']]: centerLeft })}>
+					{leftIcon}
+				</span>
 			)}
-			<span
-				className={clsx(styles.label, {
-					[styles['label--hidden']]: loading,
-				})}
-			>
-				{label}
-			</span>
+			{hasLabel && (
+				<span
+					className={clsx(styles.label, {
+						[styles['label--hidden']]: loading,
+					})}
+				>
+					{label}
+				</span>
+			)}
 			{loading && <span className={styles.spinner} />}
 			{rightIcon && (
-				<span className={styles.icon}>{rightIcon}</span>
+				<span className={clsx(styles.icon, { [styles['icon--centered']]: centerRight })}>
+					{rightIcon}
+				</span>
 			)}
 		</button>
 	);
