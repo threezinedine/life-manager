@@ -85,44 +85,44 @@ const DropMenu = forwardRef<DropMenuRef, DropMenuProps>(
 			<div ref={containerRef} className={clsx(styles.menu, className)}>
 				<div onClick={handleTriggerClick}>{children}</div>
 
-				{open && (
-					<ul
-						ref={dropdownRef}
-						className={clsx(styles.dropdown, {
-							[styles['align-left']]: align === 'left',
-						})}
-						role="menu"
-					>
-						{items.map((item, i) =>
-							isDivider(item) ? (
-								<li key={i} role="separator" className={styles.divider} />
-							) : (
-								<li key={i} role="menuitem">
-									<button
-										className={styles.item}
-										onClick={() => {
-											if (item.disabled) return;
-											item.onClick?.();
-											setOpen(false);
-										}}
-										disabled={item.disabled}
-										tabIndex={0}
-									>
-										{item.icon && (
-											<span className={styles['item-icon']}>{item.icon}</span>
-										)}
-										<span className={styles['item-label']}>{item.label}</span>
-										{item.shortcut && (
-											<span className={styles['item-shortcut']}>
-												{item.shortcut}
-											</span>
-										)}
-									</button>
-								</li>
-							),
-						)}
-					</ul>
-				)}
+				<ul
+					ref={dropdownRef}
+					className={clsx(styles.dropdown, {
+						[styles['align-left']]: align === 'left',
+						[styles['dropdown-hidden']]: !open,
+					})}
+					role="menu"
+					aria-hidden={!open}
+				>
+					{items.map((item, i) =>
+						isDivider(item) ? (
+							<li key={i} role="separator" className={styles.divider} />
+						) : (
+							<li key={i} role="menuitem">
+								<button
+									className={styles.item}
+									onClick={() => {
+										if (item.disabled) return;
+										item.onClick?.();
+										setOpen(false);
+									}}
+									disabled={item.disabled}
+									tabIndex={open ? 0 : -1}
+								>
+									{item.icon && (
+										<span className={styles['item-icon']}>{item.icon}</span>
+									)}
+									<span className={styles['item-label']}>{item.label}</span>
+									{item.shortcut && (
+										<span className={styles['item-shortcut']}>
+											{item.shortcut}
+										</span>
+									)}
+								</button>
+							</li>
+						),
+					)}
+				</ul>
 			</div>
 		);
 	},

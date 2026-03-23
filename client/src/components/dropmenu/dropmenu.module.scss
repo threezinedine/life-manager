@@ -29,6 +29,10 @@
 	animation: dropdown-enter 0.15s ease forwards;
 }
 
+.dropdown-hidden {
+	display: none;
+}
+
 @keyframes dropdown-enter {
 	to {
 		transform: translateY(0) scale(1);
