@@ -7,3 +7,7 @@ export { WarningIcon } from './warning-icon';
 export { InfoIcon } from './info-icon';
 export { SunIcon } from './sun-icon';
 export { MoonIcon } from './moon-icon';
+export { EditIcon } from './edit-icon';
+export { CopyIcon } from './copy-icon';
+export { DownloadIcon } from './download-icon';
+export { SettingsIcon } from './settings-icon';

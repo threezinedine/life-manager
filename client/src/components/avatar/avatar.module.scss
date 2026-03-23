@@ -19,6 +19,7 @@
 	overflow: hidden;
 	background: var(--avatar-bg);
 	box-shadow: var(--avatar-shadow);
+	cursor: pointer;
 	transition:
 		transform 0.2s ease,
 		box-shadow 0.2s ease;
