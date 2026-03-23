@@ -1,4 +1,13 @@
+@keyframes spin {
+	to {
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}
+
 .button {
+	user-select: none;
+	position: relative;
+
 	// Size modifiers
 	&--small {
 		padding: 0.25rem 0.75rem;
@@ -51,28 +60,32 @@
 		color: #fff;
 	}
 
-  &--success {
-    background-color: #10b981;
-    color: #fff;
-  }
+	&--success {
+		background-color: #10b981;
+		color: #fff;
+	}
 
-  &--outline {
-    background-color: transparent;
-    color: #3b82f6;
-    border: 1px solid #3b82f6;
-  }
+	&--outline {
+		background-color: transparent;
+		color: #3b82f6;
+		border: 1px solid #3b82f6;
+	}
 
-  &--border-radius-small {
-    border-radius: 0.25rem;
-  }
+	&--border-radius-small {
+		border-radius: 0.25rem;
+	}
 
-  &--border-radius-medium {
-    border-radius: 0.375rem;
-  }
+	&--border-radius-medium {
+		border-radius: 0.375rem;
+	}
 
-  &--border-radius-large {
-    border-radius: 0.5rem;
-  }
+	&--border-radius-large {
+		border-radius: 0.5rem;
+	}
+
+	&--loading {
+		cursor: wait;
+	}
 
 	// Base styles
 	padding: 0.5rem 1rem;
@@ -95,25 +108,26 @@
 		opacity: 0.5;
 		cursor: not-allowed;
 	}
+}
 
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: 500;
-  border: none;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+.label {
+	display: inline-block;
+	vertical-align: middle;
 
-  &:hover {
-    opacity: 0.9;
-  }
+	&--hidden {
+		visibility: hidden;
+	}
+}
 
-  &:active {
-    transform: scale(0.98);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+.spinner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 1em;
+	height: 1em;
+	border: 0.15em solid rgba(255, 255, 255, 0.4);
+	border-top-color: #fff;
+	border-radius: 50%;
+	animation: spin 0.7s linear infinite;
 }

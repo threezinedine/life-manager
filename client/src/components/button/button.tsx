@@ -11,6 +11,7 @@ export default function Button({
 	variant = Variant.Primary,
 	borderRadius = Size.Medium,
 	disabled = false,
+	loading = false,
 }: ButtonProps) {
 	const buttonClass = clsx(styles.button, {
 		[styles['button--small']]: size === Size.Small,
@@ -26,6 +27,7 @@ export default function Button({
 		[styles['button--border-radius-small']]: borderRadius === Size.Small,
 		[styles['button--border-radius-medium']]: borderRadius === Size.Medium,
 		[styles['button--border-radius-large']]: borderRadius === Size.Large,
+		[styles['button--loading']]: loading,
 	});
 
 	return (
@@ -33,9 +35,12 @@ export default function Button({
 			className={buttonClass}
 			onClick={onClick}
 			type="button"
-			disabled={disabled}
+			disabled={disabled || loading}
 		>
-			{label}
+			<span className={clsx(styles.label, { [styles['label--hidden']]: loading })}>
+				{label}
+			</span>
+			{loading && <span className={styles.spinner} />}
 		</button>
 	);
 }

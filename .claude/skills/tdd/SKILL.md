@@ -12,9 +12,11 @@ description: Enforces Test-Driven Development workflow. Use when user asks to im
 ## When Activated
 
 This skill activates when user asks to:
+
 - "implement", "add", "create", "build" a new feature
 - "add functionality", "build feature"
 - Any request that implies writing new code with tests
+- When needing to edit the source code (any change in .tsx, .ts, .py, .js, .jsx files)
 
 ## Feature Implementation Workflow
 
@@ -57,12 +59,12 @@ When user asks to "refactor", "restructure", "reorganize", "clean up", or "impro
 
 Look for existing test structure by language/framework:
 
-| Stack | Frameworks | Test Locations | Config Files |
-|-------|------------|-----------------|--------------|
-| Python (server) | pytest, unittest | `tests/`, `test_*.py` | `pytest.ini`, `pyproject.toml`, `conftest.py` |
-| JS/TS (client) | Vitest, Jest | `src/`, `client/`, `tests/`, `__tests__/` | `vitest.config.ts`, `jest.config.js`, `vite.config.ts` |
-| JS/TS (server) | Jest, Mocha, Vitest | `src/server/`, `server/`, `tests/`, `__tests__/` | `jest.config.js`, `vitest.config.ts`, `package.json` |
-| E2E | Playwright, Cypress, pytest | `e2e/`, `tests/e2e/`, `cypress/`, `playwright/` | `playwright.config.ts`, `cypress.config.ts` |
+| Stack           | Frameworks                  | Test Locations                                   | Config Files                                           |
+| --------------- | --------------------------- | ------------------------------------------------ | ------------------------------------------------------ |
+| Python (server) | pytest, unittest            | `tests/`, `test_*.py`                            | `pytest.ini`, `pyproject.toml`, `conftest.py`          |
+| JS/TS (client)  | Vitest, Jest                | `src/`, `client/`, `tests/`, `__tests__/`        | `vitest.config.ts`, `jest.config.js`, `vite.config.ts` |
+| JS/TS (server)  | Jest, Mocha, Vitest         | `src/server/`, `server/`, `tests/`, `__tests__/` | `jest.config.js`, `vitest.config.ts`, `package.json`   |
+| E2E             | Playwright, Cypress, pytest | `e2e/`, `tests/e2e/`, `cypress/`, `playwright/`  | `playwright.config.ts`, `cypress.config.ts`            |
 
 If no test structure exists, create one in `tests/` following project conventions.
 
@@ -71,6 +73,7 @@ If no test structure exists, create one in `tests/` following project convention
 Run tests for **all applicable stacks** after any modification:
 
 ### Python (Server)
+
 ```bash
 pytest tests/ -v                    # unit tests
 pytest tests/e2e/ -v               # e2e tests
@@ -78,6 +81,7 @@ python -m pytest tests/ -v          # alternative
 ```
 
 ### JavaScript/TypeScript (Client)
+
 ```bash
 vitest run src/                    # Vitest (client components)
 jest --coverage                     # Jest
@@ -85,6 +89,7 @@ npm test -- --coverage              # via npm
 ```
 
 ### JavaScript/TypeScript (Server)
+
 ```bash
 vitest run                          # Vitest
 jest server/                        # Jest
@@ -92,6 +97,7 @@ npm test -- --testPathPattern=server
 ```
 
 ### E2E Tests
+
 ```bash
 pytest tests/e2e/ -v                # pytest e2e
 playwright test                     # Playwright

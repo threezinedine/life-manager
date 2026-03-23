@@ -26,3 +26,18 @@ export const WithClickHandler: Story = {
 		onClick: () => alert('Button clicked!'),
 	},
 };
+
+export const Disabled: Story = {
+	args: {
+		label: 'Click me',
+		disabled: true,
+		onClick: () => alert('This should not trigger!'),
+	},
+};
+
+export const Loading: Story = {
+	args: {
+		label: 'Loading...',
+		loading: true,
+	},
+};

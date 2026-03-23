@@ -7,4 +7,5 @@ export interface ButtonProps {
 	borderRadius?: Size;
 	onClick?: () => void;
 	disabled?: boolean;
+	loading?: boolean;
 }
