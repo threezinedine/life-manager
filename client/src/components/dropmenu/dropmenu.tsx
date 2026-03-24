@@ -51,16 +51,18 @@ const DropMenu = forwardRef<DropMenuRef, DropMenuProps>(
 			close: () => setOpen(false),
 		}));
 
-		// Close on outside click
+		// Close on outside click (but not if the click landed on the trigger)
 		useEffect(() => {
 			if (!open) return;
 			const handleClickOutside = (e: MouseEvent) => {
+				// Skip if the click is on the trigger or dropdown itself
 				if (
-					dropdownRef.current &&
-					!dropdownRef.current.contains(e.target as Node)
+					containerRef.current &&
+					containerRef.current.contains(e.target as Node)
 				) {
-					setOpen(false);
+					return;
 				}
+				setOpen(false);
 			};
 			document.addEventListener('mousedown', handleClickOutside);
 			return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -76,9 +78,8 @@ const DropMenu = forwardRef<DropMenuRef, DropMenuProps>(
 			return () => document.removeEventListener('keydown', handleKeyDown);
 		}, [open]);
 
-		// Only open on trigger click — closing is handled by outside-click and item-click
 		const handleTriggerClick = () => {
-			if (!open) setOpen(true);
+			setOpen((prev) => !prev);
 		};
 
 		return (

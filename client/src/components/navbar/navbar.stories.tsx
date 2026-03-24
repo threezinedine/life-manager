@@ -104,7 +104,7 @@ const authMenuItems: DropMenuEntry[] = [
 
 export const LoginRegister: Story = {
 	render: () => {
-		const [checked, setChecked] = useState(true);
+		const [checked, setChecked] = useState(false);
 		return (
 			<div
 				className={clsx({ light: checked, dark: !checked })}
@@ -143,7 +143,7 @@ export const LoginRegister: Story = {
 
 export const AvatarDropdown: Story = {
 	render: () => {
-		const [checked, setChecked] = useState(true);
+		const [checked, setChecked] = useState(false);
 		return (
 			<div
 				className={clsx({ light: checked, dark: !checked })}

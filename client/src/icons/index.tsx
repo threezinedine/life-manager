@@ -13,3 +13,6 @@ export { DownloadIcon } from './download-icon';
 export { SettingsIcon } from './settings-icon';
 export { LogOutIcon } from './log-out-icon';
 export { UserIcon } from './user-icon';
+export { GlobeIcon } from './globe-icon';
+export { UsaFlagIcon } from './usa-flag-icon';
+export { VietnamFlagIcon } from './vietnam-flag-icon';

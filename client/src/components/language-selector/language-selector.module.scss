@@ -1,0 +1,10 @@
+.lang-icon {
+	display: flex;
+	align-items: center;
+	color: var(--dropmenu-item-icon-color);
+
+	svg {
+		width: 1rem;
+		height: 1rem;
+	}
+}

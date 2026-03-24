@@ -181,6 +181,30 @@ describe('DropMenu', () => {
 		expect(menu.className).not.toMatch(/align-left/);
 	});
 
+	it('closes the menu when trigger is clicked a second time', async () => {
+		const user = userEvent.setup();
+		render(
+			<DropMenu items={makeItems()}>
+				<Trigger />
+			</DropMenu>
+		);
+
+		// First click opens the menu
+		await user.click(screen.getByRole('button', { name: 'Trigger' }));
+		expect(screen.getByRole('menu', { hidden: true })).toHaveAttribute(
+			'aria-hidden',
+			'false'
+		);
+
+		// Second click closes the menu
+		await user.click(screen.getByRole('button', { name: 'Trigger' }));
+		await waitFor(() => {
+			expect(
+				screen.queryAllByRole('menu', { hidden: true })[0]
+			).toHaveAttribute('aria-hidden', 'true');
+		});
+	});
+
 	it('renders correct number of menu items', async () => {
 		const user = userEvent.setup();
 		render(

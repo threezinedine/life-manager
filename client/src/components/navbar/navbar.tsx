@@ -1,6 +1,7 @@
 import styles from './navbar.module.scss';
 import clsx from 'clsx';
 import Toggle from '@/components/toggle/toggle';
+import LanguageSelector from '@/components/language-selector';
 import { SunIcon, MoonIcon } from '@/icons';
 
 export interface NavbarProps {
@@ -28,6 +29,7 @@ export default function Navbar({
 					{branch && <span className={styles.branch}>{branch}</span>}
 				</div>
 				<div className={styles.right}>
+					<LanguageSelector />
 					<Toggle
 						checked={checked}
 						onChange={onToggle}

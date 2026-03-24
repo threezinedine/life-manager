@@ -131,6 +131,11 @@
 	--navbar-branch-bg: #eef2ff;
 	--navbar-branch-border: #c7d2fe;
 
+	--navbar-trigger-color: #374151;
+	--navbar-trigger-hover-bg: rgba(99, 102, 241, 0.08);
+	--navbar-trigger-hover-color: #4f46e5;
+	--navbar-trigger-focus-ring: rgba(99, 102, 241, 0.45);
+
 	/* === AVATAR === */
 	--avatar-bg: #f3f4f6;
 	--avatar-border-radius: 9999px;
@@ -266,6 +271,11 @@
 	--navbar-branch-color: #818cf8;
 	--navbar-branch-bg: rgba(129, 140, 248, 0.12);
 	--navbar-branch-border: rgba(129, 140, 248, 0.3);
+
+	--navbar-trigger-color: #d1d5db;
+	--navbar-trigger-hover-bg: rgba(129, 140, 248, 0.12);
+	--navbar-trigger-hover-color: #818cf8;
+	--navbar-trigger-focus-ring: rgba(129, 140, 248, 0.45);
 
 	/* === AVATAR === */
 	--avatar-bg: #374151;
