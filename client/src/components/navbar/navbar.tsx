@@ -1,14 +1,11 @@
 import styles from './navbar.module.scss';
 import clsx from 'clsx';
-import Toggle from '@/components/toggle/toggle';
 import LanguageSelector from '@/components/language-selector';
-import { SunIcon, MoonIcon } from '@/icons';
+import { ThemeToggle } from '@/features/theme';
 
 export interface NavbarProps {
 	logo: React.ReactNode;
 	branch: string;
-	checked: boolean;
-	onToggle: (checked: boolean) => void;
 	authPart?: React.ReactNode;
 	className?: string;
 }
@@ -16,8 +13,6 @@ export interface NavbarProps {
 export default function Navbar({
 	logo,
 	branch,
-	checked,
-	onToggle,
 	authPart,
 	className,
 }: NavbarProps) {
@@ -30,13 +25,7 @@ export default function Navbar({
 				</div>
 				<div className={styles.right}>
 					<LanguageSelector />
-					<Toggle
-						checked={checked}
-						onChange={onToggle}
-						checkedIcon={<MoonIcon />}
-						uncheckedIcon={<SunIcon />}
-						aria-label="Toggle theme"
-					/>
+					<ThemeToggle />
 					{authPart && (
 						<>
 							<span className={styles.divider} aria-hidden="true" />

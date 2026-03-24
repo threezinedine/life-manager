@@ -13,6 +13,7 @@ export interface ToggleProps {
 	disabled?: boolean;
 	loading?: boolean;
 	borderRadius?: Size;
+	ariaLabel?: string;
 }
 
 export default function Toggle({
@@ -25,6 +26,7 @@ export default function Toggle({
 	disabled = false,
 	loading = false,
 	borderRadius,
+	ariaLabel,
 }: ToggleProps) {
 	const handleClick = () => {
 		if (disabled || loading) return;
@@ -41,6 +43,7 @@ export default function Toggle({
 			variant={Variant.Ghost}
 			onClick={handleClick}
 			leftIcon={checked ? checkedIcon : uncheckedIcon}
+			ariaLabel={ariaLabel}
 		/>
 	);
 }

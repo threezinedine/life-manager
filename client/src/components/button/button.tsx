@@ -15,6 +15,7 @@ export default function Button({
 	loading = false,
 	leftIcon,
 	rightIcon,
+	ariaLabel,
 }: ButtonProps) {
 	const buttonClass = clsx(styles.button, {
 		[styles['button--small']]: size === Size.Small,
@@ -46,6 +47,7 @@ export default function Button({
 			onClick={onClick}
 			type="button"
 			disabled={disabled || loading}
+			aria-label={ariaLabel}
 		>
 			{leftIcon && (
 				<span className={clsx(styles.icon, { [styles['icon--centered']]: centerLeft })}>

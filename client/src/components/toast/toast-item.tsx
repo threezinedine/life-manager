@@ -3,6 +3,9 @@ import { ToastItemData, ToastVariant } from './toast.props';
 import styles from './toast.module.scss';
 import clsx from 'clsx';
 import { CheckIcon, XIcon, WarningIcon, InfoIcon } from '@/icons';
+import { Button } from '../button';
+import { Variant } from '../button/button.props';
+import { Size } from '@/data/props';
 
 interface ToastItemProps {
 	toast: ToastItemData;
@@ -55,14 +58,13 @@ export default function ToastItem({ toast, onRemove }: ToastItemProps) {
 			<div className={styles.content}>
 				<span className={styles.icon}>{VARIANT_ICONS[variant]}</span>
 				<span className={styles.message}>{message}</span>
-				<button
-					className={styles.closeButton}
+				<Button
 					onClick={() => onRemove(id)}
-					aria-label="Close"
-					type="button"
-				>
-					<XIcon />
-				</button>
+					ariaLabel="Close"
+					variant={Variant.Tertiary}
+					size={Size.Small}
+					leftIcon={<XIcon />}
+				/>
 			</div>
 			<div className={styles.progressBar}>
 				<div

@@ -22,4 +22,5 @@ export interface ButtonProps {
 	loading?: boolean;
 	leftIcon?: ReactNode;
 	rightIcon?: ReactNode;
+	ariaLabel?: string;
 }

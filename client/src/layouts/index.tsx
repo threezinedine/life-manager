@@ -1,9 +1,12 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
+import { ThemeProvider } from '@/features/theme';
 
 export default function RootLayout() {
-  return (
-    <div id="app-root">
-      <Outlet />
-    </div>
-  );
+	return (
+		<ThemeProvider>
+			<div id="app-root">
+				<Outlet />
+			</div>
+		</ThemeProvider>
+	);
 }
