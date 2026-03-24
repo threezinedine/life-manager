@@ -1,7 +1,17 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import Navbar from './navbar';
+import { Button } from '@/components/button';
+import Avatar from '@/components/avatar';
+import DropMenu, { type DropMenuEntry } from '@/components/dropmenu';
+import { Variant } from '@/components/button/button.props';
+import { Size } from '@/data/props';
 import clsx from 'clsx';
+import {
+	SettingsIcon,
+	LogOutIcon,
+	UserIcon,
+} from '@/icons';
 
 const LogoIcon = () => (
 	<svg
@@ -70,6 +80,97 @@ export const DarkMode: Story = {
 					branch="main"
 					checked={checked}
 					onToggle={setChecked}
+				/>
+			</div>
+		);
+	},
+};
+
+const authMenuItems: DropMenuEntry[] = [
+	{
+		label: 'Profile',
+		icon: <UserIcon />,
+		onClick: () => alert('Profile'),
+	},
+	{
+		label: 'Settings',
+		icon: <SettingsIcon />,
+		onClick: () => alert('Settings'),
+	},
+	{ divider: true },
+	{
+		label: 'Log out',
+		icon: <LogOutIcon />,
+		onClick: () => alert('Log out'),
+		danger: true,
+	},
+];
+
+export const LoginRegister: Story = {
+	render: () => {
+		const [checked, setChecked] = useState(true);
+		return (
+			<div
+				className={clsx({ light: checked, dark: !checked })}
+				style={{
+					backgroundColor: checked ? '#f0f0f0' : '#333',
+					color: checked ? '#333' : '#f0f0f0',
+					minHeight: '100vh',
+				}}
+			>
+				<Navbar
+					logo={<LogoIcon />}
+					branch="main"
+					checked={checked}
+					onToggle={setChecked}
+					authPart={
+						<>
+							<Button
+								label="Login"
+								variant={Variant.Ghost}
+								size={Size.Small}
+								onClick={() => alert('Login')}
+							/>
+							<Button
+								label="Register"
+								variant={Variant.Primary}
+								size={Size.Small}
+								onClick={() => alert('Register')}
+							/>
+						</>
+					}
+				/>
+			</div>
+		);
+	},
+};
+
+export const AvatarDropdown: Story = {
+	render: () => {
+		const [checked, setChecked] = useState(true);
+		return (
+			<div
+				className={clsx({ light: checked, dark: !checked })}
+				style={{
+					backgroundColor: checked ? '#f0f0f0' : '#333',
+					color: checked ? '#333' : '#f0f0f0',
+					minHeight: '100vh',
+				}}
+			>
+				<Navbar
+					logo={<LogoIcon />}
+					branch="main"
+					checked={checked}
+					onToggle={setChecked}
+					authPart={
+						<DropMenu items={authMenuItems} align="left">
+							<Avatar
+								src="https://i.pravatar.cc/150?img=32"
+								name="Sarah Wilson"
+								size={Size.Medium}
+							/>
+						</DropMenu>
+					}
 				/>
 			</div>
 		);

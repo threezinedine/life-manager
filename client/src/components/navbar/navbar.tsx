@@ -8,6 +8,7 @@ export interface NavbarProps {
 	branch: string;
 	checked: boolean;
 	onToggle: (checked: boolean) => void;
+	authPart?: React.ReactNode;
 	className?: string;
 }
 
@@ -16,6 +17,7 @@ export default function Navbar({
 	branch,
 	checked,
 	onToggle,
+	authPart,
 	className,
 }: NavbarProps) {
 	return (
@@ -33,6 +35,12 @@ export default function Navbar({
 						uncheckedIcon={<SunIcon />}
 						aria-label="Toggle theme"
 					/>
+					{authPart && (
+						<>
+							<span className={styles.divider} aria-hidden="true" />
+							<div className={styles.authPart}>{authPart}</div>
+						</>
+					)}
 				</div>
 			</div>
 		</nav>

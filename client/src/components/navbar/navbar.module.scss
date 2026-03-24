@@ -75,3 +75,17 @@
 	align-items: center;
 	gap: 0.75rem;
 }
+
+.divider {
+	width: 2px;
+	height: 1.5rem;
+	background: var(--navbar-border);
+	border-radius: 1px;
+	flex-shrink: 0;
+}
+
+.authPart {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}

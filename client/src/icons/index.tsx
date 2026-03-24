@@ -11,3 +11,5 @@ export { EditIcon } from './edit-icon';
 export { CopyIcon } from './copy-icon';
 export { DownloadIcon } from './download-icon';
 export { SettingsIcon } from './settings-icon';
+export { LogOutIcon } from './log-out-icon';
+export { UserIcon } from './user-icon';
