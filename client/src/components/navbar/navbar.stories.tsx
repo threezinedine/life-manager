@@ -7,11 +7,7 @@ import DropMenu, { type DropMenuEntry } from '@/components/dropmenu';
 import { Variant } from '@/components/button/button.props';
 import { Size } from '@/data/props';
 import clsx from 'clsx';
-import {
-	SettingsIcon,
-	LogOutIcon,
-	UserIcon,
-} from '@/icons';
+import { SettingsIcon, LogOutIcon, UserIcon } from '@/icons';
 
 const LogoIcon = () => (
 	<svg
@@ -163,7 +159,7 @@ export const AvatarDropdown: Story = {
 					checked={checked}
 					onToggle={setChecked}
 					authPart={
-						<DropMenu items={authMenuItems} align="left">
+						<DropMenu items={authMenuItems} align="right">
 							<Avatar
 								src="https://i.pravatar.cc/150?img=32"
 								name="Sarah Wilson"
