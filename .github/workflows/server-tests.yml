@@ -46,7 +46,7 @@ jobs:
             # ── Server ────────────────────────────────────────────────────────────────
             - name: Install dependencies
               run: npm ci
-              working-directory: server
+              working-directory: .
 
             - name: Run migrations
               run: npm run migrate
@@ -76,4 +76,3 @@ jobs:
                       server/coverage/
                       server/test-results/
                   retention-days: 7
-
