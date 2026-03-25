@@ -71,3 +71,5 @@ venv/
 .venv/
 *.egg-info/
 dist/
+
+test-results/
