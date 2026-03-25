@@ -11,7 +11,7 @@ const FLAG_ICONS: Record<SupportedLang, React.ReactNode> = {
 	vi: <VietnamFlagIcon />,
 };
 
-function buildMenuItems(
+export function buildMenuItems(
 	lang: SupportedLang,
 	onLangChange: (lang: SupportedLang) => void,
 ): DropMenuEntry[] {
@@ -50,7 +50,7 @@ export default function LanguageSelector({ className }: { className?: string }) 
 						{FLAG_ICONS[lang]}
 					</span>
 				}
-				aria-label="Select language"
+				ariaLabel="Select language"
 			/>
 		</DropMenu>
 	);
