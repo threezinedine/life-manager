@@ -16,6 +16,7 @@ export default function Input({
 	loading = false,
 	ariaLabel,
 	fullWidth = false,
+	testId,
 	className,
 	...rest
 }: InputProps) {
@@ -56,6 +57,7 @@ export default function Input({
 								? `${label ?? ariaLabel}-hint`
 								: undefined
 					}
+					data-testid={testId}
 					{...rest}
 				/>
 

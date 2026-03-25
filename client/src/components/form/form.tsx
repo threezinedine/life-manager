@@ -24,6 +24,7 @@ const Form = forwardRef<FormHandle, FormProps>(function Form(
 		loading = false,
 		showSubmit = true,
 		fullWidth = false,
+		testId,
 		className,
 	},
 	ref
@@ -72,6 +73,7 @@ const Form = forwardRef<FormHandle, FormProps>(function Form(
 			className={`${styles.form}${className ? ` ${className}` : ''}`}
 			onSubmit={handleSubmit}
 			noValidate
+			data-testid={testId}
 		>
 			{fields.map((field) => (
 				<Input
@@ -87,6 +89,7 @@ const Form = forwardRef<FormHandle, FormProps>(function Form(
 					size={field.size}
 					disabled={field.disabled || loading}
 					fullWidth={fullWidth}
+					testId={field.testId}
 				/>
 			))}
 
@@ -96,6 +99,7 @@ const Form = forwardRef<FormHandle, FormProps>(function Form(
 					label={submitLabel}
 					variant={Variant.Primary}
 					loading={loading}
+					testId={`${testId}-submit`}
 					className={styles['submit-button']}
 				/>
 			)}

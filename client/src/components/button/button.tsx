@@ -17,6 +17,7 @@ export default function Button({
 	leftIcon,
 	rightIcon,
 	ariaLabel,
+	testId,
 	className,
 }: ButtonProps) {
 	const buttonClass = clsx(styles.button, className, {
@@ -54,6 +55,7 @@ export default function Button({
 			type={htmlType}
 			disabled={disabled || loading}
 			aria-label={ariaLabel}
+			data-testid={testId}
 		>
 			{leftIcon && (
 				<span

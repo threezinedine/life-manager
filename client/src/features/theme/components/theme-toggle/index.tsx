@@ -15,6 +15,7 @@ export default function ThemeToggle() {
 			uncheckedIcon={<SunIcon />}
 			size={Size.Small}
 			aria-label="Toggle theme"
+			testId="theme-toggle"
 		/>
 	);
 }

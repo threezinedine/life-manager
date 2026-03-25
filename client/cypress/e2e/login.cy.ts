@@ -11,12 +11,12 @@ describe('Login Page', () => {
 	});
 
 	it('renders email and password fields', () => {
-		cy.get('input[type="email"]').should('be.visible');
-		cy.get('input[type="password"]').should('be.visible');
+		cy.get('[data-testid="login-email"]').should('be.visible');
+		cy.get('[data-testid="login-password"]').should('be.visible');
 	});
 
 	it('shows validation errors when submitting empty', () => {
-		cy.get('button[type="submit"]').click();
+		cy.get('[data-testid="login-form-submit"]').click();
 		cy.contains('This field is required').first().should('be.visible');
 	});
 
@@ -29,9 +29,9 @@ describe('Login Page', () => {
 			},
 		}).as('login');
 
-		cy.get('input[type="email"]').type('user@example.com');
-		cy.get('input[type="password"]').type('password123');
-		cy.get('button[type="submit"]').click();
+		cy.get('[data-testid="login-email"]').type('user@example.com');
+		cy.get('[data-testid="login-password"]').type('password123');
+		cy.get('[data-testid="login-form-submit"]').click();
 	});
 
 	it('has a link to the register page', () => {
@@ -43,9 +43,9 @@ describe('Login Page', () => {
 	});
 
 	it('navbar Sign in and Sign up buttons navigate correctly', () => {
-		cy.contains('nav button', 'Sign in').click();
+		cy.get('[data-testid="navbar"]').contains('button', 'Sign in').click();
 		cy.url().should('match', /\/login/);
-		cy.contains('nav button', 'Sign up').click();
+		cy.get('[data-testid="navbar"]').contains('button', 'Sign up').click();
 		cy.url().should('match', /\/register/);
 	});
 });

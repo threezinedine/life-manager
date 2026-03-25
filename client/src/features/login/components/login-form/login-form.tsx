@@ -29,6 +29,7 @@ export default function LoginForm({ onSuccess, className }: LoginFormProps) {
 						placeholder: t('login.fields.email.placeholder'),
 						type: 'email',
 						required: true,
+						testId: 'login-email',
 					},
 					{
 						name: 'password',
@@ -36,6 +37,7 @@ export default function LoginForm({ onSuccess, className }: LoginFormProps) {
 						placeholder: t('login.fields.password.placeholder'),
 						type: 'password',
 						required: true,
+						testId: 'login-password',
 					},
 				]}
 				onSubmit={handleSubmit}
@@ -43,6 +45,7 @@ export default function LoginForm({ onSuccess, className }: LoginFormProps) {
 				loading={isLoading}
 				showSubmit
 				fullWidth
+				testId="login-form"
 			/>
 		</div>
 	);

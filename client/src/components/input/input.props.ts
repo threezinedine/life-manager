@@ -33,4 +33,6 @@ export interface InputProps extends Omit<
 	ariaLabel?: string;
 	/** Makes the input fill its container width */
 	fullWidth?: boolean;
+	/** Test ID for e2e testing */
+	testId?: string;
 }

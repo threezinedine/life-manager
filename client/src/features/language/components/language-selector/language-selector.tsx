@@ -51,6 +51,7 @@ export default function LanguageSelector({ className }: { className?: string }) 
 					</span>
 				}
 				ariaLabel="Select language"
+				testId="language-selector"
 			/>
 		</DropMenu>
 	);

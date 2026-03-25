@@ -24,5 +24,7 @@ export interface ButtonProps {
 	leftIcon?: ReactNode;
 	rightIcon?: ReactNode;
 	ariaLabel?: string;
+	/** Test ID for e2e testing */
+	testId?: string;
 	className?: string;
 }

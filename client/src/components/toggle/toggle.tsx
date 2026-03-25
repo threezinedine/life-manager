@@ -14,6 +14,8 @@ export interface ToggleProps {
 	loading?: boolean;
 	borderRadius?: Size;
 	ariaLabel?: string;
+	/** Test ID for e2e testing */
+	testId?: string;
 }
 
 export default function Toggle({
@@ -27,6 +29,7 @@ export default function Toggle({
 	loading = false,
 	borderRadius,
 	ariaLabel,
+	testId,
 }: ToggleProps) {
 	const handleClick = () => {
 		if (disabled || loading) return;
@@ -44,6 +47,7 @@ export default function Toggle({
 			onClick={handleClick}
 			leftIcon={checked ? checkedIcon : uncheckedIcon}
 			ariaLabel={ariaLabel}
+			testId={testId}
 		/>
 	);
 }

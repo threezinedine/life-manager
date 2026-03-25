@@ -34,6 +34,7 @@ export default function RegisterForm({ onSuccess, className }: RegisterFormProps
 						placeholder: t('register.fields.username.placeholder'),
 						type: 'text',
 						required: true,
+						testId: 'register-username',
 					},
 					{
 						name: 'email',
@@ -41,6 +42,7 @@ export default function RegisterForm({ onSuccess, className }: RegisterFormProps
 						placeholder: t('register.fields.email.placeholder'),
 						type: 'email',
 						required: true,
+						testId: 'register-email',
 					},
 					{
 						name: 'password',
@@ -48,6 +50,7 @@ export default function RegisterForm({ onSuccess, className }: RegisterFormProps
 						placeholder: t('register.fields.password.placeholder'),
 						type: 'password',
 						required: true,
+						testId: 'register-password',
 					},
 					{
 						name: 'confirmPassword',
@@ -55,6 +58,7 @@ export default function RegisterForm({ onSuccess, className }: RegisterFormProps
 						placeholder: t('register.fields.confirmPassword.placeholder'),
 						type: 'password',
 						required: true,
+						testId: 'register-confirm-password',
 					},
 				]}
 				onSubmit={handleSubmit}
@@ -62,6 +66,7 @@ export default function RegisterForm({ onSuccess, className }: RegisterFormProps
 				loading={isLoading}
 				showSubmit
 				fullWidth
+				testId="register-form"
 			/>
 		</div>
 	);

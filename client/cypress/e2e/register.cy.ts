@@ -13,15 +13,14 @@ describe('Register Page', () => {
 	});
 
 	it('renders all four fields', () => {
-		cy.get('input[type="text"]').should('be.visible');
-		cy.get('input[type="email"]').should('be.visible');
-		// Use exact match to avoid matching "Confirm password" label which also contains "Password"
-		cy.get('input[type="password"]').should('be.visible');
-		cy.get('input[type="password"]').should('be.visible');
+		cy.get('[data-testid="register-username"]').should('be.visible');
+		cy.get('[data-testid="register-email"]').should('be.visible');
+		cy.get('[data-testid="register-password"]').should('be.visible');
+		cy.get('[data-testid="register-confirm-password"]').should('be.visible');
 	});
 
 	it('shows validation errors when submitting empty', () => {
-		cy.get('button[type="submit"]').click();
+		cy.get('[data-testid="register-form-submit"]').click();
 		cy.contains('This field is required').first().should('be.visible');
 	});
 
@@ -34,11 +33,11 @@ describe('Register Page', () => {
 			},
 		}).as('register');
 
-		cy.get('input[type="text"]').type('testuser');
-		cy.get('input[type="email"]').type('user@example.com');
-		cy.get('input[type="password"]').first().type('password123');
-		cy.get('input[type="password"]').last().type('password123');
-		cy.get('button[type="submit"]').click();
+		cy.get('[data-testid="register-username"]').type('testuser');
+		cy.get('[data-testid="register-email"]').type('user@example.com');
+		cy.get('[data-testid="register-password"]').type('password123');
+		cy.get('[data-testid="register-confirm-password"]').type('password123');
+		cy.get('[data-testid="register-form-submit"]').click();
 	});
 
 	it('has a link to the login page', () => {
@@ -48,9 +47,9 @@ describe('Register Page', () => {
 	});
 
 	it('navbar Sign in and Sign up buttons navigate correctly', () => {
-		cy.contains('nav button', 'Sign in').click();
+		cy.get('[data-testid="navbar"]').contains('button', 'Sign in').click();
 		cy.url().should('match', /\/login/);
-		cy.contains('nav button', 'Sign up').click();
+		cy.get('[data-testid="navbar"]').contains('button', 'Sign up').click();
 		cy.url().should('match', /\/register/);
 	});
 });

@@ -30,6 +30,8 @@ export interface FormField {
 	size?: Size;
 	/** Disables the field */
 	disabled?: boolean;
+	/** Test ID for e2e testing */
+	testId?: string;
 }
 
 export interface FormProps {
@@ -45,6 +47,8 @@ export interface FormProps {
 	showSubmit?: boolean;
 	/** Makes every field span full width */
 	fullWidth?: boolean;
+	/** Test ID for the submit button */
+	testId?: string;
 	/** Additional class on the form container */
 	className?: string;
 }

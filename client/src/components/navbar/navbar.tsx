@@ -17,13 +17,13 @@ export default function Navbar({
 	className,
 }: NavbarProps) {
 	return (
-		<nav className={clsx(styles.navbar, className)}>
+		<nav className={clsx(styles.navbar, className)} data-testid="navbar">
 			<div className={styles.container}>
 				<div className={styles.left}>
-					{logo && <span className={styles.logo}>{logo}</span>}
+					{logo && <span className={styles.logo} data-testid="navbar-logo">{logo}</span>}
 					{branch && <span className={styles.branch}>{branch}</span>}
 				</div>
-				<div className={styles.right}>
+				<div className={styles.right} data-testid="navbar-right">
 					<LanguageSelector />
 					<ThemeToggle />
 					{authPart && (
@@ -32,7 +32,7 @@ export default function Navbar({
 								className={styles.divider}
 								aria-hidden="true"
 							/>
-							<div className={styles.authPart}>{authPart}</div>
+							<div className={styles.authPart} data-testid="navbar-auth">{authPart}</div>
 						</>
 					)}
 				</div>
