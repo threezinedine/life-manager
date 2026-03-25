@@ -15,4 +15,4 @@ export default function Toast({ children }: ToastProps) {
 }
 
 export { ToastVariant } from './toast.props';
-export { useToast } from './toast-store';
+export { useToast, useToastStore } from './toast-store';

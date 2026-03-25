@@ -1,43 +1,29 @@
 import { useTranslation } from 'react-i18next';
 import { Form } from '@/components';
 import type { LoginFormProps } from './login-form.props';
-import styles from './login-form.module.scss';
 
 export default function LoginForm({ onSuccess, className }: LoginFormProps) {
 	const { t } = useTranslation();
-	const { isLoading, error, login } = useLoginForm();
+	const { isLoading, login } = useLoginForm();
 
 	const handleSubmit = async (values: Record<string, string>) => {
-		await login(values.email, values.password);
-		onSuccess?.();
+		const success = await login(values.token);
+		if (success) {
+			onSuccess?.();
+		}
 	};
 
 	return (
 		<div className={className}>
-			{error && (
-				<div className={styles['error-banner']} role="alert">
-					<span className={styles['error-icon']}>!</span>
-					{error}
-				</div>
-			)}
-
 			<Form
 				fields={[
 					{
-						name: 'email',
-						label: t('login.fields.email.label'),
-						placeholder: t('login.fields.email.placeholder'),
-						type: 'email',
-						required: true,
-						testId: 'login-email',
-					},
-					{
-						name: 'password',
-						label: t('login.fields.password.label'),
-						placeholder: t('login.fields.password.placeholder'),
+						name: 'token',
+						label: t('login.fields.token.label'),
+						placeholder: t('login.fields.token.placeholder'),
 						type: 'password',
 						required: true,
-						testId: 'login-password',
+						testId: 'login-token',
 					},
 				]}
 				onSubmit={handleSubmit}
@@ -57,8 +43,7 @@ import { useLoginStore } from '../../store/login.store';
 
 function useLoginForm() {
 	const isLoading = useLoginStore((s) => s.isLoading);
-	const error = useLoginStore((s) => s.error);
 	const login = useLoginStore((s) => s.login);
 
-	return { isLoading, error, login };
+	return { isLoading, login };
 }

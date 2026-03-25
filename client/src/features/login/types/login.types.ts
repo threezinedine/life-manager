@@ -1,18 +1,9 @@
 export interface LoginCredentials {
-	email: string;
-	password: string;
+	token: string;
 }
 
-export interface LoginResponse {
-	token: string;
-	user: {
-		id: string;
-		email: string;
-		username: string;
-	};
-}
+export interface LoginResponse {}
 
 export interface LoginState {
 	isLoading: boolean;
-	error: string | null;
 }

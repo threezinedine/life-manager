@@ -7,7 +7,7 @@ export default function ToastContainer() {
 	const removeToast = useToastStore((state) => state.removeToast);
 
 	return (
-		<div className={styles.toastContainer} aria-live="polite">
+		<div className={styles.toastContainer} aria-live="polite" data-testid="toast-container">
 			{toasts.map((toast) => (
 				<ToastItem key={toast.id} toast={toast} onRemove={removeToast} />
 			))}

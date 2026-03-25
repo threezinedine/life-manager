@@ -23,13 +23,9 @@
 		"subtitle": "Sign in to continue to your account",
 		"noAccount": "Don't have an account?",
 		"fields": {
-			"email": {
-				"label": "Email address",
-				"placeholder": "you@example.com"
-			},
-			"password": {
-				"label": "Password",
-				"placeholder": "Enter your password"
+			"token": {
+				"label": "Enter login token",
+				"placeholder": "Enter your login token"
 			}
 		}
 	},

@@ -1,30 +1,38 @@
 import { create } from 'zustand';
 import type { LoginState } from '../types/login.types';
+import { useToastStore } from '@/components/toast';
+import { loginApi } from '../api/login.api';
 
 interface LoginStore extends LoginState {
-	login: (email: string, password: string) => Promise<void>;
-	clearError: () => void;
+	login: (token: string) => Promise<boolean>;
 	reset: () => void;
 }
 
 export const useLoginStore = create<LoginStore>((set) => ({
 	isLoading: false,
-	error: null,
 
-	login: async (email, password) => {
-		set({ isLoading: true, error: null });
+	login: async (token: string) => {
+		let result = false;
+		set({ isLoading: true });
 		try {
-			// TODO: wire up actual API call
-			// import { loginApi } from '../api/login.api';
-			// await loginApi({ email, password });
-			console.log('Login with:', { email, password });
+			await loginApi({ token });
+
+			useToastStore
+				.getState()
+				.success('Login successful!', undefined, 'login-success-toast');
+			result = true;
 		} catch (err) {
-			set({ error: (err as Error).message });
+			const message = (err as Error).message;
+			set({ error: message });
+			useToastStore
+				.getState()
+				.error(message, undefined, 'login-error-toast');
+			result = false;
 		} finally {
 			set({ isLoading: false });
+			return result;
 		}
 	},
 
-	clearError: () => set({ error: null }),
-	reset: () => set({ isLoading: false, error: null }),
+	reset: () => set({ isLoading: false }),
 }));

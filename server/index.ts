@@ -15,16 +15,10 @@ app.get('/health', (_req: Request, res: Response) => {
 // Feature routes
 registerAuthRoutes(app);
 
-const PORT = process.env.PORT || process.env.SERVER_PORT || 3000;
+const HOST = process.env.VITE_SERVER_HOST || 'localhost';
+const PORT = process.env.PORT || process.env.VITE_SERVER_PORT || 3000;
 
 // Run migrations then start server
-runMigrations()
-	.then(() => {
-		app.listen(PORT, () => {
-			console.log(`Server running on http://localhost:${PORT}`);
-		});
-	})
-	.catch((err) => {
-		console.error('Failed to run migrations:', err);
-		process.exit(1);
-	});
+app.listen(PORT, () => {
+	console.log(`Server running on http://${HOST}:${PORT}`);
+});

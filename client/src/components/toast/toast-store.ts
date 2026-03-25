@@ -8,15 +8,22 @@ let timerIds: ReturnType<typeof setTimeout>[] = [];
 export const useToastStore = create<ToastStore>((set, get) => ({
 	toasts: [],
 
-	addToast: (message, variant = ToastVariant.Info, duration = DEFAULT_DURATION) => {
+	addToast: (
+		message,
+		variant = ToastVariant.Info,
+		duration = DEFAULT_DURATION,
+		testId?: string
+	) => {
 		const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-		const newToast = { id, message, variant, duration };
+		const newToast = { id, message, variant, duration, testId };
 
 		set((state) => ({ toasts: [...state.toasts, newToast] }));
 
 		if (duration > 0) {
 			const timerId = setTimeout(() => {
-				set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) }));
+				set((state) => ({
+					toasts: state.toasts.filter((t) => t.id !== id),
+				}));
 			}, duration);
 			timerIds.push(timerId);
 		}
@@ -36,20 +43,40 @@ export const useToastStore = create<ToastStore>((set, get) => ({
 		set({ toasts: [] });
 	},
 
-	success: (message, duration) => {
-		get().addToast(message, ToastVariant.Success, duration ?? DEFAULT_DURATION);
+	success: (message, duration, testId) => {
+		get().addToast(
+			message,
+			ToastVariant.Success,
+			duration ?? DEFAULT_DURATION,
+			testId
+		);
 	},
 
-	error: (message, duration) => {
-		get().addToast(message, ToastVariant.Error, duration ?? DEFAULT_DURATION);
+	error: (message, duration, testId) => {
+		get().addToast(
+			message,
+			ToastVariant.Error,
+			duration ?? DEFAULT_DURATION,
+			testId
+		);
 	},
 
-	warning: (message, duration) => {
-		get().addToast(message, ToastVariant.Warning, duration ?? DEFAULT_DURATION);
+	warning: (message, duration, testId) => {
+		get().addToast(
+			message,
+			ToastVariant.Warning,
+			duration ?? DEFAULT_DURATION,
+			testId
+		);
 	},
 
-	info: (message, duration) => {
-		get().addToast(message, ToastVariant.Info, duration ?? DEFAULT_DURATION);
+	info: (message, duration, testId) => {
+		get().addToast(
+			message,
+			ToastVariant.Info,
+			duration ?? DEFAULT_DURATION,
+			testId
+		);
 	},
 }));
 
@@ -59,14 +86,19 @@ export function useToast() {
 
 interface ToastStore {
 	toasts: ToastItemData[];
-	addToast: (message: string, variant?: ToastVariant, duration?: number) => void;
+	addToast: (
+		message: string,
+		variant?: ToastVariant,
+		duration?: number,
+		testId?: string
+	) => void;
 	removeToast: (id: string) => void;
 	removeAll: () => void;
 	reset: () => void;
-	success: (message: string, duration?: number) => void;
-	error: (message: string, duration?: number) => void;
-	warning: (message: string, duration?: number) => void;
-	info: (message: string, duration?: number) => void;
+	success: (message: string, duration?: number, testId?: string) => void;
+	error: (message: string, duration?: number, testId?: string) => void;
+	warning: (message: string, duration?: number, testId?: string) => void;
+	info: (message: string, duration?: number, testId?: string) => void;
 }
 
 interface ToastItemData {

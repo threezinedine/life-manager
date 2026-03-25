@@ -1,0 +1,1 @@
+export { getServerUrl } from './api';

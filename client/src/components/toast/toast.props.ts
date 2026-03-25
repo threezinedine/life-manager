@@ -10,4 +10,5 @@ export interface ToastItemData {
 	message: string;
 	variant?: ToastVariant;
 	duration?: number;
+	testId?: string;
 }

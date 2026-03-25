@@ -23,13 +23,9 @@
 		"subtitle": "Đăng nhập để tiếp tục với tài khoản của bạn",
 		"noAccount": "Bạn chưa có tài khoản?",
 		"fields": {
-			"email": {
-				"label": "Địa chỉ email",
-				"placeholder": "bạn@ví dụ.com"
-			},
-			"password": {
-				"label": "Mật khẩu",
-				"placeholder": "Nhập mật khẩu của bạn"
+			"token": {
+				"label": "Nhập mã đăng nhập",
+				"placeholder": "Nhập mã đăng nhập của bạn"
 			}
 		}
 	},

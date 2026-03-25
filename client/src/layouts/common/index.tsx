@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { ThemeProvider } from '@/features/theme';
 import { LanguageProvider } from '@/features/language';
-import Navbar from '@/features/navbar';
+import Navbar from '@/features/register/navbar';
 import styles from './common.module.scss';
 import { useThemeStore } from '@/features/theme';
 import clsx from 'clsx';

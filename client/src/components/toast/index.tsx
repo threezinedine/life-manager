@@ -1,2 +1,2 @@
-export { default as Toast, useToast } from './toast';
+export { default as Toast, useToast, useToastStore } from './toast';
 export { ToastVariant } from './toast.props';

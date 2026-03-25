@@ -27,7 +27,7 @@ const VARIANT_ICONS: Record<ToastVariant, React.ReactNode> = {
 };
 
 export default function ToastItem({ toast, onRemove }: ToastItemProps) {
-	const { id, message, variant = ToastVariant.Info, duration } = toast;
+	const { id, message, variant = ToastVariant.Info, duration, testId } = toast;
 	const [progress, setProgress] = useState(100);
 
 	useEffect(() => {
@@ -54,7 +54,7 @@ export default function ToastItem({ toast, onRemove }: ToastItemProps) {
 	const barColor = VARIANT_COLORS[variant];
 
 	return (
-		<div className={itemClass} role="alert">
+		<div className={itemClass} role="alert" data-testid={testId ?? `toast-${id}`}>
 			<div className={styles.content}>
 				<span className={styles.icon}>{VARIANT_ICONS[variant]}</span>
 				<span className={styles.message}>{message}</span>
