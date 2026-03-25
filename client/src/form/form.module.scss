@@ -1,0 +1,13 @@
+// ============================================
+// FORM
+// ============================================
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--form-field-gap, 1.25rem);
+}
+
+.submit-button {
+	margin-top: var(--form-submit-margin-top, 0.25rem);
+}

@@ -17,10 +17,12 @@ export interface ButtonProps {
 	size?: Size;
 	variant?: Variant;
 	borderRadius?: Size;
+	htmlType?: 'button' | 'submit' | 'reset';
 	onClick?: () => void;
 	disabled?: boolean;
 	loading?: boolean;
 	leftIcon?: ReactNode;
 	rightIcon?: ReactNode;
 	ariaLabel?: string;
+	className?: string;
 }

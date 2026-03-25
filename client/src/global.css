@@ -171,6 +171,10 @@
 	--input-disabled-bg: #f3f4f6;
 	--input-spinner-border: rgba(99, 102, 241, 0.3);
 	--input-spinner-top-color: #6366f1;
+
+	/* === FORM === */
+	--form-field-gap: 1.25rem;
+	--form-submit-margin-top: 0.25rem;
 }
 
 /* ============================================
@@ -328,4 +332,8 @@
 	--input-disabled-bg: #1f2937;
 	--input-spinner-border: rgba(129, 140, 248, 0.3);
 	--input-spinner-top-color: #818cf8;
+
+	/* === FORM === */
+	--form-field-gap: 1.25rem;
+	--form-submit-margin-top: 0.25rem;
 }

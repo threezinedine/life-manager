@@ -11,13 +11,15 @@ export default function Button({
 	size = Size.Medium,
 	variant = Variant.Primary,
 	borderRadius = Size.Medium,
+	htmlType = 'button',
 	disabled = false,
 	loading = false,
 	leftIcon,
 	rightIcon,
 	ariaLabel,
+	className,
 }: ButtonProps) {
-	const buttonClass = clsx(styles.button, {
+	const buttonClass = clsx(styles.button, className, {
 		[styles['button--small']]: size === Size.Small,
 		[styles['button--medium']]: size === Size.Medium,
 		[styles['button--large']]: size === Size.Large,
@@ -43,14 +45,22 @@ export default function Button({
 
 	return (
 		<button
-			className={clsx(buttonClass, { [styles['button--icon-only']]: iconOnly })}
+			className={clsx(
+				buttonClass,
+				{ [styles['button--icon-only']]: iconOnly },
+				className
+			)}
 			onClick={onClick}
-			type="button"
+			type={htmlType}
 			disabled={disabled || loading}
 			aria-label={ariaLabel}
 		>
 			{leftIcon && (
-				<span className={clsx(styles.icon, { [styles['icon--centered']]: centerLeft })}>
+				<span
+					className={clsx(styles.icon, {
+						[styles['icon--centered']]: centerLeft,
+					})}
+				>
 					{leftIcon}
 				</span>
 			)}
@@ -65,7 +75,11 @@ export default function Button({
 			)}
 			{loading && <span className={styles.spinner} />}
 			{rightIcon && (
-				<span className={clsx(styles.icon, { [styles['icon--centered']]: centerRight })}>
+				<span
+					className={clsx(styles.icon, {
+						[styles['icon--centered']]: centerRight,
+					})}
+				>
 					{rightIcon}
 				</span>
 			)}
