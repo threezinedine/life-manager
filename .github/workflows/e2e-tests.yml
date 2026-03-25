@@ -49,7 +49,7 @@ jobs:
 
             # ── Server ────────────────────────────────────────────────────────────────
             - name: Install server dependencies
-              run: npm ci
+              run: npm i
               working-directory: .
 
             - name: Run migrations
@@ -85,7 +85,7 @@ jobs:
 
             # ── Client ───────────────────────────────────────────────────────────────
             - name: Install client dependencies
-              run: npm ci
+              run: npm i
               working-directory: client
 
             - name: Start dev client
