@@ -1,6 +1,22 @@
+import fs from 'fs';
+import path from 'path';
 import mysql from 'mysql2/promise';
 import { v4 as uuidv4 } from 'uuid';
 import { getDbConfig } from './db/db';
+
+// Load .env from project root so tests have the same DB credentials as dev
+const envPath = path.resolve(process.cwd(), '../.env');
+if (fs.existsSync(envPath)) {
+	for (const line of fs.readFileSync(envPath, 'utf-8').split('\n')) {
+		const trimmed = line.trim();
+		if (!trimmed || trimmed.startsWith('#')) continue;
+		const eq = trimmed.indexOf('=');
+		if (eq === -1) continue;
+		const key = trimmed.slice(0, eq).trim();
+		const value = trimmed.slice(eq + 1).trim();
+		if (key) process.env[key] = process.env[key] ?? value;
+	}
+}
 
 export const testPool = mysql.createPool({
 	...getDbConfig(),

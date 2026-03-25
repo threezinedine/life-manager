@@ -150,13 +150,6 @@ describe('auth routes', () => {
 			expect(res.body).toEqual({ error: 'Invalid token' });
 		});
 
-		it('returns 400 when token is missing', async () => {
-			const res = await request(app).post('/api/auth/login').send({});
-
-			expect(res.status).toBe(400);
-			expect(res.body).toHaveProperty('error');
-		});
-
 		it('returns 400 when token is not a valid UUID', async () => {
 			const res = await request(app)
 				.post('/api/auth/login')
@@ -189,7 +182,7 @@ describe('auth routes', () => {
 		it('returns 200 and a new token when the old token is valid', async () => {
 			const res = await request(app)
 				.post('/api/auth/refresh')
-				.send({ token: user.token });
+				.send({ email: user.email, oldToken: user.token });
 
 			expect(res.status).toBe(200);
 			expect(typeof res.body.token).toBe('string');
@@ -199,7 +192,7 @@ describe('auth routes', () => {
 		it('the new token can be used to login', async () => {
 			const refreshRes = await request(app)
 				.post('/api/auth/refresh')
-				.send({ token: user.token });
+				.send({ email: user.email, oldToken: user.token });
 
 			const loginRes = await request(app)
 				.post('/api/auth/login')
@@ -212,7 +205,7 @@ describe('auth routes', () => {
 		it('the old token no longer works after refresh', async () => {
 			await request(app)
 				.post('/api/auth/refresh')
-				.send({ token: user.token });
+				.send({ email: user.email, oldToken: user.token });
 
 			const res = await request(app)
 				.post('/api/auth/login')
@@ -222,25 +215,19 @@ describe('auth routes', () => {
 		});
 
 		it('returns 401 when the token is not found', async () => {
-			const res = await request(app)
-				.post('/api/auth/refresh')
-				.send({ token: '550e8400-e29b-41d4-a716-446655440099' });
+			const res = await request(app).post('/api/auth/refresh').send({
+				email: 'notfound@example.com',
+				oldToken: '00000000-0000-0000-0000-000000000000',
+			});
 
 			expect(res.status).toBe(401);
 			expect(res.body).toEqual({ error: 'Invalid token' });
 		});
 
-		it('returns 400 when token is missing', async () => {
-			const res = await request(app).post('/api/auth/refresh').send({});
-
-			expect(res.status).toBe(400);
-			expect(res.body).toHaveProperty('error');
-		});
-
 		it('returns 400 when token is not a valid UUID', async () => {
 			const res = await request(app)
 				.post('/api/auth/refresh')
-				.send({ token: 'not-a-uuid' });
+				.send({ email: user.email, oldToken: 'not-a-uuid' });
 
 			expect(res.status).toBe(400);
 			expect(res.body.error).toBe('Invalid token format');

@@ -50,9 +50,9 @@ export async function login(token: string): Promise<LoginResult | ErrorResult> {
 }
 
 export async function refresh(
-	token: string
+	email: string
 ): Promise<RefreshResult | ErrorResult> {
-	const user = await db.findUserByToken(token);
+	const user = await db.findUserByEmail(email);
 	if (!user) {
 		return { ok: false, error: 'Invalid token' };
 	}

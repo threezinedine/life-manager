@@ -116,7 +116,7 @@ describe('auth service', () => {
 	describe('refresh', () => {
 		it('issues a new token and invalidates the old one', async () => {
 			const oldToken = user.token;
-			const result = await auth.refresh(oldToken);
+			const result = await auth.refresh(user.email);
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
@@ -138,7 +138,7 @@ describe('auth service', () => {
 		});
 
 		it('stores only one token per user (replaces the old one)', async () => {
-			const result = await auth.refresh(user.token);
+			const result = await auth.refresh(user.email);
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				const stored = await db.findUserByEmail(user.email);

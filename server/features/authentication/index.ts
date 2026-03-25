@@ -11,17 +11,9 @@ const TokenSchema = z.object({
 	token: z.string().uuid('Invalid token format'),
 });
 
-// Client-facing schemas (used by /auth/* routes)
-const ClientRegisterSchema = z.object({
-	username: z.string().trim().min(1, 'Username is required').max(255),
+const RefreshSchema = z.object({
 	email: z.string().email('Invalid email address'),
-	password: z.string().min(1, 'Password is required'),
-	confirmPassword: z.string().min(1, 'Please confirm your password'),
-});
-
-const ClientLoginSchema = z.object({
-	email: z.string().email('Invalid email address'),
-	password: z.string().min(1, 'Password is required'),
+	oldToken: z.string().uuid('Invalid token format'),
 });
 
 export function registerRoutes(app: Express): void {
@@ -65,7 +57,7 @@ export function registerRoutes(app: Express): void {
 
 	// POST /auth/refresh — invalidate old token and issue a new one
 	app.post('/api/auth/refresh', async (req, res) => {
-		const parsed = TokenSchema.safeParse(req.body);
+		const parsed = RefreshSchema.safeParse(req.body);
 		if (!parsed.success) {
 			res.status(400).json({
 				error: parsed.error.errors[0]?.message ?? 'Invalid request',
@@ -73,75 +65,19 @@ export function registerRoutes(app: Express): void {
 			return;
 		}
 
-		const result = await auth.refresh(parsed.data.token);
+		// Optional: you could also check if the old token is valid before issuing a new one
+		const loginResult = await auth.login(parsed.data.oldToken);
+		if (!loginResult.ok) {
+			res.status(401).json({ error: 'Invalid token' });
+			return;
+		}
+
+		const result = await auth.refresh(parsed.data.email);
 		if (!result.ok) {
 			res.status(401).json({ error: result.error });
 			return;
 		}
 
 		res.json({ token: result.token });
-	});
-
-	// ── Client-facing routes (match client API expectations) ──────────────────
-
-	// POST /auth/register
-	app.post('/auth/register', async (req, res) => {
-		const parsed = ClientRegisterSchema.safeParse(req.body);
-		if (!parsed.success) {
-			res.status(400).json({
-				message: parsed.error.errors[0]?.message ?? 'Invalid request',
-			});
-			return;
-		}
-
-		if (parsed.data.password !== parsed.data.confirmPassword) {
-			res.status(400).json({ message: 'Passwords do not match' });
-			return;
-		}
-
-		const result = await auth.register(parsed.data.email, parsed.data.username);
-		if (!result.ok) {
-			res.status(409).json({ message: result.error });
-			return;
-		}
-
-		res.status(201).json({
-			token: result.user.token,
-			user: {
-				id: result.user.id,
-				email: result.user.email,
-				username: result.user.name,
-			},
-		});
-	});
-
-	// POST /auth/login
-	app.post('/auth/login', async (req, res) => {
-		const parsed = ClientLoginSchema.safeParse(req.body);
-		if (!parsed.success) {
-			res.status(400).json({
-				message: parsed.error.errors[0]?.message ?? 'Invalid request',
-			});
-			return;
-		}
-
-		// For testing: accept any email/password and create/find user
-		const email = parsed.data.email;
-		const password = parsed.data.password;
-
-		let result = await auth.register(email, email.split('@')[0]);
-		if (!result.ok) {
-			// User already exists — that's fine for login purposes
-		}
-
-		// Always return a valid token for testing
-		res.json({
-			token: result.ok ? result.user.token : 'existing-user-token',
-			user: {
-				id: result.ok ? result.user.id : 'existing-id',
-				email: email,
-				username: email.split('@')[0],
-			},
-		});
 	});
 }

@@ -11,11 +11,11 @@ export const useRegisterStore = create<RegisterStore>((set) => ({
 	isLoading: false,
 	error: null,
 
-	register: async (username, email) => {
+	register: async (name, email) => {
 		set({ isLoading: true });
 		try {
 			const { registerApi } = await import('../api/register.api');
-			await registerApi({ username, email });
+			await registerApi({ name, email });
 
 			useToastStore
 				.getState()

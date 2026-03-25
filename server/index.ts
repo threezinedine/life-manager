@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import cors from 'cors';
 import { runMigrations } from './migrate';
 import { registerRoutes as registerAuthRoutes } from './features/authentication';
 
@@ -6,6 +7,16 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+
+// CORS — only in development
+if (process.env.ENVIRONMENT === 'development') {
+	app.use(
+		cors({
+			origin: `http://localhost:${process.env.CLIENT_PORT || '1994'}`,
+			credentials: true,
+		})
+	);
+}
 
 // Health check
 app.get('/health', (_req: Request, res: Response) => {

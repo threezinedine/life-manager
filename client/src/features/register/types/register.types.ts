@@ -1,10 +1,15 @@
 export interface RegisterCredentials {
-	username: string;
+	name: string;
 	email: string;
 }
 
 export interface RegisterResponse {
-	token: string;
+	user: {
+		id: string;
+		username: string;
+		email: string;
+		token: string;
+	};
 }
 
 export interface RegisterState {
