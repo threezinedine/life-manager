@@ -53,7 +53,8 @@ jobs:
               working-directory: .
 
             - name: Run migrations
-              run: npm run migrate
+              run: tsx migrate.ts
+              working-directory: server
               env:
                   DB_HOST: localhost
                   DB_PORT: 3306
@@ -62,7 +63,7 @@ jobs:
                   DB_NAME: life_manager
 
             - name: Start dev server
-              run: npm run dev > /tmp/server.log 2>&1 &
+              run: tsx watch index.ts > /tmp/server.log 2>&1 &
               working-directory: server
               env:
                   DB_HOST: localhost
@@ -89,7 +90,7 @@ jobs:
               working-directory: client
 
             - name: Start dev client
-              run: npm run dev > /tmp/client.log 2>&1 &
+              run: tsx watch index.ts > /tmp/client.log 2>&1 &
               working-directory: client
               env:
                   VITE_API_BASE_URL: http://localhost:4991
