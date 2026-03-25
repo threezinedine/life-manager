@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export type SupportedLang = 'en' | 'vi';
 
@@ -7,7 +8,14 @@ export interface LanguageState {
 	setLang: (lang: SupportedLang) => void;
 }
 
-export const useLanguageStore = create<LanguageState>((set) => ({
-	lang: 'en',
-	setLang: (lang) => set({ lang }),
-}));
+export const useLanguageStore = create<LanguageState>()(
+	persist(
+		(set) => ({
+			lang: 'en',
+			setLang: (lang) => set({ lang }),
+		}),
+		{
+			name: 'language',
+		}
+	)
+);
