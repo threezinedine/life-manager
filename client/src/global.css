@@ -175,6 +175,20 @@
 	/* === FORM === */
 	--form-field-gap: 1.25rem;
 	--form-submit-margin-top: 0.25rem;
+
+	/* === AUTH CARD === */
+	--auth-card-bg: #ffffff;
+	--auth-card-border: #e5e7eb;
+	--auth-card-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+	--auth-title-color: #111827;
+	--auth-subtitle-color: #6b7280;
+	--auth-footer-color: #6b7280;
+	--auth-link-color: #6366f1;
+	--auth-link-hover-color: #4f46e5;
+
+	/* === LAYOUT === */
+	--layout-bg: #f8f9fc;
+	--layout-text: #111827;
 }
 
 /* ============================================
@@ -336,4 +350,18 @@
 	/* === FORM === */
 	--form-field-gap: 1.25rem;
 	--form-submit-margin-top: 0.25rem;
+
+	/* === AUTH CARD === */
+	--auth-card-bg: #111827;
+	--auth-card-border: #374151;
+	--auth-card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.25);
+	--auth-title-color: #f1f5f9;
+	--auth-subtitle-color: #9ca3af;
+	--auth-footer-color: #9ca3af;
+	--auth-link-color: #818cf8;
+	--auth-link-hover-color: #a5b4fc;
+
+	/* === LAYOUT === */
+	--layout-bg: #0f1117;
+	--layout-text: #f1f5f9;
 }

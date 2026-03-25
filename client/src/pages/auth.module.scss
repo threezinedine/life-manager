@@ -1,0 +1,60 @@
+/* ============================================
+   AUTH PAGES (Login / Register)
+   ============================================ */
+
+.auth-page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: calc(100vh - 60px); /* subtract navbar height */
+	padding: 2rem 1rem;
+}
+
+.auth-card {
+	width: 100%;
+	max-width: 420px;
+	padding: 2.5rem 2rem;
+	border-radius: 1rem;
+	background: var(--auth-card-bg);
+	border: 1px solid var(--auth-card-border);
+	box-shadow: var(--auth-card-shadow);
+}
+
+.auth-header {
+	margin-bottom: 2rem;
+	text-align: center;
+}
+
+.auth-title {
+	margin: 0 0 0.5rem;
+	font-size: 1.75rem;
+	font-weight: 700;
+	color: var(--auth-title-color);
+	line-height: 1.2;
+}
+
+.auth-subtitle {
+	margin: 0;
+	font-size: 0.9375rem;
+	color: var(--auth-subtitle-color);
+	line-height: 1.5;
+}
+
+.auth-footer {
+	margin-top: 1.5rem;
+	text-align: center;
+	font-size: 0.875rem;
+	color: var(--auth-footer-color);
+}
+
+.auth-link {
+	color: var(--auth-link-color);
+	text-decoration: none;
+	font-weight: 600;
+	transition: color 0.2s ease;
+
+	&:hover {
+		color: var(--auth-link-hover-color);
+		text-decoration: underline;
+	}
+}

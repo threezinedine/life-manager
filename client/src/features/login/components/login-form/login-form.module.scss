@@ -1,0 +1,27 @@
+/* ============================================
+   LOGIN FORM
+   ============================================ */
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: var(--login-form-field-gap, 1.25rem);
+}
+
+.error-banner {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1rem;
+	border-radius: 0.5rem;
+	font-size: 0.875rem;
+	color: var(--login-form-error-color);
+	background: var(--login-form-error-bg);
+	border: 1px solid var(--login-form-error-border);
+}
+
+.error-icon {
+	flex-shrink: 0;
+	width: 1rem;
+	height: 1rem;
+}

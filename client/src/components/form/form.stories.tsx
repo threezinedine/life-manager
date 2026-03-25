@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import Button from '@/components/button';
 import { Variant } from '@/components/button/button.props';
-import { Form } from '@/form';
-import type { FormHandle } from '@/form/form.props';
+import { Form } from '@/components/form';
+import type { FormHandle } from '@/components/form/form.props';
 
 const meta: Meta<typeof Form> = {
 	title: 'Components/Form',
@@ -23,8 +23,18 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	args: {
 		fields: [
-			{ name: 'email', label: 'Email', type: 'email', placeholder: 'you@example.com' },
-			{ name: 'password', label: 'Password', type: 'password', placeholder: '••••••••' },
+			{
+				name: 'email',
+				label: 'Email',
+				type: 'email',
+				placeholder: 'you@example.com',
+			},
+			{
+				name: 'password',
+				label: 'Password',
+				type: 'password',
+				placeholder: '••••••••',
+			},
 		],
 		onSubmit: (values) => console.log('Form submitted:', values),
 		submitLabel: 'Sign in',
@@ -64,7 +74,9 @@ export const WithValidation: Story = {
 							placeholder: 'you@example.com',
 							required: true,
 							validator: (v: string) =>
-								/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : 'Enter a valid email address',
+								/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+									? null
+									: 'Enter a valid email address',
 						},
 						{
 							name: 'password',
@@ -73,7 +85,9 @@ export const WithValidation: Story = {
 							placeholder: '••••••••',
 							required: true,
 							validator: (v: string) =>
-								v.length >= 8 ? null : 'Password must be at least 8 characters',
+								v.length >= 8
+									? null
+									: 'Password must be at least 8 characters',
 						},
 					]}
 					onSubmit={(values) => console.log(values)}
@@ -137,8 +151,18 @@ export const CustomSubmit: Story = {
 				<Form
 					ref={formRef}
 					fields={[
-						{ name: 'email', label: 'Email', type: 'email', placeholder: 'you@example.com' },
-						{ name: 'password', label: 'Password', type: 'password', placeholder: '••••••••' },
+						{
+							name: 'email',
+							label: 'Email',
+							type: 'email',
+							placeholder: 'you@example.com',
+						},
+						{
+							name: 'password',
+							label: 'Password',
+							type: 'password',
+							placeholder: '••••••••',
+						},
 					]}
 					onSubmit={(values) => console.log(values)}
 					showSubmit={false}

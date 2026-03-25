@@ -16,5 +16,45 @@
 	},
 	"home": {
 		"welcome": "Chào mừng trở lại!"
+	},
+	"login": {
+		"button": "Đăng nhập",
+		"pageTitle": "Chào mừng trở lại",
+		"subtitle": "Đăng nhập để tiếp tục với tài khoản của bạn",
+		"noAccount": "Bạn chưa có tài khoản?",
+		"fields": {
+			"email": {
+				"label": "Địa chỉ email",
+				"placeholder": "bạn@ví dụ.com"
+			},
+			"password": {
+				"label": "Mật khẩu",
+				"placeholder": "Nhập mật khẩu của bạn"
+			}
+		}
+	},
+	"register": {
+		"button": "Đăng ký",
+		"pageTitle": "Tạo tài khoản",
+		"subtitle": "Tham gia và bắt đầu quản lý cuộc sống",
+		"hasAccount": "Bạn đã có tài khoản?",
+		"fields": {
+			"username": {
+				"label": "Tên người dùng",
+				"placeholder": "Chọn tên người dùng"
+			},
+			"email": {
+				"label": "Địa chỉ email",
+				"placeholder": "bạn@ví dụ.com"
+			},
+			"password": {
+				"label": "Mật khẩu",
+				"placeholder": "Tạo mật khẩu mạnh"
+			},
+			"confirmPassword": {
+				"label": "Xác nhận mật khẩu",
+				"placeholder": "Nhập lại mật khẩu"
+			}
+		}
 	}
 }

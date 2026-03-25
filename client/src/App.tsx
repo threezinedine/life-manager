@@ -1,15 +1,17 @@
-import { Route, Routes } from "react-router-dom";
-import RootLayout from "./layouts";
-import { Home } from "./pages";
+import { Route, Routes } from 'react-router-dom';
+import { CommonLayout } from './layouts';
+import { Home, Login, Register } from './pages';
 
 function App() {
-  return (
-    <Routes>
-      <Route element={<RootLayout />}>
-        <Route index element={<Home />} />
-      </Route>
-    </Routes>
-  );
+	return (
+		<Routes>
+			<Route element={<CommonLayout />}>
+				<Route index element={<Home />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
+			</Route>
+		</Routes>
+	);
 }
 
 export default App;
