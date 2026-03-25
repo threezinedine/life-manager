@@ -1,6 +1,6 @@
 import styles from './navbar.module.scss';
 import clsx from 'clsx';
-import LanguageSelector from '@/components/language-selector';
+import LanguageSelector from '@/features/language/components/language-selector';
 import { ThemeToggle } from '@/features/theme';
 
 export interface NavbarProps {
@@ -28,7 +28,10 @@ export default function Navbar({
 					<ThemeToggle />
 					{authPart && (
 						<>
-							<span className={styles.divider} aria-hidden="true" />
+							<span
+								className={styles.divider}
+								aria-hidden="true"
+							/>
 							<div className={styles.authPart}>{authPart}</div>
 						</>
 					)}

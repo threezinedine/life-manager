@@ -1,0 +1,20 @@
+{
+	"common": {
+		"login": "Đăng nhập",
+		"register": "Đăng ký",
+		"logout": "Đăng xuất",
+		"profile": "Hồ sơ",
+		"settings": "Cài đặt",
+		"save": "Lưu",
+		"cancel": "Hủy",
+		"delete": "Xóa",
+		"edit": "Chỉnh sửa",
+		"close": "Đóng"
+	},
+	"nav": {
+		"toggleLanguage": "Chuyển ngôn ngữ"
+	},
+	"home": {
+		"welcome": "Chào mừng trở lại!"
+	}
+}

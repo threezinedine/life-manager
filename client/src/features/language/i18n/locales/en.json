@@ -1,0 +1,20 @@
+{
+	"common": {
+		"login": "Login",
+		"register": "Register",
+		"logout": "Log out",
+		"profile": "Profile",
+		"settings": "Settings",
+		"save": "Save",
+		"cancel": "Cancel",
+		"delete": "Delete",
+		"edit": "Edit",
+		"close": "Close"
+	},
+	"nav": {
+		"toggleLanguage": "Toggle language"
+	},
+	"home": {
+		"welcome": "Welcome back!"
+	}
+}
