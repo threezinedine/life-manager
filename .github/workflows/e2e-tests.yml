@@ -1,0 +1,143 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  e2e:
+    name: Cypress E2E
+    runs-on: ubuntu-latest
+
+    # Mount Docker socket so docker-compose works from the CI job
+    # (no docker: true needed since we manage compose ourselves)
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: |
+            client/package-lock.json
+            server/package-lock.json
+
+      # ── Database ──────────────────────────────────────────────────────────────
+      - name: Start MySQL via docker-compose
+        run: |
+          docker compose -f docker-compose.dev.yml up -d
+          docker compose -f docker-compose.dev.yml ps
+
+      - name: Wait for MySQL to be healthy
+        run: |
+          for i in $(seq 1 30); do
+            if docker compose -f docker-compose.dev.yml exec -T mysql mysqladmin ping -h localhost --silent 2>/dev/null; then
+              echo "MySQL is ready"
+              break
+            fi
+            echo "Waiting for MySQL... ($i/30)"
+            sleep 2
+          done
+
+      # ── Server ────────────────────────────────────────────────────────────────
+      - name: Install server dependencies
+        run: npm ci
+        working-directory: server
+
+      - name: Run migrations
+        run: npm run migrate
+        working-directory: server
+        env:
+          DB_HOST: localhost
+          DB_PORT: 3306
+          DB_USER: root
+          DB_PASSWORD: rootpassword
+          DB_NAME: life_manager
+
+      - name: Start dev server
+        run: npm run dev > /tmp/server.log 2>&1 &
+        working-directory: server
+        env:
+          DB_HOST: localhost
+          DB_PORT: 3306
+          DB_USER: root
+          DB_PASSWORD: rootpassword
+          DB_NAME: life_manager
+          SERVER_PORT: 4991
+
+      - name: Wait for server to be ready
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:4991/health > /dev/null 2>&1; then
+              echo "Server is ready"
+              break
+            fi
+            echo "Waiting for server... ($i/30)"
+            sleep 2
+          done
+
+      # ── Client ───────────────────────────────────────────────────────────────
+      - name: Install client dependencies
+        run: npm ci
+        working-directory: client
+
+      - name: Start dev client
+        run: npm run dev > /tmp/client.log 2>&1 &
+        working-directory: client
+        env:
+          VITE_API_BASE_URL: http://localhost:4991
+
+      - name: Wait for client to be ready
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:5173 > /dev/null 2>&1; then
+              echo "Client is ready"
+              break
+            fi
+            echo "Waiting for client... ($i/30)"
+            sleep 2
+          done
+
+      # ── Cypress ──────────────────────────────────────────────────────────────
+      - name: Install Cypress binary
+        run: npx cypress install
+        working-directory: client
+
+      - name: Run Cypress E2E tests
+        run: npm run test:e2e
+        working-directory: client
+        env:
+          CYPRESS_BASE_URL: http://localhost:5173
+
+      # ── Artifacts ────────────────────────────────────────────────────────────
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots-${{ github.run_number }}
+          path: client/cypress/screenshots/
+          retention-days: 7
+
+      - name: Upload videos on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos-${{ github.run_number }}
+          path: client/cypress/videos/
+          retention-days: 7
+
+      - name: Upload server logs on failure
+        if: failure()
+        run: cat /tmp/server.log
+
+      - name: Upload client logs on failure
+        if: failure()
+        run: cat /tmp/client.log
