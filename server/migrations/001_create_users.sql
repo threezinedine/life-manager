@@ -1,0 +1,12 @@
+-- Migration: 001_create_users
+-- Description: Create users table
+
+CREATE TABLE IF NOT EXISTS users (
+  id          VARCHAR(36)  PRIMARY KEY,
+  email       VARCHAR(255) NOT NULL UNIQUE,
+  name        VARCHAR(255) NOT NULL,
+  token       VARCHAR(36)  NULL,
+  created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_token (token)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -5,7 +5,10 @@
   "scripts": {
     "client": "cd client && npm run dev",
     "server": "cd server && npm run dev",
+    "migrate": "cd server && npm run migrate",
+    "db:dev": "docker compose -f docker-compose.dev.yml up",
     "dev": "tsx export-env.ts",
+    "dev:test": "cd server && npm run test && cd ../client && npm run test",
     "docker:up": "tsx up.ts",
     "docker:down": "tsx down.ts"
   },

@@ -1,4 +1,19 @@
 services:
+  mysql:
+    image: mysql:8
+    env_file:
+      - .prod.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-rootpassword}
+      - MYSQL_DATABASE=${DB_NAME:-life_manager}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   server:
     build:
       context: ./server
@@ -10,6 +25,14 @@ services:
     environment:
       - PORT=${SERVER_PORT}
       - SERVER_PORT=${SERVER_PORT}
+      - DB_HOST=mysql
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD:-rootpassword}
+      - DB_NAME=${DB_NAME:-life_manager}
+    depends_on:
+      mysql:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:${SERVER_PORT}/health"]
       interval: 30s

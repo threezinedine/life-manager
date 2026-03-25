@@ -2,9 +2,11 @@ import fs from "fs";
 import { spawn } from "child_process";
 import path from "path";
 
-// Load environment variables from .prod.env
-const envFilePath = path.join(__dirname, ".prod.env");
-if (fs.existsSync(envFilePath)) {
+function loadEnvFile(envFilePath: string): void {
+  if (!fs.existsSync(envFilePath)) {
+    console.warn(`Environment file ${envFilePath} not found.`);
+    return;
+  }
   const envContent = fs.readFileSync(envFilePath, "utf-8");
   envContent.split("\n").forEach((line) => {
     const trimmed = line.trim();
@@ -15,9 +17,11 @@ if (fs.existsSync(envFilePath)) {
     const value = trimmed.slice(eqIndex + 1).trim();
     if (key) process.env[key] = value;
   });
-} else {
-  console.warn(`Environment file ${envFilePath} not found.`);
 }
+
+// Load .env first (local dev overrides), then .prod.env as base
+loadEnvFile(path.join(__dirname, ".env"));
+loadEnvFile(path.join(__dirname, ".prod.env"));
 
 // Start both client and server concurrently
 spawn("npm", ["run", "server"], { stdio: "inherit", shell: true });
