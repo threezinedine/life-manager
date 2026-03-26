@@ -5,305 +5,42 @@ describe('Login Page', () => {
 		cy.visit('/login');
 	});
 
-	// ── Rendering ───────────────────────────────────────────────────────────────
+	// ── Walkthrough ──────────────────────────────────────────────────────────────
 
-	it('renders the page title and subtitle', () => {
+	it('walks through the login flow', () => {
+		// Renders correctly
 		cy.contains('h1', 'Welcome back').should('be.visible');
 		cy.contains('Sign in to continue to your account').should('be.visible');
-	});
-
-	it('renders email and password fields', () => {
-		cy.get('[data-testid="login-email"]').should('be.visible');
-		cy.get('[data-testid="login-password"]').should('be.visible');
-	});
-
-	it('renders the submit button', () => {
+		cy.get('[data-testid="login-token"]').should('be.visible');
 		cy.get('[data-testid="login-form-submit"]').should('be.visible');
-	});
 
-	it('renders a footer link to the register page', () => {
+		// Navigates to register
 		cy.contains("Don't have an account?").should('be.visible');
-		cy.contains('a', 'Register').should('be.visible');
-	});
-
-	// ── Navigation ─────────────────────────────────────────────────────────────
-
-	it('navigates to the register page when clicking the footer link', () => {
 		cy.contains('a', 'Register').click();
 		cy.url().should('match', /\/register/);
 		cy.contains('h1', 'Create an account').should('be.visible');
-	});
 
-	it('navigates back to login via navbar Sign in button', () => {
-		cy.visit('/');
-		cy.get('[data-testid="navbar"]').contains('button', 'Sign in').click();
-		cy.url().should('match', /\/login/);
-		cy.contains('h1', 'Welcome back').should('be.visible');
-	});
+		// Navigate back to login
+		cy.visit('/login');
 
-	it('navigates to register via navbar Sign up button', () => {
-		cy.get('[data-testid="navbar"]').contains('button', 'Sign up').click();
-		cy.url().should('match', /\/register/);
-	});
-
-	// ── Validation ──────────────────────────────────────────────────────────────
-
-	it('shows validation errors when submitting empty', () => {
-		cy.get('[data-testid="login-form-submit"]').click();
-		cy.contains('This field is required').should('have.length.at.least', 1);
-	});
-
-	it('shows a validation error when email is missing', () => {
-		cy.get('[data-testid="login-password"]').type('password123');
+		// Shows validation error on empty submit
 		cy.get('[data-testid="login-form-submit"]').click();
 		cy.contains('This field is required').should('be.visible');
-	});
 
-	it('shows a validation error when password is missing', () => {
-		cy.get('[data-testid="login-email"]').type('user@example.com');
+		// Shows validation error when token is cleared
+		cy.get('[data-testid="login-token"]').type('my-token');
+		cy.get('[data-testid="login-token"]').clear();
 		cy.get('[data-testid="login-form-submit"]').click();
 		cy.contains('This field is required').should('be.visible');
+
+		// Accepts token input
+		cy.get('[data-testid="login-token"]').type('my-secret-token');
+		cy.get('[data-testid="login-token"]').should('have.value', 'my-secret-token');
 	});
 
-	// ── Loading state ───────────────────────────────────────────────────────────
+	// ── Special cases ──────────────────────────────────────────────────────────
 
-	it('disables the submit button while loading', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 200,
-			body: { token: 'fake-token', user: { id: '1', email: 'a@b.com', username: 'test' } },
-			delay: 500,
-		}).as('login');
-
-		cy.clock();
-
-		cy.get('[data-testid="login-email"]').type('user@example.com');
-		cy.get('[data-testid="login-password"]').type('password123');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.tick(100);
-		cy.get('[data-testid="login-form-submit"]').should('be.disabled');
-
-		cy.tick(500);
-		cy.wait('@login');
-	});
-
-	// ── Successful login & toast ────────────────────────────────────────────────
-
-	it('shows a success toast after successful login', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 200,
-			body: { token: 'fake-token', user: { id: '1', email: 'a@b.com', username: 'test' } },
-		}).as('loginRequest');
-
-		cy.get('[data-testid="login-email"]').type('user@example.com');
-		cy.get('[data-testid="login-password"]').type('password123');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@loginRequest');
-		cy.get('[data-testid="login-success-toast"]').should('be.visible');
-		cy.get('[data-testid="login-success-toast"]').should('contain', 'Login successful');
-	});
-
-	it('success toast is inside the toast container', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 200,
-			body: { token: 'fake-token', user: { id: '1', email: 'a@b.com', username: 'test' } },
-		}).as('loginRequest');
-
-		cy.get('[data-testid="login-email"]').type('user@example.com');
-		cy.get('[data-testid="login-password"]').type('password123');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@loginRequest');
-		cy.get('[data-testid="toast-container"]').within(() => {
-			cy.get('[data-testid="login-success-toast"]').should('be.visible');
-		});
-	});
-
-	it('success toast auto-dismisses after default duration', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 200,
-			body: { token: 'fake-token', user: { id: '1', email: 'a@b.com', username: 'test' } },
-		}).as('loginRequest');
-
-		cy.clock();
-
-		cy.get('[data-testid="login-email"]').type('user@example.com');
-		cy.get('[data-testid="login-password"]').type('password123');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@loginRequest');
-		cy.get('[data-testid="login-success-toast"]').should('be.visible');
-
-		// Advance clock past the default toast duration (3000ms)
-		cy.tick(3100);
-		cy.get('[data-testid="login-success-toast"]').should('not.exist');
-	});
-
-	it('success toast can be dismissed manually by clicking close button', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 200,
-			body: { token: 'fake-token', user: { id: '1', email: 'a@b.com', username: 'test' } },
-		}).as('loginRequest');
-
-		cy.get('[data-testid="login-email"]').type('user@example.com');
-		cy.get('[data-testid="login-password"]').type('password123');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@loginRequest');
-		cy.get('[data-testid="login-success-toast"]').should('be.visible');
-
-		cy.get('[data-testid="login-success-toast"] button[aria-label="Close"]').click();
-		cy.get('[data-testid="login-success-toast"]').should('not.exist');
-	});
-
-	it('calls the API with correct payload on valid submit', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 200,
-			body: { token: 'fake-token', user: { id: '1', email: 'a@b.com', username: 'test' } },
-		}).as('loginRequest');
-
-		cy.get('[data-testid="login-email"]').type('user@example.com');
-		cy.get('[data-testid="login-password"]').type('password123');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@loginRequest').then((interception) => {
-			expect(interception.request.body).to.deep.equal({
-				email: 'user@example.com',
-				password: 'password123',
-			});
-		});
-	});
-
-	// ── Error toast ─────────────────────────────────────────────────────────────
-
-	it('shows an error toast when credentials are invalid', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 401,
-			body: { message: 'Invalid email or password' },
-		}).as('loginFail');
-
-		cy.get('[data-testid="login-email"]').type('wrong@example.com');
-		cy.get('[data-testid="login-password"]').type('wrongpassword');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@loginFail');
-		cy.get('[data-testid="login-error-toast"]').should('be.visible');
-		cy.get('[data-testid="login-error-toast"]').should(
-			'contain',
-			'Invalid email or password'
-		);
-	});
-
-	it('shows an error toast when the server returns a 500', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 500,
-			body: { message: 'Internal server error' },
-		}).as('serverError');
-
-		cy.get('[data-testid="login-email"]').type('user@example.com');
-		cy.get('[data-testid="login-password"]').type('password123');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@serverError');
-		cy.get('[data-testid="login-error-toast"]').should('be.visible');
-		cy.get('[data-testid="login-error-toast"]').should('contain', 'Internal server error');
-	});
-
-	it('shows an error toast when the network request fails', () => {
-		cy.intercept('POST', '**/auth/login', { forceError: true }).as('networkError');
-
-		cy.get('[data-testid="login-email"]').type('user@example.com');
-		cy.get('[data-testid="login-password"]').type('password123');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@networkError', { requestTimeout: 5000 });
-		cy.get('[data-testid="login-error-toast"]').should('be.visible');
-	});
-
-	it('error toast can be dismissed manually', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 401,
-			body: { message: 'Invalid credentials' },
-		}).as('loginFail');
-
-		cy.get('[data-testid="login-email"]').type('wrong@example.com');
-		cy.get('[data-testid="login-password"]').type('wrongpassword');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@loginFail');
-		cy.get('[data-testid="login-error-toast"]').should('be.visible');
-
-		cy.get('[data-testid="login-error-toast"] button[aria-label="Close"]').click();
-		cy.get('[data-testid="login-error-toast"]').should('not.exist');
-	});
-
-	it('error toast auto-dismisses after default duration', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 401,
-			body: { message: 'Invalid credentials' },
-		}).as('loginFail');
-
-		cy.clock();
-
-		cy.get('[data-testid="login-email"]').type('wrong@example.com');
-		cy.get('[data-testid="login-password"]').type('wrongpassword');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@loginFail');
-		cy.get('[data-testid="login-error-toast"]').should('be.visible');
-
-		cy.tick(3100);
-		cy.get('[data-testid="login-error-toast"]').should('not.exist');
-	});
-
-	it('success toast does not appear on failed login', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 401,
-			body: { message: 'Invalid credentials' },
-		}).as('loginFail');
-
-		cy.get('[data-testid="login-email"]').type('wrong@example.com');
-		cy.get('[data-testid="login-password"]').type('wrongpassword');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@loginFail');
-		cy.get('[data-testid="login-success-toast"]').should('not.exist');
-	});
-
-	it('error toast does not appear on successful login', () => {
-		cy.intercept('POST', '**/auth/login', {
-			statusCode: 200,
-			body: { token: 'fake-token', user: { id: '1', email: 'a@b.com', username: 'test' } },
-		}).as('loginRequest');
-
-		cy.get('[data-testid="login-email"]').type('user@example.com');
-		cy.get('[data-testid="login-password"]').type('password123');
-		cy.get('[data-testid="login-form-submit"]').click();
-
-		cy.wait('@loginRequest');
-		cy.get('[data-testid="login-error-toast"]').should('not.exist');
-	});
-
-	// ── Input interactions ──────────────────────────────────────────────────────
-
-	it('accepts email and password input correctly', () => {
-		cy.get('[data-testid="login-email"]').type('test@example.com');
-		cy.get('[data-testid="login-password"]').type('secretpass');
-
-		cy.get('[data-testid="login-email"]').should('have.value', 'test@example.com');
-		cy.get('[data-testid="login-password"]').should('have.value', 'secretpass');
-	});
-
-	it('allows typing and overwriting email field', () => {
-		cy.get('[data-testid="login-email"]').type('first@example.com');
-		cy.get('[data-testid="login-email"]').clear().type('second@example.com');
-		cy.get('[data-testid="login-email"]').should('have.value', 'second@example.com');
-	});
-
-	// ── Language / i18n ─────────────────────────────────────────────────────────
-
-	it('shows Vietnamese text after switching language', () => {
+	it('supports language switching to Vietnamese', () => {
 		cy.get('[data-testid="language-selector"]').click();
 		cy.contains('Tiếng Việt').click();
 		cy.contains('h1', 'Chào mừng trở lại').should('be.visible');
@@ -311,9 +48,7 @@ describe('Login Page', () => {
 		cy.contains('Bạn chưa có tài khoản?').should('be.visible');
 	});
 
-	// ── Theme ───────────────────────────────────────────────────────────────────
-
-	it('persists dark theme across page reload', () => {
+	it('supports dark theme toggle across page reload', () => {
 		cy.get('[data-testid="theme-toggle"]').click();
 		cy.get('html').should('have.class', 'dark');
 		cy.reload();

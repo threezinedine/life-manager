@@ -23,7 +23,6 @@ export const useLoginStore = create<LoginStore>((set) => ({
 			result = true;
 		} catch (err) {
 			const message = (err as Error).message;
-			set({ error: message });
 			useToastStore
 				.getState()
 				.error(message, undefined, 'login-error-toast');

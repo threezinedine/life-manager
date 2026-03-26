@@ -8,7 +8,7 @@ loadEnvFile(path.join(__dirname, '.env'));
 const useUI = process.argv.includes('--ui');
 const cypressCmd = useUI ? 'open' : 'run';
 
-spawn('npx', ['cypress', cypressCmd, '--browser', 'chrome'], {
+spawn('npm', ['run', `cypress:${cypressCmd}`], {
 	cwd: path.join(cwd(), 'client'),
 	stdio: 'inherit',
 	shell: true,
