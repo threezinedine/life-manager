@@ -14,6 +14,13 @@ export const useToastStore = create<ToastStore>((set, get) => ({
 		duration = DEFAULT_DURATION,
 		testId?: string
 	) => {
+		const { toasts } = get();
+
+		// Skip if a toast with the same message and variant already exists
+		if (toasts.some((t) => t.message === message && t.variant === variant)) {
+			return;
+		}
+
 		const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 		const newToast = { id, message, variant, duration, testId };
 

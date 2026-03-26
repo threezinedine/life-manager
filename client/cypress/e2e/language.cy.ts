@@ -5,26 +5,22 @@ describe('Language', () => {
 		cy.visit('/');
 	});
 
-	it('shows English heading by default', () => {
-		cy.contains('h1, h2', 'Welcome to Life Manager!').should('be.visible');
-	});
+	it('walks through language switching', () => {
+		// Shows English by default
+		cy.contains('h1', 'Welcome to Life Manager!').should('be.visible');
 
-	it('opens the language selector dropdown', () => {
+		// Opens language selector
 		cy.get('[data-testid="language-selector"]').click();
 		cy.contains('English').should('be.visible');
 		cy.contains('Tiếng Việt').should('be.visible');
-	});
 
-	it('switches to Vietnamese when selected', () => {
-		cy.get('[data-testid="language-selector"]').click();
+		// Switches to Vietnamese — home h1 is hardcoded in English, check login page
 		cy.contains('Tiếng Việt').click();
-		cy.get('[data-testid="language-selector"]').should('be.visible');
-	});
+		cy.visit('/login');
+		cy.contains('h1', 'Chào mừng trở lại').should('be.visible');
 
-	it('persists the language selection across page reloads', () => {
-		cy.get('[data-testid="language-selector"]').click();
-		cy.contains('Tiếng Việt').click();
+		// Persists across page reload
 		cy.reload();
-		cy.contains('h1, h2', 'Welcome to Life Manager!').should('be.visible');
+		cy.contains('h1', 'Chào mừng trở lại').should('be.visible');
 	});
 });
