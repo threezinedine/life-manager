@@ -55,7 +55,7 @@ describe('auth routes', () => {
 				.send({ email: user.email, name: 'Dup Name' });
 
 			expect(res.status).toBe(409);
-			expect(res.body).toEqual({ error: 'Email already registered' });
+			expect(res.body.error).toBe('Email already registered');
 		});
 
 		it('returns 409 when registering with same email different casing', async () => {
@@ -64,7 +64,7 @@ describe('auth routes', () => {
 				.send({ email: user.email.toUpperCase(), name: 'Casing Test' });
 
 			expect(res.status).toBe(409);
-			expect(res.body).toEqual({ error: 'Email already registered' });
+			expect(res.body.error).toBe('Email already registered');
 		});
 
 		it('returns 400 when email is missing', async () => {
@@ -231,6 +231,82 @@ describe('auth routes', () => {
 
 			expect(res.status).toBe(400);
 			expect(res.body.error).toBe('Invalid token format');
+		});
+	});
+
+	// -------------------------------------------------------------------------
+	// i18n — Vietnamese
+	// -------------------------------------------------------------------------
+
+	describe('i18n — Vietnamese', () => {
+		it('returns Vietnamese error when Accept-Language is vi on duplicate email', async () => {
+			const res = await request(app)
+				.post('/api/auth/register')
+				.set('Accept-Language', 'vi')
+				.send({ email: user.email, name: 'Dup Name' });
+
+			expect(res.status).toBe(409);
+			expect(res.body.error).toBe('Email đã được đăng ký');
+		});
+
+		it('returns Vietnamese error when Accept-Language is vi on invalid token', async () => {
+			const res = await request(app)
+				.post('/api/auth/login')
+				.set('Accept-Language', 'vi')
+				.send({ token: '550e8400-e29b-41d4-a716-446655440099' });
+
+			expect(res.status).toBe(401);
+			expect(res.body.error).toBe('Token không hợp lệ');
+		});
+
+		it('returns Vietnamese validation error for invalid email', async () => {
+			const res = await request(app)
+				.post('/api/auth/register')
+				.set('Accept-Language', 'vi')
+				.send({ email: 'not-an-email', name: 'Test' });
+
+			expect(res.status).toBe(400);
+			expect(res.body.error).toBe('Địa chỉ email không hợp lệ');
+		});
+
+		it('returns Vietnamese validation error for missing name', async () => {
+			const res = await request(app)
+				.post('/api/auth/register')
+				.set('Accept-Language', 'vi')
+				.send({ email: `vi-${uuidv4()}@example.com`, name: '' });
+
+			expect(res.status).toBe(400);
+			expect(res.body.error).toBe('Tên không được để trống');
+		});
+
+		it('returns Vietnamese validation error for invalid token format', async () => {
+			const res = await request(app)
+				.post('/api/auth/login')
+				.set('Accept-Language', 'vi')
+				.send({ token: 'not-a-uuid' });
+
+			expect(res.status).toBe(400);
+			expect(res.body.error).toBe('Định dạng token không hợp lệ');
+		});
+
+		it('falls back to English when locale is unsupported', async () => {
+			const res = await request(app)
+				.post('/api/auth/login')
+				.set('Accept-Language', 'fr')
+				.send({ token: '550e8400-e29b-41d4-a716-446655440099' });
+
+			expect(res.status).toBe(401);
+			expect(res.body.error).toBe('Invalid token');
+		});
+
+		it('prefers Vietnamese when it has higher quality than English', async () => {
+			const res = await request(app)
+				.post('/api/auth/register')
+				.set('Accept-Language', 'en;q=0.9, vi;q=1')
+				.send({ email: user.email, name: 'Dup Name' });
+
+			expect(res.status).toBe(409);
+			expect(res.body.error).toBe('Email đã được đăng ký');
 		});
 	});
 });

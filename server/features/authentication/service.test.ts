@@ -58,10 +58,11 @@ describe('auth service', () => {
 
 		it('returns an error when the email is already taken', async () => {
 			const result = await auth.register(user.email, 'Someone Else');
-			expect(result).toEqual({
-				ok: false,
-				error: 'Email already registered',
-			});
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toBe('Email already registered');
+				expect(result.code).toBe('EMAIL_ALREADY_REGISTERED');
+			}
 		});
 
 		it('returns an error when registering with the same email in different casing', async () => {
@@ -69,10 +70,11 @@ describe('auth service', () => {
 				user.email.toUpperCase(),
 				'Casing Test'
 			);
-			expect(result).toEqual({
-				ok: false,
-				error: 'Email already registered',
-			});
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toBe('Email already registered');
+				expect(result.code).toBe('EMAIL_ALREADY_REGISTERED');
+			}
 		});
 	});
 
@@ -94,18 +96,30 @@ describe('auth service', () => {
 			const result = await auth.login(
 				'550e8400-e29b-41d4-a716-446655440099'
 			);
-			expect(result).toEqual({ ok: false, error: 'Invalid token' });
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toBe('Invalid token');
+				expect(result.code).toBe('INVALID_TOKEN');
+			}
 		});
 
 		it('returns an error when the token is an empty string', async () => {
 			const result = await auth.login('');
-			expect(result).toEqual({ ok: false, error: 'Invalid token' });
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toBe('Invalid token');
+				expect(result.code).toBe('INVALID_TOKEN');
+			}
 		});
 
 		it('returns an error when the token has been cleared from the database', async () => {
 			await db.setUserToken(user.id, null);
 			const result = await auth.login(user.token);
-			expect(result).toEqual({ ok: false, error: 'Invalid token' });
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toBe('Invalid token');
+				expect(result.code).toBe('INVALID_TOKEN');
+			}
 		});
 	});
 
@@ -123,7 +137,10 @@ describe('auth service', () => {
 				expect(result.token).not.toBe(oldToken);
 
 				const loginOld = await auth.login(oldToken);
-				expect(loginOld).toEqual({ ok: false, error: 'Invalid token' });
+				expect(loginOld.ok).toBe(false);
+				if (!loginOld.ok) {
+					expect(loginOld.code).toBe('INVALID_TOKEN');
+				}
 
 				const loginNew = await auth.login(result.token);
 				expect(loginNew.ok).toBe(true);
@@ -134,7 +151,11 @@ describe('auth service', () => {
 			const result = await auth.refresh(
 				'550e8400-e29b-41d4-a716-446655440099'
 			);
-			expect(result).toEqual({ ok: false, error: 'Invalid token' });
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toBe('Invalid token');
+				expect(result.code).toBe('INVALID_TOKEN');
+			}
 		});
 
 		it('stores only one token per user (replaces the old one)', async () => {

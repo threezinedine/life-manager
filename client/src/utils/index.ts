@@ -1,1 +1,1 @@
-export { getServerUrl } from './api';
+export { internalFetch } from './api';
