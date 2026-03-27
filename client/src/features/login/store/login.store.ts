@@ -3,6 +3,7 @@ import type { LoginState } from '../types/login.types';
 import { useToastStore } from '@/components/toast';
 import { useAuthTokenStore } from '@/stores/auth-token.store';
 import { loginApi } from '../api/login.api';
+import { meApi } from '@/features/auth/api/me.api';
 
 interface LoginStore extends LoginState {
 	login: (token: string) => Promise<boolean>;
@@ -16,12 +17,18 @@ export const useLoginStore = create<LoginStore>((set) => ({
 		let result = false;
 		set({ isLoading: true });
 		try {
+			// Validate token against the server
 			await loginApi({ token });
 
+			// Fetch user info
+			const user = await meApi(token);
+
+			// Both succeeded — store token and user info
+			useAuthTokenStore.getState().setToken(token);
+			useAuthTokenStore.getState().setUser(user);
 			useToastStore
 				.getState()
 				.success('Login successful!', undefined, 'login-success-toast');
-			useAuthTokenStore.getState().setToken(token);
 			result = true;
 		} catch (err) {
 			const message = (err as Error).message;

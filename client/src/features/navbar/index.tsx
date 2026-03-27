@@ -11,10 +11,10 @@ export default function FinalNavbar() {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 	const token = useAuthTokenStore((state) => state.token);
-	const clearToken = useAuthTokenStore((state) => state.clearToken);
+	const clearAuth = useAuthTokenStore((state) => state.clearAuth);
 
 	const handleLogout = () => {
-		clearToken();
+		clearAuth();
 		navigate('/login');
 	};
 

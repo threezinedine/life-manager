@@ -48,10 +48,23 @@ describe('Login Page', () => {
 		cy.get('[data-testid="register-form-submit"]').click();
 		cy.get('[data-testid="register-success-modal"]').should('be.visible');
 
-		// Click copy to clipboard — lands on login page
-		cy.get('[data-testid="register-copy-token"]').click();
-		cy.url().should('match', /\/login/);
-		cy.contains('Token copied to clipboard!').should('be.visible');
+		// Capture token before modal closes
+		cy.get('[data-testid="register-success-modal"] code')
+			.invoke('text')
+			.then((t) => {
+				const token = t as unknown as string;
+
+				// Click copy to clipboard — lands on login page
+				cy.get('[data-testid="register-copy-token"]').click();
+				cy.url().should('match', /\/login/);
+				cy.contains('Token copied to clipboard!').should('be.visible');
+				cy.get('[data-testid="register-success-modal"]').should('not.exist');
+
+				// Log in with the real token
+				cy.get('[data-testid="login-token"]').type(token);
+				cy.get('[data-testid="login-form-submit"]').click();
+				cy.contains('Login successful!').should('be.visible');
+			});
 	});
 
 	// ── Special cases ──────────────────────────────────────────────────────────
