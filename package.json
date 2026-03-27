@@ -8,6 +8,7 @@
 		"dev": "tsx dev.ts",
 		"test:client": "cd client && npm run test",
 		"test:server": "cd server && npm run test",
+		"test:server:watch": "cd server && npm run test -- --watch",
 		"test:e2e": "tsx test-e2e.ts",
 		"test:e2e:ui": "tsx test-e2e.ts --ui",
 		"storybook": "tsx storybook.ts",

@@ -18,6 +18,11 @@ export interface LoginResult {
 	user: { id: string; email: string; name: string };
 }
 
+export interface MeResult {
+	ok: true;
+	user: { id: string; email: string; name: string };
+}
+
 export interface RefreshResult {
 	ok: true;
 	token: string;
@@ -49,6 +54,22 @@ export async function register(
 }
 
 export async function login(token: string): Promise<LoginResult | ErrorResult> {
+	const user = await db.findUserByToken(token);
+	if (!user) {
+		return {
+			ok: false,
+			error: 'Invalid token',
+			code: AuthErrorCode.INVALID_TOKEN,
+		};
+	}
+
+	return {
+		ok: true,
+		user: { id: user.id, email: user.email, name: user.name },
+	};
+}
+
+export async function me(token: string): Promise<MeResult | ErrorResult> {
 	const user = await db.findUserByToken(token);
 	if (!user) {
 		return {

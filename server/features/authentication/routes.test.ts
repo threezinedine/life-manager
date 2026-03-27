@@ -235,6 +235,53 @@ describe('auth routes', () => {
 	});
 
 	// -------------------------------------------------------------------------
+	// GET /api/auth/me
+	// -------------------------------------------------------------------------
+
+	describe('GET /api/auth/me', () => {
+		it('returns 200 and the user when the token is valid', async () => {
+			const res = await request(app)
+				.get('/api/auth/me')
+				.set('Authorization', `Bearer ${user.token}`);
+
+			expect(res.status).toBe(200);
+			expect(res.body.user.id).toBe(user.id);
+			expect(res.body.user.email).toBe(user.email);
+			expect(res.body.user.name).toBe(user.name);
+		});
+
+		it('returns 401 when no Authorization header is provided', async () => {
+			const res = await request(app).get('/api/auth/me');
+
+			expect(res.status).toBe(401);
+			expect(res.body).toEqual({ error: 'Invalid token' });
+		});
+
+		it('returns 401 when the token is invalid', async () => {
+			const res = await request(app)
+				.get('/api/auth/me')
+				.set('Authorization', 'Bearer 550e8400-e29b-41d4-a716-446655440099');
+
+			expect(res.status).toBe(401);
+			expect(res.body).toEqual({ error: 'Invalid token' });
+		});
+
+		it('returns 401 when the token has been cleared', async () => {
+			await testPool.execute(
+				'UPDATE users SET token = NULL WHERE id = ?',
+				[user.id]
+			);
+
+			const res = await request(app)
+				.get('/api/auth/me')
+				.set('Authorization', `Bearer ${user.token}`);
+
+			expect(res.status).toBe(401);
+			expect(res.body).toEqual({ error: 'Invalid token' });
+		});
+	});
+
+	// -------------------------------------------------------------------------
 	// i18n — Vietnamese
 	// -------------------------------------------------------------------------
 

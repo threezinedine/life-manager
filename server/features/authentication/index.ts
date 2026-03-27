@@ -113,4 +113,28 @@ export function registerRoutes(app: Express): void {
 
 		res.json({ token: result.token });
 	});
+
+	// GET /auth/me — returns the authenticated user's info
+	app.get('/api/auth/me', async (req, res) => {
+		const locale = detectLocale(req.headers['accept-language']);
+		const authHeader = req.headers.authorization;
+		const token = authHeader?.startsWith('Bearer ')
+			? authHeader.slice(7)
+			: undefined;
+
+		if (!token) {
+			res.status(401).json({
+				error: translateError(auth.AuthErrorCode.INVALID_TOKEN, locale),
+			});
+			return;
+		}
+
+		const result = await auth.me(token);
+		if (!result.ok) {
+			res.status(401).json({ error: translateError(result.code, locale) });
+			return;
+		}
+
+		res.json({ user: result.user });
+	});
 }
