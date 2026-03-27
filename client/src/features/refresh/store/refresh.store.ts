@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import type { RefreshState } from '../types/refresh.types';
 import { useToastStore } from '@/components/toast';
 import { refreshApi } from '../api/refresh.api';
+import { useAuthTokenStore } from '@/stores/auth-token.store';
 
 interface RefreshStore extends RefreshState {
 	refresh: (email: string, oldToken: string) => Promise<boolean>;
@@ -15,6 +16,7 @@ export const useRefreshStore = create<RefreshStore>((set) => ({
 		set({ isLoading: true });
 		try {
 			await refreshApi({ email, oldToken });
+			useAuthTokenStore.getState().setIsAuthenticated(false);
 			useToastStore
 				.getState()
 				.success(
@@ -25,6 +27,7 @@ export const useRefreshStore = create<RefreshStore>((set) => ({
 			return true;
 		} catch (err) {
 			const message = (err as Error).message;
+			useAuthTokenStore.getState().setIsAuthenticated(false);
 			useToastStore
 				.getState()
 				.error(message, undefined, 'refresh-error-toast');

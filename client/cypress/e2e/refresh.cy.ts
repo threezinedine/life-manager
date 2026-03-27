@@ -27,25 +27,66 @@ describe('Refresh Page', () => {
 				cy.get('[data-testid="login-form-submit"]').click();
 				cy.contains('Login successful!').should('be.visible');
 
-				// 4. Navigate to /refresh — old token field should be pre-filled
+				// 4. Navigate to /refresh — avatar should still be visible before any refresh attempt
 				cy.visit('/refresh');
 				cy.contains('h1', 'Refresh your token').should('be.visible');
+				cy.get('[data-testid="navbar"]')
+					.find('[role="img"]')
+					.should('be.visible');
 				cy.get('[data-testid="refresh-email"]').should(
 					'have.value',
 					''
 				);
 
-				// 5. Fill in email and submit refresh
+				// 5. Submit refresh with a wrong email — should show error and no clear auth
+				cy.get('[data-testid="refresh-email"]').type(
+					'wrong@example.com'
+				);
+				cy.get('[data-testid="refresh-form-submit"]').click();
+				cy.contains('Token refreshed successfully!').should(
+					'not.exist'
+				);
+
+				// 6. After wrong-email refresh, avatar should still be visible (auth not cleared)
+				cy.get('[data-testid="navbar"]')
+					.find('[role="img"]')
+					.should('be.visible');
+				cy.contains('button', 'Sign in').should('not.exist');
+				cy.contains('button', 'Sign up').should('not.exist');
+
+				// Submit refresh with the correct email — should succeed and clear auth
+				cy.get('[data-testid="refresh-email"]').clear().type(email);
+				cy.get('[data-testid="refresh-form-submit"]').click();
+				cy.contains('Token refreshed successfully!').should(
+					'be.visible'
+				);
+
+				// After correct refresh, avatar should be gone (auth cleared)
+				cy.get('[data-testid="navbar"]')
+					.find('[role="img"]')
+					.should('not.exist');
+				cy.contains('button', 'Sign in').should('be.visible');
+				cy.contains('button', 'Sign up').should('be.visible');
+
+				// 7. Log in again with the original token
+				cy.visit('/login');
+				cy.get('[data-testid="login-token"]').type(token);
+				cy.get('[data-testid="login-form-submit"]').click();
+				cy.contains('Login successful!').should('be.visible');
+
+				// 8. Navigate back to /refresh and submit with the correct email
+				cy.visit('/refresh');
+				cy.get('[data-testid="navbar"]')
+					.find('[role="img"]')
+					.should('be.visible');
 				cy.get('[data-testid="refresh-email"]').type(email);
 				cy.get('[data-testid="refresh-form-submit"]').click();
 				cy.contains('Token refreshed successfully!').should(
 					'be.visible'
 				);
 
-				// 6. After refresh success, stay on refresh page (no redirect from /refresh)
+				// 9. After correct refresh, stay on refresh page — avatar should be gone
 				cy.url().should('match', /\/refresh/);
-
-				// 7. Navbar should have "Sign in" and "Sign up", avatar should be gone — user is effectively logged out after refresh
 				cy.get('[data-testid="navbar"]')
 					.find('[role="img"]')
 					.should('not.exist');
