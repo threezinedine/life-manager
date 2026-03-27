@@ -1,0 +1,126 @@
+// ============================================
+// ANIMATIONS
+// ============================================
+
+@keyframes backdrop-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes dialog-in {
+	from {
+		opacity: 0;
+		transform: scale(0.94) translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+	}
+}
+
+// ============================================
+// BACKDROP
+// ============================================
+
+.backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 300;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	background: var(--modal-backdrop-bg);
+	animation: backdrop-in 0.2s ease forwards;
+}
+
+// ============================================
+// DIALOG
+// ============================================
+
+.dialog {
+	position: relative;
+	width: 100%;
+	max-width: 28rem;
+	background: var(--modal-bg);
+	border: 1px solid var(--modal-border);
+	border-radius: 0.875rem;
+	box-shadow: var(--modal-shadow);
+	outline: none;
+	animation: dialog-in 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+// ============================================
+// HEADER
+// ============================================
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	padding: 1.25rem 1.25rem 0;
+}
+
+.title {
+	margin: 0;
+	font-size: 1.0625rem;
+	font-weight: 700;
+	color: var(--modal-title-color);
+	line-height: 1.4;
+}
+
+.closeBtn {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	background: transparent;
+	border: none;
+	border-radius: 0.375rem;
+	cursor: pointer;
+	color: var(--modal-close-color);
+	transition: background 0.12s ease, color 0.12s ease;
+	outline: none;
+
+	&:hover {
+		background: var(--modal-close-hover-bg);
+		color: var(--modal-close-hover-color);
+	}
+
+	&:focus-visible {
+		box-shadow: 0 0 0 2px var(--modal-close-focus-ring);
+	}
+
+	svg {
+		flex-shrink: 0;
+	}
+}
+
+// ============================================
+// CONTENT
+// ============================================
+
+.content {
+	padding: 1rem 1.25rem;
+	color: var(--modal-content-color);
+	font-size: 0.9375rem;
+	line-height: 1.6;
+}
+
+// ============================================
+// ACTIONS
+// ============================================
+
+.actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	padding: 0 1.25rem 1.25rem;
+}

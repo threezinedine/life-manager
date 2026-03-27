@@ -189,6 +189,18 @@
 	/* === LAYOUT === */
 	--layout-bg: #f8f9fc;
 	--layout-text: #111827;
+
+	/* === MODAL === */
+	--modal-backdrop-bg: rgba(0, 0, 0, 0.4);
+	--modal-bg: #ffffff;
+	--modal-border: rgba(99, 102, 241, 0.15);
+	--modal-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+	--modal-title-color: #111827;
+	--modal-content-color: #374151;
+	--modal-close-color: #9ca3af;
+	--modal-close-hover-bg: rgba(99, 102, 241, 0.08);
+	--modal-close-hover-color: #374151;
+	--modal-close-focus-ring: rgba(99, 102, 241, 0.45);
 }
 
 /* ============================================
@@ -364,4 +376,16 @@
 	/* === LAYOUT === */
 	--layout-bg: #0f1117;
 	--layout-text: #f1f5f9;
+
+	/* === MODAL === */
+	--modal-backdrop-bg: rgba(0, 0, 0, 0.6);
+	--modal-bg: #111827;
+	--modal-border: rgba(99, 102, 241, 0.25);
+	--modal-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 0, 0, 0.4);
+	--modal-title-color: #f1f5f9;
+	--modal-content-color: #cbd5e1;
+	--modal-close-color: #6b7280;
+	--modal-close-hover-bg: rgba(99, 102, 241, 0.15);
+	--modal-close-hover-color: #e2e8f0;
+	--modal-close-focus-ring: rgba(99, 102, 241, 0.5);
 }
