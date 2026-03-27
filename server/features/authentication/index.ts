@@ -14,7 +14,6 @@ const TokenSchema = z.object({
 
 const RefreshSchema = z.object({
 	email: z.string().email('Invalid email address'),
-	oldToken: z.string().uuid('Invalid token format'),
 });
 
 /** Translate a service error using the detected locale. Falls back to English. */
@@ -58,7 +57,9 @@ export function registerRoutes(app: Express): void {
 
 		const result = await auth.register(parsed.data.email, parsed.data.name);
 		if (!result.ok) {
-			res.status(409).json({ error: translateError(result.code, locale) });
+			res.status(409).json({
+				error: translateError(result.code, locale),
+			});
 			return;
 		}
 
@@ -79,7 +80,9 @@ export function registerRoutes(app: Express): void {
 
 		const result = await auth.login(parsed.data.token);
 		if (!result.ok) {
-			res.status(401).json({ error: translateError(result.code, locale) });
+			res.status(401).json({
+				error: translateError(result.code, locale),
+			});
 			return;
 		}
 
@@ -98,16 +101,11 @@ export function registerRoutes(app: Express): void {
 			return;
 		}
 
-		// Optional: you could also check if the old token is valid before issuing a new one
-		const loginResult = await auth.login(parsed.data.oldToken);
-		if (!loginResult.ok) {
-			res.status(401).json({ error: translateError(loginResult.code, locale) });
-			return;
-		}
-
 		const result = await auth.refresh(parsed.data.email);
 		if (!result.ok) {
-			res.status(401).json({ error: translateError(result.code, locale) });
+			res.status(401).json({
+				error: translateError(result.code, locale),
+			});
 			return;
 		}
 
@@ -131,7 +129,9 @@ export function registerRoutes(app: Express): void {
 
 		const result = await auth.me(token);
 		if (!result.ok) {
-			res.status(401).json({ error: translateError(result.code, locale) });
+			res.status(401).json({
+				error: translateError(result.code, locale),
+			});
 			return;
 		}
 

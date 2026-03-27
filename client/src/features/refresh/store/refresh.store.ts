@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import type { RefreshState } from '../types/refresh.types';
 import { useToastStore } from '@/components/toast';
 import { refreshApi } from '../api/refresh.api';
-import { useAuthTokenStore } from '@/stores/auth-token.store';
 
 interface RefreshStore extends RefreshState {
 	refresh: (email: string, oldToken: string) => Promise<boolean>;
@@ -15,11 +14,14 @@ export const useRefreshStore = create<RefreshStore>((set) => ({
 	refresh: async (email: string, oldToken: string) => {
 		set({ isLoading: true });
 		try {
-			const response = await refreshApi({ email, oldToken });
-			useAuthTokenStore.getState().setToken(response.token);
+			await refreshApi({ email, oldToken });
 			useToastStore
 				.getState()
-				.success('Token refreshed successfully!', undefined, 'refresh-success-toast');
+				.success(
+					'Token refreshed successfully!',
+					undefined,
+					'refresh-success-toast'
+				);
 			return true;
 		} catch (err) {
 			const message = (err as Error).message;

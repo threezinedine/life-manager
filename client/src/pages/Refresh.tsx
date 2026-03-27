@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import { RefreshForm } from '@/features/refresh';
 import { useAuthTokenStore } from '@/stores/auth-token.store';
 import styles from './auth.module.scss';
@@ -7,8 +6,7 @@ import { Link } from 'react-router-dom';
 
 export default function Refresh() {
 	const { t } = useTranslation();
-	const navigate = useNavigate();
-	const token = useAuthTokenStore((state) => state.token);
+	const validate = useAuthTokenStore((state) => state.validate);
 
 	return (
 		<div className={styles['auth-page']}>
@@ -22,7 +20,7 @@ export default function Refresh() {
 					</p>
 				</div>
 
-				<RefreshForm onSuccess={() => navigate('/dashboard')} initialToken={token ?? undefined} />
+				<RefreshForm onSuccess={validate} />
 
 				<p className={styles['auth-footer']}>
 					{t('refresh.backToLogin')}{' '}

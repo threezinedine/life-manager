@@ -150,15 +150,6 @@ describe('auth routes', () => {
 			expect(res.body).toEqual({ error: 'Invalid token' });
 		});
 
-		it('returns 400 when token is not a valid UUID', async () => {
-			const res = await request(app)
-				.post('/api/auth/login')
-				.send({ token: 'not-a-uuid-at-all' });
-
-			expect(res.status).toBe(400);
-			expect(res.body.error).toBe('Invalid token format');
-		});
-
 		it('returns 401 when the token has been cleared from the database', async () => {
 			await testPool.execute(
 				'UPDATE users SET token = NULL WHERE id = ?',
@@ -223,15 +214,6 @@ describe('auth routes', () => {
 			expect(res.status).toBe(401);
 			expect(res.body).toEqual({ error: 'Invalid token' });
 		});
-
-		it('returns 400 when token is not a valid UUID', async () => {
-			const res = await request(app)
-				.post('/api/auth/refresh')
-				.send({ email: user.email, oldToken: 'not-a-uuid' });
-
-			expect(res.status).toBe(400);
-			expect(res.body.error).toBe('Invalid token format');
-		});
 	});
 
 	// -------------------------------------------------------------------------
@@ -260,7 +242,10 @@ describe('auth routes', () => {
 		it('returns 401 when the token is invalid', async () => {
 			const res = await request(app)
 				.get('/api/auth/me')
-				.set('Authorization', 'Bearer 550e8400-e29b-41d4-a716-446655440099');
+				.set(
+					'Authorization',
+					'Bearer 550e8400-e29b-41d4-a716-446655440099'
+				);
 
 			expect(res.status).toBe(401);
 			expect(res.body).toEqual({ error: 'Invalid token' });

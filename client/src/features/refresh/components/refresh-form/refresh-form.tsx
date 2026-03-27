@@ -1,14 +1,20 @@
 import { useTranslation } from 'react-i18next';
 import { Form } from '@/components';
 import type { RefreshFormProps } from './refresh-form.props';
+import { useAuthTokenStore } from '@/stores/auth-token.store';
 
-export default function RefreshForm({ onSuccess, className, initialToken }: RefreshFormProps) {
+export default function RefreshForm({
+	onSuccess,
+	className,
+}: RefreshFormProps) {
 	const { t } = useTranslation();
 	const { isLoading, refresh } = useRefreshForm();
+	const { validate } = useAuthTokenStore();
 
 	const handleSubmit = async (values: Record<string, string>) => {
 		const success = await refresh(values.email, values.oldToken);
 		if (success) {
+			validate();
 			onSuccess?.();
 		}
 	};
@@ -24,15 +30,6 @@ export default function RefreshForm({ onSuccess, className, initialToken }: Refr
 						type: 'email',
 						required: true,
 						testId: 'refresh-email',
-					},
-					{
-						name: 'oldToken',
-						label: t('refresh.fields.oldToken.label'),
-						placeholder: t('refresh.fields.oldToken.placeholder'),
-						type: 'password',
-						required: true,
-						defaultValue: initialToken,
-						testId: 'refresh-old-token',
 					},
 				]}
 				onSubmit={handleSubmit}

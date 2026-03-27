@@ -3,9 +3,7 @@ export interface RefreshCredentials {
 	oldToken: string;
 }
 
-export interface RefreshResponse {
-	token: string;
-}
+export interface RefreshResponse {}
 
 export interface RefreshState {
 	isLoading: boolean;

@@ -7,12 +7,13 @@ interface AuthRouteProps {
 
 /**
  * Guard component that redirects authenticated users away from public auth pages.
- * If a token exists in storage, the user is redirected to `/` (Home/Dashboard).
+ * If the stored token has been validated (isAuthenticated = true), the user is
+ * redirected to `/` (Home/Dashboard).
  */
 export function AuthRoute({ children }: AuthRouteProps) {
-	const token = useAuthTokenStore((state) => state.token);
+	const isAuthenticated = useAuthTokenStore((state) => state.isAuthenticated);
 
-	if (token) {
+	if (isAuthenticated) {
 		return <Navigate to="/" replace />;
 	}
 

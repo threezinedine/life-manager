@@ -26,6 +26,7 @@ export const useLoginStore = create<LoginStore>((set) => ({
 			// Both succeeded — store token and user info
 			useAuthTokenStore.getState().setToken(token);
 			useAuthTokenStore.getState().setUser(user);
+			useAuthTokenStore.getState().setIsAuthenticated(true);
 			useToastStore
 				.getState()
 				.success('Login successful!', undefined, 'login-success-toast');

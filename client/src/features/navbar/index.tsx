@@ -10,7 +10,7 @@ import { useAuthTokenStore } from '@/stores/auth-token.store';
 export default function FinalNavbar() {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
-	const token = useAuthTokenStore((state) => state.token);
+	const isAuthenticated = useAuthTokenStore((state) => state.isAuthenticated);
 	const clearAuth = useAuthTokenStore((state) => state.clearAuth);
 
 	const handleLogout = () => {
@@ -38,7 +38,7 @@ export default function FinalNavbar() {
 		},
 	];
 
-	const authPart = token ? (
+	const authPart = isAuthenticated ? (
 		<DropMenu items={menuItems} align="right">
 			<Avatar name="User" />
 		</DropMenu>
