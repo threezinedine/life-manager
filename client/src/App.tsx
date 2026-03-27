@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { CommonLayout } from './layouts';
-import { Home, Login, Register } from './pages';
+import { Home, Login, Register, Refresh } from './pages';
 import { AuthRoute } from './components/auth-route';
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
 						</AuthRoute>
 					}
 				/>
+				<Route path="/refresh" element={<Refresh />} />
 			</Route>
 		</Routes>
 	);

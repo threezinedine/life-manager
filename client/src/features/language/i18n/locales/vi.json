@@ -52,5 +52,21 @@
 				"placeholder": "Nhập lại mật khẩu"
 			}
 		}
+	},
+	"refresh": {
+		"button": "Làm mới mã",
+		"pageTitle": "Làm mới mã đăng nhập",
+		"subtitle": "Nhập email và mã cũ để nhận mã mới",
+		"backToLogin": "Nhớ mã đăng nhập rồi?",
+		"fields": {
+			"email": {
+				"label": "Địa chỉ email",
+				"placeholder": "bạn@ví dụ.com"
+			},
+			"oldToken": {
+				"label": "Mã cũ",
+				"placeholder": "Nhập mã hiện tại của bạn"
+			}
+		}
 	}
 }

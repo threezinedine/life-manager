@@ -30,11 +30,13 @@ const Form = forwardRef<FormHandle, FormProps>(function Form(
 	ref
 ) {
 	const [values, setValues] = useState<Record<string, string>>(
-		Object.fromEntries(fields.map((f) => [f.name, '']))
+		Object.fromEntries(fields.map((f) => [f.name, f.defaultValue ?? '']))
 	);
 
 	const [errors, setErrors] = useState<Record<string, string>>(
-		Object.fromEntries(fields.map((f) => [f.name, validateField(f, '')]))
+		Object.fromEntries(
+			fields.map((f) => [f.name, validateField(f, f.defaultValue ?? '')])
+		)
 	);
 
 	const handleChange = (name: string, value: string) => {

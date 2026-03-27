@@ -20,6 +20,8 @@ export interface FormField {
 	placeholder?: string;
 	/** HTML input type */
 	type?: 'text' | 'email' | 'password' | 'search' | 'url' | 'tel' | 'number';
+	/** Initial value for this field */
+	defaultValue?: string;
 	/** Whether the field must have a value to submit */
 	required?: boolean;
 	/** Per-field validator — return null on success, error string on failure */

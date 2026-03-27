@@ -52,5 +52,21 @@
 				"placeholder": "Re-enter your password"
 			}
 		}
+	},
+	"refresh": {
+		"button": "Refresh token",
+		"pageTitle": "Refresh your token",
+		"subtitle": "Enter your email and old token to get a new one",
+		"backToLogin": "Remember your token?",
+		"fields": {
+			"email": {
+				"label": "Email address",
+				"placeholder": "you@example.com"
+			},
+			"oldToken": {
+				"label": "Old token",
+				"placeholder": "Enter your current token"
+			}
+		}
 	}
 }
