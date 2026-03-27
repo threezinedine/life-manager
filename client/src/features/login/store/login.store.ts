@@ -16,12 +16,12 @@ export const useLoginStore = create<LoginStore>((set) => ({
 		let result = false;
 		set({ isLoading: true });
 		try {
-			const response = await loginApi({ token });
+			await loginApi({ token });
 
 			useToastStore
 				.getState()
 				.success('Login successful!', undefined, 'login-success-toast');
-			useAuthTokenStore.getState().setToken(response.token);
+			useAuthTokenStore.getState().setToken(token);
 			result = true;
 		} catch (err) {
 			const message = (err as Error).message;
