@@ -37,29 +37,31 @@ const Form = forwardRef<FormHandle, FormProps>(function Form(
 		Object.fromEntries(fields.map((f) => [f.name, validateField(f, '')]))
 	);
 
-	const revalidate = useCallback(
-		(prev: Record<string, string>) => {
-			const newErrors: Record<string, string> = {};
-			for (const field of fields) {
-				newErrors[field.name] = validateField(field, prev[field.name]);
-			}
-			setErrors(newErrors);
-		},
-		[fields]
-	);
-
 	const handleChange = (name: string, value: string) => {
-		setValues((prev) => {
-			const next = { ...prev, [name]: value };
-			revalidate(next);
-			return next;
+		setValues((prev) => ({ ...prev, [name]: value }));
+
+		// Re-validate on every change so custom validator errors appear immediately
+		setErrors((prev) => {
+			const field = fields.find((f) => f.name === name);
+			if (!field) return prev;
+			return { ...prev, [name]: validateField(field, value) };
 		});
 	};
 
+	const validateAll = useCallback(() => {
+		const newErrors: Record<string, string> = {};
+		for (const field of fields) {
+			newErrors[field.name] = validateField(field, values[field.name]);
+		}
+		setErrors(newErrors);
+		return Object.values(newErrors).some((e) => e !== '');
+	}, [fields, values]);
+
 	const submit = useCallback(() => {
-		revalidate(values);
+		const hasErrors = validateAll();
+		if (hasErrors) return;
 		onSubmit(values);
-	}, [revalidate, values, onSubmit]);
+	}, [validateAll, values, onSubmit]);
 
 	const handleSubmit = (e: React.BaseSyntheticEvent) => {
 		e.preventDefault();

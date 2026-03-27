@@ -1,4 +1,4 @@
 export interface RegisterFormProps {
-	onSuccess?: () => void;
+	onSuccess?: (token: string) => void;
 	className?: string;
 }

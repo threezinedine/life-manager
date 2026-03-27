@@ -10,8 +10,8 @@ export default function RegisterForm({
 	const { isLoading, register } = useRegisterForm();
 
 	const handleSubmit = async (values: Record<string, string>) => {
-		await register(values.username, values.email);
-		onSuccess?.();
+		const token = await register(values.username, values.email);
+		onSuccess?.(token);
 	};
 
 	return (

@@ -55,7 +55,7 @@ describe('Form', () => {
 			});
 		});
 
-		it('still calls onSubmit when a required field is empty (errors are shown)', () => {
+		it('does NOT call onSubmit when a required field is empty (errors are shown)', () => {
 			const onSubmit = vi.fn();
 			render(
 				<Form
@@ -66,8 +66,7 @@ describe('Form', () => {
 
 			fireEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-			// onSubmit is always called; errors are displayed separately
-			expect(onSubmit).toHaveBeenCalledOnce();
+			expect(onSubmit).not.toHaveBeenCalled();
 			expect(screen.getByRole('alert')).toHaveTextContent('This field is required');
 		});
 
@@ -84,7 +83,7 @@ describe('Form', () => {
 			expect(screen.getByRole('alert')).toHaveTextContent('This field is required');
 		});
 
-		it('still calls onSubmit when a custom validator fails (errors are shown)', () => {
+		it('does NOT call onSubmit when a custom validator fails (errors are shown)', () => {
 			const onSubmit = vi.fn();
 			render(
 				<Form
@@ -102,8 +101,7 @@ describe('Form', () => {
 			fireEvent.change(screen.getByRole('textbox'), { target: { value: 'short' } });
 			fireEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-			// onSubmit is always called; errors are displayed separately
-			expect(onSubmit).toHaveBeenCalledOnce();
+			expect(onSubmit).not.toHaveBeenCalled();
 			expect(screen.getByRole('alert')).toHaveTextContent('Password must be at least 8 characters');
 		});
 
