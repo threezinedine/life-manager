@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import type { LoginState } from '../types/login.types';
 import { useToastStore } from '@/components/toast';
+import { useAuthTokenStore } from '@/stores/auth-token.store';
 import { loginApi } from '../api/login.api';
 
 interface LoginStore extends LoginState {
@@ -15,11 +16,12 @@ export const useLoginStore = create<LoginStore>((set) => ({
 		let result = false;
 		set({ isLoading: true });
 		try {
-			await loginApi({ token });
+			const response = await loginApi({ token });
 
 			useToastStore
 				.getState()
 				.success('Login successful!', undefined, 'login-success-toast');
+			useAuthTokenStore.getState().setToken(response.token);
 			result = true;
 		} catch (err) {
 			const message = (err as Error).message;

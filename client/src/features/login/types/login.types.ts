@@ -2,7 +2,9 @@ export interface LoginCredentials {
 	token: string;
 }
 
-export interface LoginResponse {}
+export interface LoginResponse {
+	token: string;
+}
 
 export interface LoginState {
 	isLoading: boolean;

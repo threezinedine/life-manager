@@ -36,6 +36,30 @@ describe('Login Page', () => {
 		// Accepts token input
 		cy.get('[data-testid="login-token"]').type('my-secret-token');
 		cy.get('[data-testid="login-token"]').should('have.value', 'my-secret-token');
+
+		// Successful login flow
+		cy.intercept('POST', '**/auth/login', {
+			statusCode: 200,
+			body: { token: 'test-token-123' },
+		}).as('loginRequest');
+
+		cy.get('[data-testid="login-form-submit"]').click();
+		cy.wait('@loginRequest');
+
+		// Navigates to dashboard
+		cy.url().should('match', /\/dashboard/);
+
+		// Toast is shown
+		cy.contains('Login successful!').should('be.visible');
+
+		// Token is stored
+		cy.window()
+			.its('localStorage')
+			.invoke('getItem', 'auth-token')
+			.then((stored) => {
+				const parsed = JSON.parse(stored ?? '{}');
+				expect(parsed.state.token).to.eq('test-token-123');
+			});
 	});
 
 	// ── Special cases ──────────────────────────────────────────────────────────

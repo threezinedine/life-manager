@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { LoginForm } from '@/features/login';
 import styles from './auth.module.scss';
 import { Link } from 'react-router-dom';
 
 export default function Login() {
 	const { t } = useTranslation();
+	const navigate = useNavigate();
 
 	return (
 		<div className={styles['auth-page']}>
@@ -18,7 +20,7 @@ export default function Login() {
 					</p>
 				</div>
 
-				<LoginForm />
+				<LoginForm onSuccess={() => navigate('/dashboard')} />
 
 				<p className={styles['auth-footer']}>
 					{t('login.noAccount')}{' '}
